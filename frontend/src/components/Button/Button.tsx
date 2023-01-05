@@ -1,9 +1,9 @@
-import {FC} from "react";
-import {buttonProps} from "./button.props";
+import {FC, ReactNode} from "react";
 import cn from 'classnames';
 import styles from './button.module.css';
 import BasketIcon from './basket.svg';
-export const Button: FC<buttonProps> = ({children,className,appearance='green', ...props }) =>{
+import {buttonProps} from "./button.props";
+export const Button = ({children, className,appearance='green', ...props }:buttonProps) =>{
     return (
     <button className={cn(className, [{
         [styles.ghost]: appearance == 'ghost',

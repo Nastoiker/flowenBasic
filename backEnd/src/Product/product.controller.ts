@@ -75,9 +75,15 @@ export class ProductController extends BaseController {
 				middlewares: [],
 			},
 			{
+				path: '/getFirstCategory',
+				method: 'get',
+				func: this.getFirstCategory,
+				middlewares: [],
+			},
+			{
 				path: '/getProductById:id',
 				method: 'get',
-				func: this.getProductById,
+				func: this.getFirstCategory,
 				middlewares: [],
 			},
 		]);
@@ -174,6 +180,19 @@ export class ProductController extends BaseController {
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
+		return res.status(200).type('json').send(category);
+	}
+	async getFirstCategory(
+		{ body }: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const category = await this.productService.getCategory();
+		if (!category) {
+			return next(new HTTPError(400, 'Ошибка добавление под категории'));
+		}
+		// @ts-ignore
+		category.forEach((c) => delete c.secondLevelCategory);
 		return res.status(200).type('json').send(category);
 	}
 }
