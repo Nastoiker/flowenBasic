@@ -15,6 +15,7 @@ import { IProductRepository } from './Product/product.repository.interface';
 import { ProductController } from './Product/product.controller';
 import { UserAbilityRepository } from './userAbility/userAbility.repository';
 import { userAbility } from './userAbility/userAbility.controller';
+import cors from 'cors';
 @injectable()
 export class App {
 	server!: Server;
@@ -40,6 +41,7 @@ export class App {
 	}
 	public useMiddleWares(): void {
 		this.app.use(json());
+		this.app.use(cors());
 		const authMiddleWare = new AuthMiddleware(this.configService.get('SECRET'));
 		this.app.use(authMiddleWare.execute.bind(authMiddleWare));
 	}
