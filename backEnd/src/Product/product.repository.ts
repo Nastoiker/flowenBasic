@@ -40,10 +40,11 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async findProducts(secondLevelCategoryId: string): Promise<Product[] | null> {
+	async findProducts(brandId: string): Promise<Product[] | null> {
+		const id = Number(brandId);
 		return this.prismaService.client.product.findMany({
 			where: {
-				secondLevelCategoryId,
+				brandId: id,
 			},
 		});
 	}

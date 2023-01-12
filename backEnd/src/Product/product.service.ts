@@ -22,8 +22,8 @@ export class ProductService implements IProductService {
 	async find(name: string): Promise<Product | null> {
 		return this.productRepository.findProduct(name);
 	}
-	async findProducts(secondLevelCategoryId: string): Promise<Product[] | null> {
-		return this.productRepository.findProducts(secondLevelCategoryId);
+	async findProducts(brandId: string): Promise<Product[] | null> {
+		return this.productRepository.findProducts(brandId);
 	}
 	async update(product: ProductUpdate): Promise<Product | null> {
 		const id = await this.productRepository.findProduct(product.name);

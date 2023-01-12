@@ -11,7 +11,6 @@ export interface IProductService {
 	getModelBrandId: (product: ProductCreate) => Promise<{
 		brandId: number | undefined;
 		modelDeviceId: number | undefined;
-		secondLevelCategoryId: string;
 		name: string;
 		price: number;
 		oldPrice?: number | undefined;
@@ -19,6 +18,6 @@ export interface IProductService {
 	}>;
 	getByFirstCategory: (firstCategory: number) => Promise<SecondLevelCategory[] | null>;
 	setSecondCategory: (name: string, firstLevelId: number) => Promise<SecondLevelCategory | null>;
-	findProducts: (secondLevelCategoryId: string) => Promise<Product[] | null>;
+	findProducts: (brandId: string) => Promise<Product[] | null>;
 	getCategory: () => Promise<FirstLevelCategory[] | null>;
 }

@@ -1,0 +1,36 @@
+.cover {
+    position: fixed;
+    top: 0;
+    lefT: 0;
+    right: 0;
+    background-color: var(--gray);
+    z-index: 10;
+    opacity: 0.2;
+    display: none;
+}
+.coverShow {
+    display: block;
+}
+.MobileMenuBox {
+    z-index: 11;
+    position: fixed;
+    visibility: hidden;
+    top: 0;
+    left: -100%;
+    width: 320px;
+    padding: 24px ;
+    background: var(--green);
+    box-shadow: 4px 4px 24px 5px rgba(0, 0, 0, 1);
+    transition-duration: 0.2s;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.button {
+    text-align: center;
+    margin-left: 500px
+}
+
+.MobileMenuBoxShow {
+    visibility: visible;
+    left: 0;
+}

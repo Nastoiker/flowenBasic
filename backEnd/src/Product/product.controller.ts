@@ -127,11 +127,11 @@ export class ProductController extends BaseController {
 		return res.type('json').send(Product);
 	}
 	async getProducts(
-		{ body }: Request<{}, {}, { secondLevelCategoryId: string }>,
+		{ body }: Request<{}, {}, { brandId: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-		const product = await this.productService.findProducts(body.secondLevelCategoryId);
+		const product = await this.productService.findProducts(body.brandId);
 		if (!product) {
 			return next(new HTTPError(404, 'Продукт не найден'));
 		}

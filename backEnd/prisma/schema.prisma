@@ -28,12 +28,10 @@ model SecondLevelCategory {
    name String @unique
    firstLevelCategory FirstLevelCategory @relation("firstCategory", fields: [firstLevelId], references: [id])
    firstLevelId Int
-   product Product[]  @relation("secondCategory")
+   brand BrandOnSecondCategory[]
 }
 model Product {
   id                  Int         @id @default(autoincrement())
-  secondLevelCategory SecondLevelCategory @relation("secondCategory", fields: [secondLevelCategoryId], references: [name])
-  secondLevelCategoryId  String
   brand               Brand       @relation("BrandDevices", fields: [brandId], references: [id])
   modelDevice         ModelDevice @relation("ModelDevices", fields: [modelDeviceId], references: [id])
   Tag   Tag   @relation("TagProduct", fields: [TagId], references: [id], onUpdate: NoAction)
@@ -62,12 +60,19 @@ model Brand {
   id      Int       @id @default(autoincrement())
   name    String
   Product Product[] @relation("BrandDevices")
+  secondLevelCategory BrandOnSecondCategory[]
 }
-
+model BrandOnSecondCategory {
+   brand       Brand     @relation(fields: [brandId], references: [id])
+  brandId     Int
+  category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  @@id([brandId, categoryId])
+  }
 model ModelDevice {
   id      Int       @id @default(autoincrement())
   name    String
-  Product Product[] @relation("ModelDevices")
+  Product Product[] @relation ("ModelDevices")
 }
 
 model Comment {

@@ -2,8 +2,6 @@ import { IsArray, IsNumber, IsString, IsOptional, IsDate } from 'class-validator
 import { UserModel } from '@prisma/client';
 export class ProductModel {
 	@IsString()
-	secondLevelCategoryId: string;
-	@IsString()
 	name: string;
 	@IsNumber()
 	price: number;
@@ -52,8 +50,6 @@ export class ProductUpdate {
 // 	Comment?: Comment[];
 // }
 export class ProductCreate {
-	@IsString()
-	secondLevelCategoryId: string;
 	@IsString()
 	name: string;
 	@IsNumber()
