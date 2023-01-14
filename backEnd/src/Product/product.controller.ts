@@ -116,7 +116,7 @@ export class ProductController extends BaseController {
 		this.ok(res, { ...newProduct });
 	}
 	async getProductById(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const newProduct = await this.productService.getById(Number(req.params['id'].slice(1)));
+		const newProduct = await this.productService.getById(req.params['id'].slice(1));
 		if (!newProduct) {
 			return next(new HTTPError(404, 'Продукт не найден'));
 		}
@@ -138,7 +138,7 @@ export class ProductController extends BaseController {
 		return res.status(200).type('json').send(product);
 	}
 	async getByFirstCategoryProducts(
-		{ body }: Request<{}, {}, { firstLevelId: number }>,
+		{ body }: Request<{}, {}, { firstLevelId: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
@@ -161,11 +161,15 @@ export class ProductController extends BaseController {
 		this.ok(res, { mes: 'Продукт обновлен с id', id: product.id });
 	}
 	async setCategory(
-		{ body }: Request<{}, {}, { name: string; firstLevelId: number }>,
+		{ body }: Request<{}, {}, { name: string; firstLevelId: string, alias: string}>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const category = await this.productService.setSecondCategory(body.name, body.firstLevelId);
+		const category = await this.productService.setSecondCategory(
+			body.name,
+			body.firstLevelId,
+			body.alias,
+		);
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}

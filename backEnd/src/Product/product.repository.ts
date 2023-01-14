@@ -33,7 +33,7 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async getProductById(id: number): Promise<Product | null> {
+	async getProductById(id: string): Promise<Product | null> {
 		return this.prismaService.client.product.findFirst({
 			where: {
 				id,
@@ -41,28 +41,27 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	async findProducts(brandId: string): Promise<Product[] | null> {
-		const id = Number(brandId);
 		return this.prismaService.client.product.findMany({
 			where: {
-				brandId: id,
+				brandId,
 			},
 		});
 	}
-	async deleteProduct(id: number): Promise<Product | null> {
+	async deleteProduct(id: string): Promise<Product | null> {
 		return this.prismaService.client.product.delete({
 			where: {
 				id,
 			},
 		});
 	}
-	async getProductByCategory(firstLevelId: number): Promise<SecondLevelCategory[] | null> {
+	async getProductByCategory(firstLevelId: string): Promise<SecondLevelCategory[] | null> {
 		return this.prismaService.client.secondLevelCategory.findMany({
 			where: {
 				firstLevelId,
 			},
 		});
 	}
-	async updateByIdPrice(id: number, price: number): Promise<Product | null> {
+	async updateByIdPrice(id: string, price: number): Promise<Product | null> {
 		return this.prismaService.client.product.update({
 			where: {
 				id,
@@ -72,7 +71,7 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async updateProduct(id: number, product: ProductUpdate): Promise<Product | null> {
+	async updateProduct(id: string, product: ProductUpdate): Promise<Product | null> {
 		return this.prismaService.client.product.update({
 			where: {
 				id,
@@ -141,11 +140,12 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async setSecondCategory(name: string, firstLevelId: number): Promise<SecondLevelCategory> {
+	async setSecondCategory(name: string, firstLevelId: string, alias: string): Promise<SecondLevelCategory> {
 		return this.prismaService.client.secondLevelCategory.create({
 			data: {
 				name,
 				firstLevelId,
+				alias
 			},
 			include: {
 				firstLevelCategory: true,

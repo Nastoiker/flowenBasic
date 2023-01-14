@@ -15,7 +15,7 @@ export class ProductService implements IProductService {
 		return this.productRepository.createProduct(checkProduct as unknown as ProductModel);
 	}
 
-	async delete(id: number): Promise<Product | null> {
+	async delete(id: string): Promise<Product | null> {
 		return this.productRepository.deleteProduct(id);
 	}
 
@@ -41,19 +41,20 @@ export class ProductService implements IProductService {
 	async getAll(): Promise<(Product & { brand: Brand; Comment: Comment[] })[]> {
 		return this.productRepository.getAllProducts();
 	}
-	async getByFirstCategory(firstLevelId: number): Promise<SecondLevelCategory[] | null> {
+	async getByFirstCategory(firstLevelId: string): Promise<SecondLevelCategory[] | null> {
 		return this.productRepository.getProductByCategory(firstLevelId);
 	}
 	async setSecondCategory(
 		name: string,
-		firstLevelId: number,
+		firstLevelId: string,
+		alias: string,
 	): Promise<SecondLevelCategory | null> {
-		return this.productRepository.setSecondCategory(name, firstLevelId);
+		return this.productRepository.setSecondCategory(name, firstLevelId, alias);
 	}
 	async getCategory(): Promise<FirstLevelCategory[] | null> {
 		return this.productRepository.getCategory();
 	}
-	async getById(id: number): Promise<Product | null> {
+	async getById(id: string): Promise<Product | null> {
 		return this.productRepository.getProductById(id);
 	}
 }

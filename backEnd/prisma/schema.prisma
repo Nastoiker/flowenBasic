@@ -1,6 +1,5 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,7 +10,7 @@ datasource db {
 }
 
 model UserModel {
-  id       Int       @id @default(autoincrement())
+  id       String       @id @default(uuid())
   email    String
   login    String
   password String
@@ -19,74 +18,76 @@ model UserModel {
   Comment  Comment[] @relation("CommentWritenBy")
 }
 model FirstLevelCategory {
-    id Int         @id @default(autoincrement())
+    id String         @id @default(uuid())
     name String
+    alias String
     secondLevelCategory SecondLevelCategory[] @relation("firstCategory")
 }
 model SecondLevelCategory {
-   id Int @id @default(autoincrement())
+   id String @id @default(uuid())
    name String @unique
+   alias String
    firstLevelCategory FirstLevelCategory @relation("firstCategory", fields: [firstLevelId], references: [id])
-   firstLevelId Int
+   firstLevelId String
    brand BrandOnSecondCategory[]
 }
 model Product {
-  id                  Int         @id @default(autoincrement())
+  id                  String         @id @default(uuid())
   brand               Brand       @relation("BrandDevices", fields: [brandId], references: [id])
-  modelDevice         ModelDevice @relation("ModelDevices", fields: [modelDeviceId], references: [id])
+  modelDevice         ModelDevice @relation( fields: [modelDeviceId], references: [id])
   Tag   Tag   @relation("TagProduct", fields: [TagId], references: [id], onUpdate: NoAction)
   name                String @unique
   price               Int
   oldPrice            Int?
-  TagId               Int
-  brandId             Int
-  modelDeviceId       Int
+  TagId               String
+  brandId             String
+  modelDeviceId       String @unique
   Comment             Comment[] @relation("CommentProduct")
   Order               Order[] @relation("OrderProduct")
 }
 
 model Order {
-  id        Int        @id @default(autoincrement())
+  id        String        @id @default(uuid())
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   delivered Boolean    @default(false)
   author    UserModel @relation("OrderUser", fields: [authorId], references: [id])
   product   Product    @relation("OrderProduct", fields: [productId], references: [id])
-  productId Int
-  authorId  Int
+  productId String
+  authorId  String
 }
 
 model Brand {
-  id      Int       @id @default(autoincrement())
+  id      String       @id @default(uuid())
   name    String
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
 }
 model BrandOnSecondCategory {
    brand       Brand     @relation(fields: [brandId], references: [id])
-  brandId     Int
+  brandId     String
   category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
-  categoryId Int
+  categoryId String
   @@id([brandId, categoryId])
   }
 model ModelDevice {
-  id      Int       @id @default(autoincrement())
+  id      String       @id @default(uuid())
   name    String
-  Product Product[] @relation ("ModelDevices")
+  Product Product?
 }
 
 model Comment {
-  id          Int       @id @default(autoincrement())
+  id          String       @id @default(uuid())
   createdAt   DateTime  @default(now())
   comment     String
-  writtenById Int
-  productId   Int
+  writtenById String
+  productId   String
   writtenBy   UserModel @relation("CommentWritenBy", fields: [writtenById], references: [id])
   Product     Product   @relation("CommentProduct", fields: [productId], references: [id], onUpdate: NoAction)
 }
 
 model Tag {
-  id      Int       @id @default(autoincrement())
+  id      String       @id @default(uuid())
   name     String    @unique
   Product   Product[] @relation("TagProduct")
 }

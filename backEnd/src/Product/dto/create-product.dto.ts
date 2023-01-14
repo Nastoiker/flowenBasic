@@ -8,12 +8,12 @@ export class ProductModel {
 	@IsOptional()
 	@IsNumber()
 	oldPrice?: number;
-	@IsNumber()
-	brandId: number;
-	@IsNumber()
-	TagId: number;
-	@IsNumber()
-	modelDeviceId: number;
+	@IsString()
+	brandId: string;
+	@IsString()
+	TagId: string;
+	@IsString()
+	modelDeviceId: string;
 }
 export class ProductUpdate {
 	@IsString()
@@ -79,15 +79,15 @@ export class Rating {
 export class Comment {
 	@IsString()
 	comment: string;
-	@IsNumber()
-	writtenById: number;
-	@IsNumber()
-	productId: number;
+	@IsString()
+	writtenById: string;
+	@IsString()
+	productId: string;
 }
 export class Tag {
 	@IsString()
 	tag: String;
-	@IsNumber()
+	@IsString()
 	@IsArray()
-	ProductID: number[];
+	ProductID: string[];
 }

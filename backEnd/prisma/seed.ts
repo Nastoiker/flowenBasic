@@ -56,26 +56,32 @@ const prisma = new PrismaClient();
 // const userData: Prisma.FirstLevelCategoryCreateInput[] = [
 // 	{
 // 		name: 'Техника',
+// 		alias: 'technology',
 // 	},
 // 	{
 // 		name: 'Книги',
+// 		alias: 'books',
 // 	},
 // 	{
 // 		name: 'Блоги',
+// 		alias: 'blogs',
 // 	},
 // ];
 // const userData: Prisma.SecondLevelCategoryCreateInput[] = [
 // 	{
 // 		name: 'Наушники',
-// 		firstLevelId: 1,
+// 		alias: 'headphones',
+// 		firstLevelId: '4d2f0720-d963-4ff4-8c95-8a4e111da430',
 // 	},
 // 	{
 // 		name: 'Повербанк',
-// 		firstLevelId: 1,
+// 		alias: 'powerbank',
+// 		firstLevelId: '4d2f0720-d963-4ff4-8c95-8a4e111da430',
 // 	},
 // 	{
 // 		name: 'Телефоны',
-// 		firstLevelId: 1,
+// 		alias: '',
+// 		firstLevelId: '4d2f0720-d963-4ff4-8c95-8a4e111da430',
 // 	},
 // ];
 // const userData: Prisma.SecondLevelCategoryCreateInput[] = [
@@ -96,14 +102,14 @@ const prisma = new PrismaClient();
 // async function main() {
 // 	console.log(`Start seeding ...`);
 // 	for (const u of userData) {
-// 		const user = await prisma.secondLevelCategory.create({
+// 		const user = await prisma.firstLevelCategory.create({
 // 			data: u,
 // 		});
 // 		console.log(`Created user with id: ${user.id}`);
 // 	}
 // 	console.log(`Seeding finished.`);
 // }
-
+//
 // main()
 // 	.then(async () => {
 // 		await prisma.$disconnect();
