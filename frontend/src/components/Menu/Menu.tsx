@@ -20,14 +20,15 @@ export const Menu = ():JSX.Element => {
     };
     useEffect(() => {
         dispatch(getFirstCategory());
-    }, []);
+    }, [dispatch]);
     const [currentCategory, setCurrentCategory] = useState<string>('');
 
 
     return (<nav>
+
         { category.map( c =>  {
                 return (
-            <div key={c.id} onClick={() => setDispatch(c.id, c.alias)}>{c.name}{  c.alias === currentCategory && <SecondMenu  firstCategoryId={c.id} firstCategoryAlias={c.alias} /> }</div>
+            <div key={c.id} onClick={() => setDispatch(c.id, c.alias)}>{c.name}{  c.alias === currentCategory && <SecondMenu  onShow={() => setCurrentCategory('')} firstCategoryId={c.id} firstCategoryAlias={c.alias} /> }</div>
             );
         }
         )};
