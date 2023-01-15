@@ -10,6 +10,7 @@ import Phones from './pages/Phones/Phones';
 import DetalisPhone from './pages/Phones/Details';
 import {Checkbox} from "./components/checkbox/Checkbox";
 import {Filters} from "./components/Filters/Filter";
+import {Menu} from "./components/Menu/Menu";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -24,8 +25,10 @@ function App() {
         <h1 className="text-3xl  font-bold underline">
             Hello world!
         </h1>
+
         {/*<Checkbox text={'ASDAD'}/>*/}
         <Router>
+            <Menu />
         <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/home" element={<Home />}/>

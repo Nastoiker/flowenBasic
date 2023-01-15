@@ -1,7 +1,10 @@
 import {Link} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../store";
-import {useState} from "react";
-import {getSecondCategory} from "../../store/SecondCategory.slice";
+import {useEffect, useState} from "react";
+import {getSecondCategory, SetCurrentCategory} from "../../store/SecondCategory.slice";
+import {getFirstCategory} from "../../store/firstCategory.slice";
+import {SecondMenu} from "./SecondMenu";
+
 interface IMenu {
     name: string,
     children?: IMenu[];
@@ -10,37 +13,23 @@ interface IMenu {
 export const Menu = ():JSX.Element => {
     const category = useAppSelector(state => state.firstCategory.category);
     const dispatch = useAppDispatch();
-    const currentClicked = useState<string>('');
-    // let menu:IMenu[] = [];
-    // for(let i = 0; i < category.length; i++ ) {
-    //     let secondMenu:IMenu[] = [];
-    //     secondCategory.forEach( s => {
-    //         if(s.firstLevelId === category[i].id) {
-    //             secondMenu.push({name: s.name})
-    //         };
-    //     });
-    //     let secondEdit = second.map( s => {
-    //         delete s.id
-    //     })
-    //     if(second) {
-    //         menu[i] = {name: category[i].name, children: second,  },};
-    //     } else {
-    //         menu[i] = {name: category[i].name};
-    //     }
-    // }
+    const setDispatch = (id: string, name: string) => {
+        dispatch(getSecondCategory(id));
+        setCurrentCategory(name);
+        // setTimeout(     () => setCurrentCategory(name);, 1000);
+    };
+    useEffect(() => {
+        dispatch(getFirstCategory());
+    }, []);
+    const [currentCategory, setCurrentCategory] = useState<string>('');
+
 
     return (<nav>
-        {category.map( c =>  {
-                dispatch(getSecondCategory(c.id));
-                const secondCategory = useAppSelector(state => state.secondCategory.category);
+        { category.map( c =>  {
                 return (
-            <div key ={ c.id}>{c.name}{}</div>
-            )
+            <div key={c.id} onClick={() => setDispatch(c.id, c.alias)}>{c.name}{  c.alias === currentCategory && <SecondMenu  firstCategoryId={c.id} firstCategoryAlias={c.alias} /> }</div>
+            );
         }
-        )}
-        {/*<Link to={''} ></Link>*/}
-        {/*<Link to={''} ></Link>*/}
-        {/*<Link to={''} ></Link>*/}
-        {/*<Link to={''} ></Link>*/}
+        )};
     </nav>);
 }
