@@ -2,6 +2,7 @@ import { Comment, ProductCreate, ProductUpdate } from './dto/create-product.dto'
 import { Brand, FirstLevelCategory, Product, SecondLevelCategory } from '@prisma/client';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MFile } from '../files/mfile.class';
+import sharp from 'sharp';
 
 export interface IProductService {
 	create: (product: ProductCreate) => Promise<Product | null>;

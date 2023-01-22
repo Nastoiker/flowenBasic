@@ -6,7 +6,8 @@ import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
 import { writeFile } from 'fs-extra';
 import { path } from 'app-root-path';
-import sharp from 'sharp';
+import sharp = require('sharp');
+
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 @injectable()
@@ -63,8 +64,8 @@ export class ProductService implements IProductService {
 		}
 		const { brandId, modelDeviceId, name } = product;
 		const upload = `../${path}/uploads/product`;
+		console.log(`${upload}/${brandId}/${modelDeviceId}/${name}`);
 		const res: FileElementResponse[] = [];
-
 		for (const file of files) {
 			await writeFile(`${upload}/${brandId}/${modelDeviceId}/${name}`, file.buffer);
 			res.push({
@@ -75,7 +76,7 @@ export class ProductService implements IProductService {
 		return res;
 	}
 
-	convertToWebp(file: Buffer): Promise<Buffer> {
+	async convertToWebp(file: Buffer): Promise<Buffer> {
 		return sharp(file).webp().toBuffer();
 	}
 	async getCategory(): Promise<FirstLevelCategory[] | null> {

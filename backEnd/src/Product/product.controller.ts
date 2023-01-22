@@ -109,19 +109,24 @@ export class ProductController extends BaseController {
 		this.ok(res, { ...newProduct });
 	}
 	async uploadImage(
-		request: Request<{}, {}, { file: MFile; productId: string }>,
+		request: Request,
 		res: Response,
 		next: NextFunction,
 	): Promise<FileElementResponse[] | void> {
-		if (request.body.file?.originalname !== 'productId') {
-			//это работает
-			console.log(request.file?.size);
-			return next(new HTTPError(404, request.body.file?.originalname ?? 'productId'));
-		}
+		// if (request.body.file?.originalname !== 'productId') {
+		// 	//это работает
+		// 	console.log(request.file?.size);
+		// 	return next(new HTTPError(404, request.body.file?.originalname ?? 'productId'));
+		// }
 		if (request.file) {
 			const savearray: MFile[] = [new MFile(request.file)];
 			console.log(request.body.productId + 'productId');
 			if (request.file.mimetype.includes('image')) {
+				console.log('nice');
+				console.log(request.file.originalname);
+				if (!request.file.buffer) {
+					console.log('error buffer');
+				}
 				const buffer = await this.productService.convertToWebp(request.file.buffer);
 				savearray.push(
 					new MFile({
@@ -129,9 +134,13 @@ export class ProductController extends BaseController {
 						buffer,
 					}),
 				);
+			} else {
+				console.log('gg');
 			}
 			await this.productService.saveFile(savearray, request.body.productId);
 			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname });
+		} else {
+			console.log('not');
 		}
 	}
 	async delete({ body }: Request, res: Response, next: NextFunction): Promise<void> {
