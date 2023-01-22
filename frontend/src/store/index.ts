@@ -1,4 +1,4 @@
-import {configureStore} from "@reduxjs/toolkit";
+import {configureStore, getDefaultMiddleware} from "@reduxjs/toolkit";
 
 import productSlice from "./product.slice";
 import firstCategorySlice from './firstCategory.slice';
@@ -19,6 +19,7 @@ export const store = configureStore({
         firstCategory: firstCategorySlice,
         secondCategory: secondCategorySlice,
     },
-    middleware: [sagaMiddleware],
+    middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware),
 });
 
+sagaMiddleware.run();

@@ -63,6 +63,7 @@ export class ProductCreate {
 	TagId: string;
 	@IsString()
 	modelDeviceId: string;
+	file: Express.Multer.File;
 }
 export class BrandDevice {
 	@IsString()

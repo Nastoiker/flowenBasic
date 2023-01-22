@@ -11,6 +11,9 @@ import { AdminGuard } from '../common/admin.guard';
 import { ValidateMiddleware } from '../common/validate.middleware';
 import { AuthGuard } from '../common/Auth.guard';
 import { OutInterface } from '../common/route.interface';
+import { MFile } from '../files/mfile.class';
+import { FileElementResponse } from '../files/dto/fileElement.response';
+import { MulterMiddleware } from '../common/Multer.middleware';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -86,6 +89,12 @@ export class ProductController extends BaseController {
 				func: this.getFirstCategory,
 				middlewares: [],
 			},
+			{
+				path: '/uploadImage',
+				method: 'post',
+				func: this.uploadImage,
+				middlewares: [new AdminGuard(), new MulterMiddleware()],
+			},
 		]);
 	}
 	async create(
@@ -99,7 +108,32 @@ export class ProductController extends BaseController {
 		}
 		this.ok(res, { ...newProduct });
 	}
-
+	async uploadImage(
+		request: Request<{}, {}, { file: MFile; productId: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<FileElementResponse[] | void> {
+		if (request.body.file?.originalname !== 'productId') {
+			//это работает
+			console.log(request.file?.size);
+			return next(new HTTPError(404, request.body.file?.originalname ?? 'productId'));
+		}
+		if (request.file) {
+			const savearray: MFile[] = [new MFile(request.file)];
+			console.log(request.body.productId + 'productId');
+			if (request.file.mimetype.includes('image')) {
+				const buffer = await this.productService.convertToWebp(request.file.buffer);
+				savearray.push(
+					new MFile({
+						originalname: `${request.file.originalname.split('.')[0]}.webp`,
+						buffer,
+					}),
+				);
+			}
+			await this.productService.saveFile(savearray, request.body.productId);
+			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname });
+		}
+	}
 	async delete({ body }: Request, res: Response, next: NextFunction): Promise<void> {
 		const newProduct = await this.productService.delete(body.id);
 		if (!newProduct) {
@@ -161,7 +195,7 @@ export class ProductController extends BaseController {
 		this.ok(res, { mes: 'Продукт обновлен с id', id: product.id });
 	}
 	async setCategory(
-		{ body }: Request<{}, {}, { name: string; firstLevelId: string, alias: string}>,
+		{ body }: Request<{}, {}, { name: string; firstLevelId: string; alias: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {

@@ -13,4 +13,6 @@ export const TYPES = {
 	UserAbilityService: Symbol.for('UserAbilityService'),
 	UserAbilityRepository: Symbol.for('UserAbilityRepository'),
 	userAbility: Symbol.for('userAbility'),
+	FilesService: Symbol.for('FilesService'),
+	FilesController: Symbol.for('FilesController'),
 };

@@ -140,12 +140,16 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async setSecondCategory(name: string, firstLevelId: string, alias: string): Promise<SecondLevelCategory> {
+	async setSecondCategory(
+		name: string,
+		firstLevelId: string,
+		alias: string,
+	): Promise<SecondLevelCategory> {
 		return this.prismaService.client.secondLevelCategory.create({
 			data: {
 				name,
 				firstLevelId,
-				alias
+				alias,
 			},
 			include: {
 				firstLevelCategory: true,

@@ -16,6 +16,7 @@ import { ProductController } from './Product/product.controller';
 import { UserAbilityRepository } from './userAbility/userAbility.repository';
 import { userAbility } from './userAbility/userAbility.controller';
 import cors from 'cors';
+import multer from 'multer';
 @injectable()
 export class App {
 	server!: Server;
@@ -40,6 +41,8 @@ export class App {
 		this.app.use(this.exception.catch.bind(this.exception));
 	}
 	public useMiddleWares(): void {
+		// const upload = new multer({ dest: './uploads/' });
+		this.app.use(express.static(__dirname));
 		this.app.use(json());
 		this.app.use(cors());
 		const authMiddleWare = new AuthMiddleware(this.configService.get('SECRET'));

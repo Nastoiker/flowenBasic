@@ -1,5 +1,5 @@
 import { ProductModel } from './dto/create-product.dto';
-import {FirstLevelCategory, Product} from '@prisma/client';
+import { FirstLevelCategory, Product } from '@prisma/client';
 
 export interface IProductRepository {
 	createProduct: (product: ProductModel) => Promise<Product>;
