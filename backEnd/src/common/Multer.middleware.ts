@@ -18,7 +18,6 @@ export class MulterMiddleware implements IMiddleware {
 		try {
 			upload(req, res, (err) => {
 				console.log('1' + req.file?.originalname);
-				console.log('1' + req.file?.buffer);
 				if (err) {
 					throw new Error('1 error');
 				} else {

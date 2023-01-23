@@ -38,6 +38,10 @@ export class ProductRepository implements IProductRepository {
 			where: {
 				id,
 			},
+			include: {
+				brand: true,
+				modelDevice: true,
+			},
 		});
 	}
 	async findProducts(brandId: string): Promise<Product[] | null> {

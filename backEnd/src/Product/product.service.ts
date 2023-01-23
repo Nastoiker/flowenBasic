@@ -4,12 +4,14 @@ import { Comment, ProductCreate, ProductModel, ProductUpdate } from './dto/creat
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
-import { writeFile } from 'fs-extra';
+import {pathExistsSync, writeFile, access} from 'fs-extra';
 import { path } from 'app-root-path';
+import pathroot from 'path';
 import sharp = require('sharp');
 
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
+import { mkdir } from 'fs';
 @injectable()
 export class ProductService implements IProductService {
 	constructor(@inject(TYPES.ProductRepository) private productRepository: ProductRepository) {}
@@ -57,17 +59,44 @@ export class ProductService implements IProductService {
 	): Promise<SecondLevelCategory | null> {
 		return this.productRepository.setSecondCategory(name, firstLevelId, alias);
 	}
-	async saveFile(files: MFile[], productId: string): Promise<FileElementResponse[]> {
+	async saveFile(files: MFile[], productId: string): Promise<FileElementResponse[] | null> {
 		const product = await this.getById(productId);
 		if (!product) {
-			throw new Error('Ошибка не найден товар');
+			return null;
 		}
-		const { brandId, modelDeviceId, name } = product;
-		const upload = `../${path}/uploads/product`;
+		console.log(productId);
+		// const { brandId, modelDeviceId, name } = product;
+		// @ts-ignore
+		const brandId = product['brand']['name'];
+		// @ts-ignore
+		const modelDeviceId = product['modelDevice']['name'];
+		const name = product.name;
+		if (!pathExistsSync(`./uploads/product/${brandId}`)) {
+			mkdir(`./uploads/product/${brandId}`, (err) => {
+				// eslint-disable-next-line no-empty
+				if (err) {
+					return console.error(err);
+				}
+			});
+		}
+
+		if (!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}`)) {
+			mkdir(`./uploads/product/${brandId}/${modelDeviceId}`, (err) => {
+				if (err) {
+					return console.error(err);
+				}
+			});
+		}
+		const upload = `${path}/uploads/product`;
 		console.log(`${upload}/${brandId}/${modelDeviceId}/${name}`);
 		const res: FileElementResponse[] = [];
 		for (const file of files) {
-			await writeFile(`${upload}/${brandId}/${modelDeviceId}/${name}`, file.buffer);
+			await access(`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`, (err) => {
+				writeFile(
+					`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`,
+					file.buffer,
+				);
+			});
 			res.push({
 				url: `${upload}/${brandId}/${modelDeviceId}/${name}`,
 				name: file.originalname,

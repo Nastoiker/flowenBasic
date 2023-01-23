@@ -27,6 +27,6 @@ export interface IProductService {
 	) => Promise<SecondLevelCategory | null>;
 	findProducts: (brandId: string) => Promise<Product[] | null>;
 	getCategory: () => Promise<FirstLevelCategory[] | null>;
-	saveFile: (files: MFile[], productId: string) => Promise<FileElementResponse[]>;
+	saveFile: (files: MFile[], productId: string) => Promise<FileElementResponse[] | null>;
 	convertToWebp: (file: Buffer) => Promise<Buffer>;
 }
