@@ -14,7 +14,7 @@ import { OutInterface } from '../common/route.interface';
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
-import multer from "multer";
+import multer from 'multer';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
