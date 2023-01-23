@@ -14,6 +14,7 @@ import { OutInterface } from '../common/route.interface';
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
+import multer from "multer";
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -93,7 +94,8 @@ export class ProductController extends BaseController {
 				path: '/uploadImage',
 				method: 'post',
 				func: this.uploadImage,
-				middlewares: [new AdminGuard(), new MulterMiddleware()],
+				middlewares: [new MulterMiddleware()],
+				// new AdminGuard()
 			},
 		]);
 	}
@@ -118,9 +120,10 @@ export class ProductController extends BaseController {
 		// 	console.log(request.file?.size);
 		// 	return next(new HTTPError(404, request.body.file?.originalname ?? 'productId'));
 		// }
+		//крч buffer возращает array  нужно пофиксить
+
 		if (request.file) {
 			const savearray: MFile[] = [new MFile(request.file)];
-			console.log(request.body.productId + 'productId');
 			if (request.file.mimetype.includes('image')) {
 				console.log('nice');
 				console.log(request.file.originalname);
