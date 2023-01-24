@@ -94,8 +94,7 @@ export class ProductController extends BaseController {
 				path: '/uploadImage',
 				method: 'post',
 				func: this.uploadImage,
-				middlewares: [new MulterMiddleware()],
-				// new AdminGuard()
+				middlewares: [new AdminGuard(), new MulterMiddleware()],
 			},
 		]);
 	}
@@ -118,8 +117,6 @@ export class ProductController extends BaseController {
 		if (request.file) {
 			const savearray: MFile[] = [new MFile(request.file)];
 			if (request.file.mimetype.includes('image')) {
-				console.log('nice');
-				console.log(request.file.originalname);
 				const buffer = await this.productService.convertToWebp(request.file.buffer);
 				savearray.push(
 					new MFile({
@@ -128,7 +125,7 @@ export class ProductController extends BaseController {
 					}),
 				);
 			} else {
-				console.log('gg');
+				return next(new HTTPError(401, 'Файл должен быть фотографией'));
 			}
 			const upload = await this.productService.saveFile(savearray, request.body.productId);
 			if (!upload) {

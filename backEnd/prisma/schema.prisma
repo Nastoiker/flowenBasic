@@ -16,6 +16,7 @@ model UserModel {
   password String
   order    Order[] @relation("OrderUser")
   Comment  Comment[] @relation("CommentWritenBy")
+  boughtProduct BoughtProduct[] @relation("")
 }
 model FirstLevelCategory {
     id String         @id @default(uuid())
@@ -29,7 +30,14 @@ model SecondLevelCategory {
    alias String
    firstLevelCategory FirstLevelCategory @relation("firstCategory", fields: [firstLevelId], references: [id])
    firstLevelId String
-   brand BrandOnSecondCategory[]
+   model ModelDevice[] @relation("ModelDevice")
+}
+model BoughtProduct {
+    product Product[] @relation("ProductBought", fileds: [produictId], references: [id])
+    user UserModel @relation("UserBought", fileds: [userId], references: [id])
+    productId String
+    userId String
+
 }
 model Product {
   id                  String         @id @default(uuid())
@@ -41,9 +49,14 @@ model Product {
   oldPrice            Int?
   TagId               String
   brandId             String
+  Color               String?
+  Description         String?
+  Memory number?
+  Ram number?
   modelDeviceId       String @unique
   Comment             Comment[] @relation("CommentProduct")
   Order               Order[] @relation("OrderProduct")
+  Count number @default(0)
 }
 
 model Order {
@@ -63,17 +76,20 @@ model Brand {
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
 }
-model BrandOnSecondCategory {
-   brand       Brand     @relation(fields: [brandId], references: [id])
-  brandId     String
-  category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
-  categoryId String
-  @@id([brandId, categoryId])
-  }
+//model BrandOnSecondCategory {
+//   brand       Brand     @relation(fields: [brandId], references: [id])
+//  brandId     String
+//  category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
+//  categoryId String
+//  @@id([brandId, categoryId])
+//  }
 model ModelDevice {
   id      String       @id @default(uuid())
   name    String
-  Product Product?
+  product Product[]
+  secondCategoryId String
+  secondCategory SecondLevelCategory @relation("ModelDevice", fields: [secondCategoryId], references: [id], onUpdate: NoAction)
+  Comment             Comment[] @relation("CommentProduct")
 }
 
 model Comment {
@@ -81,11 +97,19 @@ model Comment {
   createdAt   DateTime  @default(now())
   comment     String
   writtenById String
-  productId   String
+  modelDeviceId   String
   writtenBy   UserModel @relation("CommentWritenBy", fields: [writtenById], references: [id])
-  Product     Product   @relation("CommentProduct", fields: [productId], references: [id], onUpdate: NoAction)
+  model     ModelDevice   @relation("CommentProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
 }
-
+model Rating {
+  id          String       @id @default(uuid())
+    createdAt   DateTime  @default(now())
+    comment     String
+    writtenById String
+    modelDeviceId   String
+    writtenBy   UserModel @relation("CommentWritenBy", fields: [writtenById], references: [id])
+    model     ModelDevice   @relation("CommentProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
+}
 model Tag {
   id      String       @id @default(uuid())
   name     String    @unique

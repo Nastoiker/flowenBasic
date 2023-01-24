@@ -4,9 +4,8 @@ import { Comment, ProductCreate, ProductModel, ProductUpdate } from './dto/creat
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
-import {pathExistsSync, writeFile, access} from 'fs-extra';
+import { writeFile, access, pathExistsSync } from 'fs-extra';
 import { path } from 'app-root-path';
-import pathroot from 'path';
 import sharp = require('sharp');
 
 import { MFile } from '../files/mfile.class';
@@ -64,7 +63,6 @@ export class ProductService implements IProductService {
 		if (!product) {
 			return null;
 		}
-		console.log(productId);
 		// const { brandId, modelDeviceId, name } = product;
 		// @ts-ignore
 		const brandId = product['brand']['name'];
@@ -88,7 +86,6 @@ export class ProductService implements IProductService {
 			});
 		}
 		const upload = `${path}/uploads/product`;
-		console.log(`${upload}/${brandId}/${modelDeviceId}/${name}`);
 		const res: FileElementResponse[] = [];
 		for (const file of files) {
 			await access(`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`, (err) => {

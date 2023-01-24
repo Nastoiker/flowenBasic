@@ -1,24 +1,39 @@
-import { takeEvery, put, call } from 'redux-saga/effects'
+import { takeEvery, put, call, all } from 'redux-saga/effects'
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import axios from "axios";
+import phonesCatSaga from "./phones.saga";
 export const fetchData = createAsyncThunk('users/fetchData', async () => {
     const response = await axios.get('https://jsonplaceholder.typicode.com/users');
     return response.data;
 })
 export default function* rootSaga() {
-    console.log('sdasd');
-    yield all([watchSaga()])
+    yield all([phonesCatSaga()]);
 }
-export function* watchSaga() {
-    yield takeEvery('users/fetchData', function* (action) {
-        try {
-            const data = yield call(axios.get, 'https://jsonplaceholder.typicode.com/users');
-            yield put(fetchData.fulfilled(data))
-        } catch (e) {
-            yield put(fetchData.rejected(e))
-        }
-    })
+export interface ResponseGenerator{
+    config?:any,
+    data?:any,
+    headers?:any,
+    request?:any,
+    status?:number,
+    statusText?:string
 }
-export function* workerSaga() {
-
-}
+// type WhatYouYield="foo";
+// type WhatYouReturn="bar";
+// type WhatYouAccept="baz";
+// // : Generator<
+// // WhatYouYield,
+// //     WhatYouReturn,
+// // WhatYouAccept
+// // >
+// //return type for generator
+// export function* watchSaga() {
+//     const data:ResponseGenerator = yield call(axios.get, 'https://jsonplaceholder.typicode.com/users');
+//     const formatProduct:ResponseGenerator = yield data.data;
+//     yield put(formatProduct.data);
+// }
+// export function* workerSaga() {
+//
+// }
+// export function* phonesCatSaga() {
+//     yield takeEvery('')
+// }
