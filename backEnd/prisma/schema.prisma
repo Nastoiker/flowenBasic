@@ -13,16 +13,30 @@ model UserModel {
   id       String       @id @default(uuid())
   email    String
   login    String
-  password String
-  order    Order[] @relation("OrderUser")
+  phone String?
+  hashpassword String
+  basket    Basket[] @relation("UserBasket")
   Comment  Comment[] @relation("CommentWritenBy")
-  boughtProduct BoughtProduct[] @relation("")
+  boughtProduct BoughtProduct[] @relation("UserBought")
+  address Address? @relation("AddressUser")
+  avatar String?
+  rating Rating[] @relation("RatingWritenBy")
 }
 model FirstLevelCategory {
     id String         @id @default(uuid())
     name String
     alias String
     secondLevelCategory SecondLevelCategory[] @relation("firstCategory")
+}
+model Address {
+  id         String   @id @default(uuid())
+  city       String
+  country    String
+  created_at DateTime @default(now())
+  street     String
+  updated_at DateTime @updatedAt
+  user      UserModel     @relation("AddressUser" ,fields: [userId], references: [id])
+  userId    String @unique
 }
 model SecondLevelCategory {
    id String @id @default(uuid())
@@ -31,13 +45,31 @@ model SecondLevelCategory {
    firstLevelCategory FirstLevelCategory @relation("firstCategory", fields: [firstLevelId], references: [id])
    firstLevelId String
    model ModelDevice[] @relation("ModelDevice")
+   brand BrandOnSecondCategory[]
 }
+
+
 model BoughtProduct {
-    product Product[] @relation("ProductBought", fileds: [produictId], references: [id])
-    user UserModel @relation("UserBought", fileds: [userId], references: [id])
+    id String @id @default(uuid())
+    delivered         Boolean
+    updated_at     DateTime     @updatedAt
+    basket Basket[] @relation("BoughtProduct")
+    user UserModel @relation("UserBought", fields: [userId], references: [id])
+    userId String
+    finnalyPrice String
+    createdAt DateTime   @default(now())
+}
+model Basket {
+    id String @id @default(uuid())
+    product Product @relation("ProductBought", fields: [productId], references: [id])
+    user UserModel @relation("UserBasket", fields: [userId], references: [id])
+    order      BoughtProduct?      @relation("BoughtProduct", fields: [boughtProductId], references: [id])
+    buying     Boolean
     productId String
     userId String
-
+    boughtProductId String?
+    quantity Int
+    createdAt DateTime   @default(now())
 }
 model Product {
   id                  String         @id @default(uuid())
@@ -51,24 +83,15 @@ model Product {
   brandId             String
   Color               String?
   Description         String?
-  Memory number?
-  Ram number?
+  image String
+  Memory Int?
+  Ram Int?
   modelDeviceId       String @unique
-  Comment             Comment[] @relation("CommentProduct")
-  Order               Order[] @relation("OrderProduct")
-  Count number @default(0)
+  quantity            Int @default(0)
+  basket Basket[] @relation("ProductBought")
 }
 
-model Order {
-  id        String        @id @default(uuid())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  delivered Boolean    @default(false)
-  author    UserModel @relation("OrderUser", fields: [authorId], references: [id])
-  product   Product    @relation("OrderProduct", fields: [productId], references: [id])
-  productId String
-  authorId  String
-}
+
 
 model Brand {
   id      String       @id @default(uuid())
@@ -76,13 +99,13 @@ model Brand {
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
 }
-//model BrandOnSecondCategory {
-//   brand       Brand     @relation(fields: [brandId], references: [id])
-//  brandId     String
-//  category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
-//  categoryId String
-//  @@id([brandId, categoryId])
-//  }
+model BrandOnSecondCategory {
+   brand       Brand     @relation(fields: [brandId], references: [id])
+  brandId     String
+  category   SecondLevelCategory @relation(fields: [categoryId], references: [id])
+  categoryId String
+  @@id([brandId, categoryId])
+  }
 model ModelDevice {
   id      String       @id @default(uuid())
   name    String
@@ -90,11 +113,14 @@ model ModelDevice {
   secondCategoryId String
   secondCategory SecondLevelCategory @relation("ModelDevice", fields: [secondCategoryId], references: [id], onUpdate: NoAction)
   Comment             Comment[] @relation("CommentProduct")
+  rating Rating[] @relation("RatingProduct")
 }
 
 model Comment {
   id          String       @id @default(uuid())
   createdAt   DateTime  @default(now())
+  title String
+  pictures String
   comment     String
   writtenById String
   modelDeviceId   String
@@ -107,11 +133,12 @@ model Rating {
     comment     String
     writtenById String
     modelDeviceId   String
-    writtenBy   UserModel @relation("CommentWritenBy", fields: [writtenById], references: [id])
-    model     ModelDevice   @relation("CommentProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
+    writtenBy   UserModel @relation("RatingWritenBy", fields: [writtenById], references: [id])
+    model     ModelDevice   @relation("RatingProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
 }
 model Tag {
   id      String       @id @default(uuid())
   name     String    @unique
   Product   Product[] @relation("TagProduct")
 }
+
