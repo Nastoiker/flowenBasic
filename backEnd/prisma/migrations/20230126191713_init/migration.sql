@@ -102,7 +102,9 @@ CREATE TABLE "ModelDevice" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "name" TEXT NOT NULL,
     "secondCategoryId" TEXT NOT NULL,
-    CONSTRAINT "ModelDevice_secondCategoryId_fkey" FOREIGN KEY ("secondCategoryId") REFERENCES "SecondLevelCategory" ("id") ON DELETE RESTRICT ON UPDATE NO ACTION
+    "brandId" TEXT NOT NULL,
+    CONSTRAINT "ModelDevice_secondCategoryId_fkey" FOREIGN KEY ("secondCategoryId") REFERENCES "SecondLevelCategory" ("id") ON DELETE RESTRICT ON UPDATE NO ACTION,
+    CONSTRAINT "ModelDevice_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "Brand" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable

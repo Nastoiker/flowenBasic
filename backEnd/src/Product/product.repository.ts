@@ -65,6 +65,23 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async getBrandProductByCategory(id: string, secondCategory: string): Promise<Product[] | null> {
+		return this.prismaService.client.modelDevice.findMany({
+			where: {
+				secondCategory
+			}
+		})
+	}
+	async updateByIdPhoto(id: string, image: string): Promise<Product | null> {
+		return this.prismaService.client.product.update({
+			where: {
+				id,
+			},
+			data: {
+				image,
+			},
+		});
+	}
 	async updateByIdPrice(id: string, price: number): Promise<Product | null> {
 		return this.prismaService.client.product.update({
 			where: {
@@ -101,7 +118,7 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	async createModelProduct(model: ModelDeviceDto): Promise<ModelDevice | null> {
-		return this.prismaService.client.brand.create({
+		return this.prismaService.client.modelDevice.create({
 			data: { ...model },
 		});
 	}
@@ -111,7 +128,7 @@ export class ProductRepository implements IProductRepository {
 				name,
 			},
 			include: {
-				Product: true,
+				product: true,
 			},
 		});
 	}
@@ -126,7 +143,7 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	async getAllProducts() {
-		return await this.prismaService.client.product.findMany({
+		return await this.prismaService.client.modelDevice.findMany({
 			include: {
 				brand: true,
 				Comment: true,
@@ -139,7 +156,7 @@ export class ProductRepository implements IProductRepository {
 				...comment,
 			},
 			include: {
-				Product: true,
+				model: true,
 				writtenBy: true,
 			},
 		});

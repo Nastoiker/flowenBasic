@@ -63,7 +63,6 @@ export class ProductCreate {
 	TagId: string;
 	@IsString()
 	modelDeviceId: string;
-	file: Express.Multer.File;
 }
 export class BrandDevice {
 	@IsString()
@@ -83,7 +82,11 @@ export class Comment {
 	@IsString()
 	writtenById: string;
 	@IsString()
-	productId: string;
+	modelDeviceId: string;
+	@IsString()
+	pictures: string;
+	@IsString()
+	title: string;
 }
 export class Tag {
 	@IsString()

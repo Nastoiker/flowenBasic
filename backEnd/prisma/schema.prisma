@@ -98,6 +98,7 @@ model Brand {
   name    String
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
+  model ModelDevice[] @relation("BrandByModel")
 }
 model BrandOnSecondCategory {
    brand       Brand     @relation(fields: [brandId], references: [id])
@@ -111,9 +112,11 @@ model ModelDevice {
   name    String
   product Product[]
   secondCategoryId String
+  brandId String
   secondCategory SecondLevelCategory @relation("ModelDevice", fields: [secondCategoryId], references: [id], onUpdate: NoAction)
   Comment             Comment[] @relation("CommentProduct")
   rating Rating[] @relation("RatingProduct")
+  brand Brand @relation("BrandByModel", fields: [brandId], references: [id])
 }
 
 model Comment {
