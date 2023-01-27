@@ -17,7 +17,7 @@ export class User {
 	get email(): string {
 		return this._email;
 	}
-	get password(): string {
+	get hashpassword(): string {
 		return this._password;
 	}
 	public async setPassword(pass: string, salt: number): Promise<void> {

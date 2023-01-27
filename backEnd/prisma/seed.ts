@@ -1,73 +1,84 @@
 import { PrismaClient, Prisma } from '@prisma/client';
 
 const prisma = new PrismaClient();
-
-// const userData: Prisma.BrandCreateInput[] = [
-// 	{
-// 		name: 'Xiaomi',
-// 	},
-// 	{
-// 		name: 'Lenovo',
-// 	},
-// 	{
-// 		name: 'OPPO',
-// 	},
-// 	{
-// 		name: 'Apple',
-// 	},
-// 	{
-// 		name: 'Samsung',
-// 	},
-// ];
-// const userData: Prisma.TagCreateInput[] = [
-// 	{
-// 		name: 'Популярные',
-// 	},
-// 	{
-// 		name: 'Дешевые',
-// 	},
-// 	{
-// 		name: 'Беспроводные',
-// 	},
-// 	{
-// 		name: 'Скидка',
-// 	},
-// 	{
-// 		name: 'Новые',
-// 	},
-// ];
-// const userData: Prisma.ModelDeviceCreateInput[] = [
+const brand: Prisma.BrandCreateInput[] = [
+	{
+		name: 'Xiaomi',
+	},
+	{
+		name: 'Lenovo',
+	},
+	{
+		name: 'OPPO',
+	},
+	{
+		name: 'Apple',
+	},
+	{
+		name: 'Samsung',
+	},
+];
+const tag: Prisma.TagCreateInput[] = [
+	{
+		name: 'Популярные',
+	},
+	{
+		name: 'Дешевые',
+	},
+	{
+		name: 'Беспроводные',
+	},
+	{
+		name: 'Скидка',
+	},
+	{
+		name: 'Новые',
+	},
+];
+// const model: Prisma.ModelDeviceCreateInput[] = [
 // 	{
 // 		name: 'airDots',
+// 		secondCategoryId: ''
+// 		brandId: '',
 // 	},
 // 	{
 // 		name: 'LP40',
+// 		secondCategoryId: ''
+// 		brandId: '',
 // 	},
 // 	{
 // 		name: 'ENCO AIR 2',
+// 		secondCategoryId: ''
+// 		brandId: '',
 // 	},
 // 	{
 // 		name: 'airpods pro',
+// 		secondCategoryId: ''
+// 		brandId: '',
 // 	},
 // 	{
 // 		name: 'EHS64',
+// 		secondCategoryId: ''
+// 		brandId: '',
 // 	},
 // ];
-// const userData: Prisma.FirstLevelCategoryCreateInput[] = [
-// 	{
-// 		name: 'Техника',
-// 		alias: 'technology',
-// 	},
-// 	{
-// 		name: 'Книги',
-// 		alias: 'books',
-// 	},
-// 	{
-// 		name: 'Блоги',
-// 		alias: 'blogs',
-// 	},
-// ];
-// const userData: Prisma.SecondLevelCategoryCreateInput[] = [
+const firrtCategory: Prisma.FirstLevelCategoryCreateInput[] = [
+	{
+		name: 'Техника',
+		alias: 'technology',
+	},
+	{
+		name: 'Книги',
+		alias: 'books',
+	},
+	{
+		name: 'Блоги',
+		alias: 'blogs',
+	},
+];
+const userData = [brand, tag, firrtCategory];
+
+// const SecondCategory: Prisma.SecondLevelCategoryCreateInput[] = [
 // 	{
 // 		name: 'Наушники',
 // 		alias: 'headphones',
@@ -97,25 +108,25 @@ const prisma = new PrismaClient();
 // 		id: 'Телефоны',
 // 		firstLevelId: 1,
 // 	},
-// ];
+// ];c
 
-// async function main() {
-// 	console.log(`Start seeding ...`);
-// 	for (const u of userData) {
-// 		const user = await prisma.firstLevelCategory.create({
-// 			data: u,
-// 		});
-// 		console.log(`Created user with id: ${user.id}`);
-// 	}
-// 	console.log(`Seeding finished.`);
-// }
-//
-// main()
-// 	.then(async () => {
-// 		await prisma.$disconnect();
-// 	})
-// 	.catch(async (e) => {
-// 		console.error(e);
-// 		await prisma.$disconnect();
-// 		process.exit(1);
-// 	});
+async function main() {
+	console.log(`Start seeding ...`);
+	for (const u of brand) {
+		const user = await prisma.brand.create({
+			data: u,
+		});
+		console.log(`Created user with id: ${user.id}`);
+	}
+	console.log(`Seeding finished.`);
+}
+
+main()
+	.then(async () => {
+		await prisma.$disconnect();
+	})
+	.catch(async (e) => {
+		console.error(e);
+		await prisma.$disconnect();
+		process.exit(1);
+	});

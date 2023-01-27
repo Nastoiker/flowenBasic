@@ -8,12 +8,12 @@ import { User } from './user.entity';
 export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
 
-	async createUser({ email, login, password }: User): Promise<UserModel> {
+	async createUser({ email, login, hashpassword }: User): Promise<UserModel> {
 		return this.prismaService.client.userModel.create({
 			data: {
 				email,
 				login,
-				password,
+				hashpassword,
 			},
 		});
 	}
@@ -24,7 +24,6 @@ export class UserRepository implements IUserRepository {
 				email,
 			},
 			include: {
-				order: true,
 				Comment: true,
 			},
 		});
