@@ -45,7 +45,7 @@ model SecondLevelCategory {
    firstLevelCategory FirstLevelCategory @relation("firstCategory", fields: [firstLevelId], references: [id])
    firstLevelId String
    model ModelDevice[] @relation("ModelDevice")
-   brand BrandOnSecondCategory[]
+   brands BrandOnSecondCategory[]
 }
 
 
@@ -133,7 +133,7 @@ model Comment {
 model Rating {
   id          String       @id @default(uuid())
     createdAt   DateTime  @default(now())
-    comment     String
+    number     Int
     writtenById String
     modelDeviceId   String
     writtenBy   UserModel @relation("RatingWritenBy", fields: [writtenById], references: [id])

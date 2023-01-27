@@ -20,7 +20,7 @@ export class UserService {
 		if (!validateUSer) {
 			return false;
 		}
-		const newUser = new User(email, validateUSer.login, validateUSer.password);
+		const newUser = new User(email, validateUSer.login, validateUSer.hashpassword);
 		return newUser.comparePassword(password);
 	}
 	public async createUser({
@@ -43,7 +43,7 @@ export class UserService {
 	public async getProfileInfo(login: string) {
 		return await this.userRepository.findProfile(login).then((res) => {
 			if (res) {
-				const { password, email, ...profile } = res;
+				const { hashpassword, email, ...profile } = res;
 				return profile;
 			}
 		});

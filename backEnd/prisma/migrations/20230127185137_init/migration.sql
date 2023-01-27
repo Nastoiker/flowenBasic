@@ -124,7 +124,7 @@ CREATE TABLE "Comment" (
 CREATE TABLE "Rating" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "comment" TEXT NOT NULL,
+    "number" INTEGER NOT NULL,
     "writtenById" TEXT NOT NULL,
     "modelDeviceId" TEXT NOT NULL,
     CONSTRAINT "Rating_writtenById_fkey" FOREIGN KEY ("writtenById") REFERENCES "UserModel" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,

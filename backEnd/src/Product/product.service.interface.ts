@@ -1,5 +1,11 @@
 import { Comment, ProductCreate, ProductUpdate } from './dto/create-product.dto';
-import { Brand, FirstLevelCategory, Product, SecondLevelCategory } from '@prisma/client';
+import {
+	Brand,
+	FirstLevelCategory,
+	ModelDevice,
+	Product,
+	SecondLevelCategory,
+} from '@prisma/client';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MFile } from '../files/mfile.class';
 import sharp from 'sharp';
@@ -10,7 +16,7 @@ export interface IProductService {
 	getById: (id: string) => Promise<Product | null>;
 	delete: (id: string) => Promise<Product | null>;
 	update: (product: ProductUpdate) => Promise<Product | null>;
-	getAll: () => Promise<(Product & { brand: Brand; Comment: Comment[] })[]>;
+	getAll: () => Promise<(ModelDevice & { brand: Brand; Comment: Comment[] })[]>;
 	getModelBrandId: (product: ProductCreate) => Promise<{
 		brandId: string | undefined;
 		modelDeviceId: string | undefined;

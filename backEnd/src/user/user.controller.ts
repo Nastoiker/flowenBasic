@@ -97,7 +97,7 @@ export class UserController extends BaseController implements IUserController {
 	public async info({ user }: Request, res: Response, next: NextFunction): Promise<void> {
 		const userModel = await this.userService.getUserInfo(user).then((result) => {
 			if (result) {
-				const { password, ...userInfo } = result;
+				const { hashpassword, ...userInfo } = result;
 				this.ok(res, { ...userInfo });
 			}
 		});

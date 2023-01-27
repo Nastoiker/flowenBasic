@@ -1,4 +1,4 @@
-import { IsArray, IsNumber, IsString, IsOptional, IsDate } from 'class-validator';
+import { IsArray, IsNumber, IsString, IsOptional, IsDate, IsBoolean } from 'class-validator';
 import { UserModel } from '@prisma/client';
 export class ProductModel {
 	@IsString()
@@ -12,8 +12,30 @@ export class ProductModel {
 	brandId: string;
 	@IsString()
 	TagId: string;
+	@IsNumber()
+	Ram?: number;
+	@IsNumber()
+	Memory?: number;
+	@IsString()
+	color?: string;
+	@IsString()
+	image: string;
+	@IsNumber()
+	quantity: number;
 	@IsString()
 	modelDeviceId: string;
+}
+export class Basket {
+	@IsString()
+	productId: string;
+	@IsBoolean()
+	buying: boolean;
+	@IsString()
+	userId: string;
+	@IsString()
+	boughtProductId: string;
+	@IsNumber()
+	quantity: number;
 }
 export class ProductUpdate {
 	@IsString()
@@ -71,10 +93,18 @@ export class BrandDevice {
 export class ModelDeviceDto {
 	@IsString()
 	name: string;
+	@IsString()
+	secondCategoryId: string;
+	@IsString()
+	brandId: string;
 }
 export class Rating {
-	UserId: number;
+	@IsNumber()
+	writtenById: number;
+	@IsNumber()
 	ProductId: number;
+	@IsNumber()
+	number: number;
 }
 export class Comment {
 	@IsString()

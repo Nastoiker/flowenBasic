@@ -12,7 +12,7 @@ export class UserAbilityRepository {
 				...comment,
 			},
 			include: {
-				Product: true,
+				model: true,
 				writtenBy: true,
 			},
 		});

@@ -65,12 +65,18 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async getBrandProductByCategory(id: string, secondCategory: string): Promise<Product[] | null> {
-		return this.prismaService.client.modelDevice.findMany({
+	async getBrandProductByCategory(id: string, categoryId: string) {
+		return this.prismaService.client.secondLevelCategory.findMany({
 			where: {
-				secondCategory
-			}
-		})
+				brands: {
+					some: {
+						brand: {
+							id: categoryId,
+						},
+					},
+				},
+			},
+		});
 	}
 	async updateByIdPhoto(id: string, image: string): Promise<Product | null> {
 		return this.prismaService.client.product.update({

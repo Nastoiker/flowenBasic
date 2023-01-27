@@ -1,6 +1,13 @@
 import { IProductService } from './product.service.interface';
-import { Brand, Product, SecondLevelCategory, FirstLevelCategory } from '@prisma/client';
-import { Comment, ProductCreate, ProductModel, ProductUpdate } from './dto/create-product.dto';
+import {
+	Brand,
+	Product,
+	SecondLevelCategory,
+	FirstLevelCategory,
+	Comment,
+	ModelDevice,
+} from '@prisma/client';
+import { ProductCreate, ProductModel, ProductUpdate } from './dto/create-product.dto';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
@@ -45,7 +52,7 @@ export class ProductService implements IProductService {
 		const tag = await this.productRepository.findTagByName(product.TagId);
 		return { ...product, brandId: brandId?.id, modelDeviceId: modelId?.id, TagId: tag?.id };
 	}
-	async getAll(): Promise<(Product & { brand: Brand; Comment: Comment[] })[]> {
+	async getAll(): Promise<(ModelDevice & { brand: Brand; Comment: Comment[] })[]> {
 		return this.productRepository.getAllProducts();
 	}
 	async getByFirstCategory(firstLevelId: string): Promise<SecondLevelCategory[] | null> {
