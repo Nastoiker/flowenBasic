@@ -96,6 +96,12 @@ export class ProductController extends BaseController {
 				func: this.uploadImage,
 				middlewares: [new AdminGuard(), new MulterMiddleware()],
 			},
+			{
+				path: '/setSecondCategoryBrand',
+				method: 'post',
+				func: this.uploadImage,
+				middlewares: [new AdminGuard()],
+			},
 		]);
 	}
 	async create(
@@ -235,4 +241,11 @@ export class ProductController extends BaseController {
 		category.forEach((c) => delete c.secondLevelCategory);
 		return res.status(200).type('json').send(category);
 	}
+	async setBrandOnSecondCategory(
+		{ body }: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+
+	};
 }

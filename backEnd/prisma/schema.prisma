@@ -61,7 +61,7 @@ model BoughtProduct {
 }
 model Basket {
     id String @id @default(uuid())
-    product Product @relation("ProductBought", fields: [productId], references: [id])
+    product Product[] @relation("ProductBought", fields: [productId], references: [id])
     user UserModel @relation("UserBasket", fields: [userId], references: [id])
     order      BoughtProduct?      @relation("BoughtProduct", fields: [boughtProductId], references: [id])
     buying     Boolean
@@ -131,7 +131,7 @@ model Comment {
   model     ModelDevice   @relation("CommentProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
 }
 model Rating {
-  id          String       @id @default(uuid())
+    id          String       @id @default(uuid())
     createdAt   DateTime  @default(now())
     number     Int
     writtenById String

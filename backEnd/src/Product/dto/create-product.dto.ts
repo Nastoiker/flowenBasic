@@ -99,10 +99,10 @@ export class ModelDeviceDto {
 	brandId: string;
 }
 export class Rating {
-	@IsNumber()
-	writtenById: number;
-	@IsNumber()
-	ProductId: number;
+	@IsString()
+	writtenById: string;
+	@IsString()
+	modelDeviceId: string;
 	@IsNumber()
 	number: number;
 }
@@ -124,4 +124,13 @@ export class Tag {
 	@IsString()
 	@IsArray()
 	ProductID: string[];
+}
+export interface brandOnSecondCategory {
+	brand: { connect: { id: string } };
+}
+export class BrandForSecond implements brandOnSecondCategory {
+	brand: { connect: { id: string } };
+	constructor(id: string) {
+		this.brand.connect.id = id;
+	}
 }

@@ -26,6 +26,24 @@ export class userAbility extends BaseController {
 				func: this.productBuyUser,
 				middlewares: [new AuthGuard()],
 			},
+			{
+				path: '/addBasket',
+				method: 'post',
+				func: this.addProductToBasket,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/getBasket',
+				method: 'get',
+				func: this.getBasketUser,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/comment',
+				method: 'post',
+				func: this.setRatingProduct,
+				middlewares: [new AuthGuard()],
+			},
 		]);
 	}
 	async productBuyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
@@ -37,5 +55,46 @@ export class userAbility extends BaseController {
 			next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
 		this.ok(res, { mes: 'Ваш комментарий оставлен' });
+	}
+	async addProductToBasket(
+		req: Request<{}, {}, { productId: string; quanity: number }>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка создания коммента '));
+		} else {
+			await this.userAbilityService.addBasket(
+				req.body.productId,
+				writtenById.id,
+				req.body.quanity,
+			);
+		}
+	}
+	async setRatingProduct(
+		req: Request<{}, {}, { productId: string; quanity: number }>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка создания коммента '));
+		} else {
+			await this.userAbilityService.setRatingProduct({
+					req.body.productId,
+					writtenById.id,
+					req.body.quanity,
+				}
+			);
+		}
+	}
+	async getBasketUser(req: Request, res: Response, next: NextFunction) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка получения корзины '));
+		} else {
+			await this.userAbilityService.getBasketUser(writtenById.id);
+		}
 	}
 }

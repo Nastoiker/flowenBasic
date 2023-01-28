@@ -2,7 +2,7 @@ import { IUserRepository } from './user.repository.interface';
 import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
-import { UserModel } from '@prisma/client';
+import { Basket, UserModel } from '@prisma/client';
 import { User } from './user.entity';
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -17,7 +17,16 @@ export class UserRepository implements IUserRepository {
 			},
 		});
 	}
-
+	async getBasketByUser(userId: string): Promise<Basket[] | null> {
+		return this.prismaService.client.basket.findMany({
+			where: {
+				userId,
+			},
+			include: {
+				product: true,
+			},
+		});
+	}
 	async find(email: string): Promise<UserModel | null> {
 		return this.prismaService.client.userModel.findFirst({
 			where: {
@@ -38,4 +47,5 @@ export class UserRepository implements IUserRepository {
 			},
 		});
 	}
+
 }

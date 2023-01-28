@@ -84,7 +84,6 @@ export class ProductService implements IProductService {
 				}
 			});
 		}
-
 		if (!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}`)) {
 			mkdir(`./uploads/product/${brandId}/${modelDeviceId}`, (err) => {
 				if (err) {
@@ -94,6 +93,7 @@ export class ProductService implements IProductService {
 		}
 		const upload = `${path}/uploads/product`;
 		const res: FileElementResponse[] = [];
+		let images = '';
 		for (const file of files) {
 			await access(`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`, (err) => {
 				writeFile(
@@ -105,7 +105,13 @@ export class ProductService implements IProductService {
 				url: `${upload}/${brandId}/${modelDeviceId}/${name}`,
 				name: file.originalname,
 			});
+			if (images.length > 0) {
+				images.concat(`/${file.originalname}`);
+			} else {
+				images = file.originalname;
+			}
 		}
+		await this.productRepository.updateByIdPhoto(productId, images);
 		return res;
 	}
 
@@ -117,5 +123,13 @@ export class ProductService implements IProductService {
 	}
 	async getById(id: string): Promise<Product | null> {
 		return this.productRepository.getProductById(id);
+	}
+	async setBrandOnSecondCategory(
+		name: string,
+		firstLevelId: string,
+		alias: string,
+		brands: string[],
+	) {
+		return this.productRepository.setBrandOnSecondCategory(name, firstLevelId, alias, brands);
 	}
 }

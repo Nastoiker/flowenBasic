@@ -2,11 +2,11 @@ import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import {
-	BrandDevice,
+	BrandDevice, BrandForSecond, brandOnSecondCategory,
 	Comment,
 	ModelDeviceDto,
 	ProductModel,
-	ProductUpdate,
+	ProductUpdate, Rating,
 } from './dto/create-product.dto';
 import {
 	Brand,
@@ -15,6 +15,7 @@ import {
 	Tag,
 	SecondLevelCategory,
 	FirstLevelCategory,
+	Basket,
 } from '@prisma/client';
 import { IProductRepository } from './product.repository.interface';
 
@@ -85,6 +86,21 @@ export class ProductRepository implements IProductRepository {
 			},
 			data: {
 				image,
+			},
+		});
+	}
+	async addProductToBasket(
+		productId: string,
+		userId: string,
+		quantity: number,
+		buying: boolean,
+	): Promise<Basket | null> {
+		return this.prismaService.client.basket.create({
+			data: {
+				productId,
+				userId,
+				quantity,
+				buying,
 			},
 		});
 	}
@@ -187,6 +203,32 @@ export class ProductRepository implements IProductRepository {
 		return this.prismaService.client.firstLevelCategory.findMany({
 			include: {
 				secondLevelCategory: true,
+			},
+		});
+	}
+	async setRatingProduct(rating: Rating): Promise<Rating> {
+		return this.prismaService.client.rating.create({
+			data: rating,
+		});
+	}
+	async setBrandOnSecondCategory(
+		name: string,
+		firstLevelId: string,
+		alias: string,
+		brands: string[],
+	): Promise<SecondLevelCategory> {
+		const brandss = [];
+		for (const brand of brands) {
+			brandss.push(new BrandForSecond(brand));
+		}
+		return this.prismaService.client.secondLevelCategory.create({
+			data: {
+				name,
+				firstLevelId,
+				alias,
+				brands: {
+					create: [...brandss],
+				},
 			},
 		});
 	}
