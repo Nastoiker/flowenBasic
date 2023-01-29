@@ -61,7 +61,7 @@ model BoughtProduct {
 }
 model Basket {
     id String @id @default(uuid())
-    product Product[] @relation("ProductBought", fields: [productId], references: [id])
+    product Product @relation("ProductBought", fields: [productId], references: [id])
     user UserModel @relation("UserBasket", fields: [userId], references: [id])
     order      BoughtProduct?      @relation("BoughtProduct", fields: [boughtProductId], references: [id])
     buying     Boolean
@@ -83,7 +83,7 @@ model Product {
   brandId             String
   Color               String?
   Description         String?
-  image String
+  image String?
   Memory Int?
   Ram Int?
   modelDeviceId       String @unique

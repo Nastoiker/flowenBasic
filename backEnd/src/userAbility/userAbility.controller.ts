@@ -82,11 +82,10 @@ export class userAbility extends BaseController {
 			next(new HTTPError(422, 'Ошибка создания коммента '));
 		} else {
 			await this.userAbilityService.setRatingProduct({
-					req.body.productId,
-					writtenById.id,
-					req.body.quanity,
-				}
-			);
+				modelDeviceId: req.body.productId,
+				writtenById: writtenById.id,
+				number: req.body.quanity,
+			});
 		}
 	}
 	async getBasketUser(req: Request, res: Response, next: NextFunction) {

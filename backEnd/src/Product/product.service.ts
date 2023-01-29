@@ -7,7 +7,7 @@ import {
 	Comment,
 	ModelDevice,
 } from '@prisma/client';
-import { ProductCreate, ProductModel, ProductUpdate } from './dto/create-product.dto';
+import {BrandDevice, ModelDeviceDto, ProductCreate, ProductModel, ProductUpdate} from './dto/create-product.dto';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
@@ -28,11 +28,23 @@ export class ProductService implements IProductService {
 		const checkProduct = await this.getModelBrandId(product);
 		return this.productRepository.createProduct(checkProduct as unknown as ProductModel);
 	}
-
+	async createModel(model: ModelDeviceDto): Promise<ModelDevice | null> {
+		if (await this.productRepository.findProduct(model.name)) {
+			return null;
+		}
+		// const checkProduct = await this.getModelBrandId(model);
+		return this.productRepository.createModel(model);
+	}
+	async createBrand(brand: BrandDevice): Promise<Brand | null> {
+		if (await this.productRepository.findBrand(brand.name)) {
+			return null;
+		}
+		// const checkProduct = await this.getModelBrandId(brand);
+		return this.productRepository.createBrand(brand);
+	}
 	async delete(id: string): Promise<Product | null> {
 		return this.productRepository.deleteProduct(id);
 	}
-
 	async find(name: string): Promise<Product | null> {
 		return this.productRepository.findProduct(name);
 	}
@@ -129,7 +141,7 @@ export class ProductService implements IProductService {
 		firstLevelId: string,
 		alias: string,
 		brands: string[],
-	) {
+	): Promise<SecondLevelCategory> {
 		return this.productRepository.setBrandOnSecondCategory(name, firstLevelId, alias, brands);
 	}
 }

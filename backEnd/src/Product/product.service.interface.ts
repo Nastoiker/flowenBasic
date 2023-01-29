@@ -1,4 +1,11 @@
-import { Comment, ProductCreate, ProductUpdate } from './dto/create-product.dto';
+import {
+	Comment,
+	ProductCreate,
+	ProductUpdate,
+	ModelCreate,
+	ModelDeviceDto,
+	BrandDevice
+} from './dto/create-product.dto';
 import {
 	Brand,
 	FirstLevelCategory,
@@ -12,6 +19,9 @@ import sharp from 'sharp';
 
 export interface IProductService {
 	create: (product: ProductCreate) => Promise<Product | null>;
+	createModel: (model: ModelDeviceDto) => Promise<ModelDevice | null>;
+	createBrand: (brand: BrandDevice) => Promise<Brand | null>;
+
 	find: (name: string) => Promise<Product | null>;
 	getById: (id: string) => Promise<Product | null>;
 	delete: (id: string) => Promise<Product | null>;
@@ -25,6 +35,12 @@ export interface IProductService {
 		oldPrice?: number | undefined;
 		TagId: string | undefined;
 	}>;
+	setBrandOnSecondCategory:(
+		name: string,
+		firstLevelId: string,
+		alias: string,
+		brands: string[],
+	) => Promise<SecondLevelCategory>;
 	getByFirstCategory: (firstCategory: string) => Promise<SecondLevelCategory[] | null>;
 	setSecondCategory: (
 		name: string,

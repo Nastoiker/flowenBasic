@@ -3,7 +3,7 @@ import { TYPES } from '../types';
 import { inject, injectable } from 'inversify';
 import { Ilogger } from '../logger/logger.interface';
 import { BaseController } from '../common/base.controller';
-import { Comment, ProductCreate, ProductUpdate } from './dto/create-product.dto';
+import {Comment, ModelDeviceDto, ProductCreate, ProductUpdate} from './dto/create-product.dto';
 import { IProductService } from './product.service.interface';
 import { NextFunction, Request, Response } from 'express';
 import { HTTPError } from '../errors/http-error';
@@ -102,6 +102,18 @@ export class ProductController extends BaseController {
 				func: this.uploadImage,
 				middlewares: [new AdminGuard()],
 			},
+			{
+				path: '/createModel',
+				method: 'post',
+				func: this.createModel,
+				middlewares: [new AdminGuard()],
+			},
+			{
+				path: '/createBrand',
+				method: 'post',
+				func: this.createBrand,
+				middlewares: [new AdminGuard()],
+			},
 		]);
 	}
 	async create(
@@ -112,6 +124,28 @@ export class ProductController extends BaseController {
 		const newProduct = await this.productService.create(body);
 		if (!newProduct) {
 			return next(new HTTPError(401, 'Ошибка создания продукта'));
+		}
+		this.ok(res, { ...newProduct });
+	}
+	async createModel(
+		{ body }: Request<{}, {}, ModelDeviceDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const newProduct = await this.productService.createModel(body);
+		if (!newProduct) {
+			return next(new HTTPError(401, 'Ошибка создания модел'));
+		}
+		this.ok(res, { ...newProduct });
+	}
+	async createBrand(
+		{ body }: Request<{}, {}, ProductCreate>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const newProduct = await this.productService.createBrand(body);
+		if (!newProduct) {
+			return next(new HTTPError(401, 'Ошибка создания модел'));
 		}
 		this.ok(res, { ...newProduct });
 	}
@@ -242,10 +276,13 @@ export class ProductController extends BaseController {
 		return res.status(200).type('json').send(category);
 	}
 	async setBrandOnSecondCategory(
-		{ body }: Request,
+		{ body }: Request<{}, {}, string[]>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-
-	};
+		const category = await this.productService.getCategory();
+		if (!category) {
+			return next(new HTTPError(400, 'Ошибка добавление под категории'));
+		}
+	}
 }

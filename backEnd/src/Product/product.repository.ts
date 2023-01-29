@@ -2,11 +2,14 @@ import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import {
-	BrandDevice, BrandForSecond, brandOnSecondCategory,
+	BrandDevice,
+	BrandForSecond,
+	brandOnSecondCategory,
 	Comment,
 	ModelDeviceDto,
 	ProductModel,
-	ProductUpdate, Rating,
+	ProductUpdate,
+	Rating,
 } from './dto/create-product.dto';
 import {
 	Brand,
@@ -27,8 +30,25 @@ export class ProductRepository implements IProductRepository {
 			data: { ...data },
 		});
 	}
+	async createModel(data: ModelDeviceDto): Promise<ModelDevice> {
+		return this.prismaService.client.modelDevice.create({
+			data: { ...data },
+		});
+	}
+	async createBrand(data: BrandDevice): Promise<Brand> {
+		return this.prismaService.client.brand.create({
+			data: { ...data },
+		});
+	}
 	async findProduct(name: string): Promise<Product | null> {
 		return this.prismaService.client.product.findFirst({
+			where: {
+				name,
+			},
+		});
+	}
+	async findBrand(name: string): Promise<Brand | null> {
+		return this.prismaService.client.brand.findFirst({
 			where: {
 				name,
 			},
@@ -171,7 +191,7 @@ export class ProductRepository implements IProductRepository {
 				Comment: true,
 			},
 		});
-	}
+	};
 	async setCommentProduct(comment: Comment): Promise<Comment> {
 		return this.prismaService.client.comment.create({
 			data: {

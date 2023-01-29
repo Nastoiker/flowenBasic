@@ -1,4 +1,4 @@
-import {Basket, UserModel} from '@prisma/client';
+import { Basket, UserModel } from '@prisma/client';
 import { User } from './user.entity';
 export interface IUserRepository {
 	find: (email: string) => Promise<UserModel | null>;

@@ -1,4 +1,4 @@
-import {Comment, Rating} from '../Product/dto/create-product.dto';
+import { Comment, Rating } from '../Product/dto/create-product.dto';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { IConfigService } from '../config/config.service.interface';
@@ -20,7 +20,7 @@ export class UserAbilityService {
 		return this.productRepository.setCommentProduct(comment);
 	}
 	async addBasket(productId: string, userId: string, quantity: number): Promise<Basket | null> {
-		return this.productRepository.addProductToBasket(productId, userId, quantity, false );
+		return this.productRepository.addProductToBasket(productId, userId, quantity, false);
 	}
 	async getBasketUser(userId: string): Promise<Basket[] | null> {
 		return this.userRepository.getBasketByUser(userId);

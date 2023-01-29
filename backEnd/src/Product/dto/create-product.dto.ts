@@ -13,13 +13,17 @@ export class ProductModel {
 	@IsString()
 	TagId: string;
 	@IsNumber()
+	@IsOptional()
 	Ram?: number;
 	@IsNumber()
+	@IsOptional()
 	Memory?: number;
 	@IsString()
+	@IsOptional()
 	color?: string;
 	@IsString()
-	image: string;
+	@IsOptional()
+	image?: string;
 	@IsNumber()
 	quantity: number;
 	@IsString()
@@ -83,8 +87,39 @@ export class ProductCreate {
 	brandId: string;
 	@IsString()
 	TagId: string;
+	@IsNumber()
+	@IsOptional()
+	Ram?: number;
+	@IsNumber()
+	@IsOptional()
+	Memory?: number;
+	@IsString()
+	@IsOptional()
+	Color?: string;
+	@IsString()
+	@IsOptional()
+	image?: string;
+	@IsNumber()
+	quantity: number;
 	@IsString()
 	modelDeviceId: string;
+	@IsString()
+	Description: string;
+}
+export class ModelCreate {
+	@IsString()
+	name: string;
+	@IsString()
+	secondCategoryId: string;
+	@IsString()
+	brandId: string;
+
+	@IsNumber()
+	quantity: number;
+	@IsString()
+	modelDeviceId: string;
+	@IsString()
+	Description: string;
 }
 export class BrandDevice {
 	@IsString()
@@ -124,6 +159,13 @@ export class Tag {
 	@IsString()
 	@IsArray()
 	ProductID: string[];
+}
+export class BrandModel {
+	@IsString()
+	tag: String;
+	@IsString()
+	@IsArray()
+	modelID: string[];
 }
 export interface brandOnSecondCategory {
 	brand: { connect: { id: string } };
