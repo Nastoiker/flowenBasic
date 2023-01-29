@@ -99,7 +99,7 @@ export class ProductController extends BaseController {
 			{
 				path: '/setSecondCategoryBrand',
 				method: 'post',
-				func: this.uploadImage,
+				func: this.setBrandOnSecondCategory,
 				middlewares: [new AdminGuard()],
 			},
 			{
@@ -280,7 +280,7 @@ export class ProductController extends BaseController {
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-		const category = await this.productService.getCategory();
+		const category = await this.productService.setBrandOnSecondCategory();
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
