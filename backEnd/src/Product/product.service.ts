@@ -147,4 +147,7 @@ export class ProductService implements IProductService {
 	async setCategoryOnBrand(setBrandsOnCategory: setBrandsOnCategory): Promise<Brand> {
 		return this.productRepository.setCategoryOnBrand(setBrandsOnCategory);
 	}
+	async getProductByBrandSecondCategory(secondLevelId: string, brandId: string): Promise<ModelDevice[] | null> {
+		return this.productRepository.getProductByBrandSecondCategory(secondLevelId, brandId);
+	}
 }

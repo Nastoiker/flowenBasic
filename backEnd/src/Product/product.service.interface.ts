@@ -7,6 +7,7 @@ import {
 	BrandDevice,
 } from './dto/create-product.dto';
 import {
+	setBrandsOnCategory,
 	setSecondCategoryOnBrand
 } from './dto/firstCategory.dto';
 import {
@@ -39,6 +40,7 @@ export interface IProductService {
 		TagId: string | undefined;
 	}>;
 	setBrandOnSecondCategory: (setBrands: setSecondCategoryOnBrand) => Promise<SecondLevelCategory>;
+	setCategoryOnBrand: (setCategoryOnBrand: setBrandsOnCategory) => Promise<Brand>;
 	getByFirstCategory: (firstCategory: string) => Promise<SecondLevelCategory[] | null>;
 	setSecondCategory: (
 		name: string,
@@ -47,6 +49,7 @@ export interface IProductService {
 	) => Promise<SecondLevelCategory | null>;
 	findProducts: (brandId: string) => Promise<Product[] | null>;
 	getCategory: () => Promise<FirstLevelCategory[] | null>;
+	getProductByBrandSecondCategory: (secondLevelId: string, brandId: string) => Promise<Model[] | null>;
 	saveFile: (files: MFile[], productId: string) => Promise<FileElementResponse[] | null>;
 	convertToWebp: (file: Buffer) => Promise<Buffer>;
 }

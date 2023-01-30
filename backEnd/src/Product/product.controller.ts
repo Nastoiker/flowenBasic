@@ -15,7 +15,7 @@ import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
-import { setSecondCategoryOnBrand } from './dto/firstCategory.dto';
+import {setBrandsOnCategory, setSecondCategoryOnBrand} from './dto/firstCategory.dto';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -114,6 +114,26 @@ export class ProductController extends BaseController {
 				method: 'post',
 				func: this.createBrand,
 				middlewares: [new AdminGuard()],
+			},
+			//создание категории к брендам
+			{
+				path: '/setBrandOnSecondCategory',
+				method: 'post',
+				func: this.setBrandOnSecondCategory,
+				middlewares: [new AdminGuard()],
+			},
+			//создание брендов к категории
+			{
+				path: '/setCategoryOnBrand',
+				method: 'post',
+				func: this.setCategoryOnBrand,
+				middlewares: [new AdminGuard()],
+			},
+			{
+				path: '/getProductByBrandSecondCategory',
+				method: 'post',
+				func: this.getProductByBrandSecondCategory,
+				middlewares: [],
 			},
 		]);
 	}
@@ -276,6 +296,7 @@ export class ProductController extends BaseController {
 		category.forEach((c) => delete c.secondLevelCategory);
 		return res.status(200).type('json').send(category);
 	}
+	//создание категории к брендам
 	async setBrandOnSecondCategory(
 		{ body }: Request<{}, {}, setSecondCategoryOnBrand>,
 		res: Response,
@@ -285,5 +306,32 @@ export class ProductController extends BaseController {
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
+		return res.status(200).type('json').send(category);
+	}
+	//создание брендов к категории
+	async setCategoryOnBrand(
+		{ body }: Request<{}, {}, setBrandsOnCategory>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const brands = await this.productService.setCategoryOnBrand(body);
+		if (!brands) {
+			return next(new HTTPError(400, 'Ошибка добавление под категории'));
+		}
+		return res.status(200).type('json').send(brands);
+	}
+	async getProductByBrandSecondCategory(
+		{ body }: Request<{}, {}, {  secondLevelId: string; brandId: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const category = await this.productService.getProductByBrandSecondCategory(
+			body.secondLevelId,
+			body.brandId,
+		);
+		if (!category) {
+			return next(new HTTPError(400, 'Ошибка добавление под категории'));
+		}
+		this.ok(res, { ...category });
 	}
 }

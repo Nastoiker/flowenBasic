@@ -256,25 +256,34 @@ export class ProductRepository implements IProductRepository {
 	//создание брендов к категории
 	async setCategoryOnBrand(
 		setCategoryOnBrand: setBrandsOnCategory,
-	): Promise<SecondLevelCategory> {
+	): Promise<Brand> {
 		const brands = setCategoryOnBrand.categories;
 		const setBrands: SecondForBrand[] = [];
 		for (const brand of brands) {
 			setBrands.push(new SecondForBrand(brand));
 		}
 		const { name } = setBrandsOnCategory;
-		return this.prismaService.client.secondLevelCategory.create({
+		return this.prismaService.client.brand.create({
 			data: {
 				name,
-				firstLevelId,
-				alias,
-				brands: {
+				secondLevelCategory: {
 					create: [...setBrands],
 				},
 			},
 		});
 	};
-
+	async getProductByBrandSecondCategory(secondCategoryId: string, brandId: string) {
+		return await this.prismaService.client.modelDevice.findMany({
+			where: {
+				secondCategoryId,
+				brandId
+			},
+			include: {
+				brand: true,
+				Comment: true,
+			},
+		});
+	};
 }
 // constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
 // async create({

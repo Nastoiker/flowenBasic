@@ -171,7 +171,7 @@ export interface brandOnSecondCategory {
 	brand: { connect: { id: string } };
 }
 export interface SecondCategoryOnbrand {
-	SecondLevelCategory: { connect: { id: string } };
+	category: { connect: { id: string } };
 }
 export class BrandForSecond implements brandOnSecondCategory {
 	brand: { connect: { id: string } };
@@ -180,9 +180,9 @@ export class BrandForSecond implements brandOnSecondCategory {
 	}
 }
 export class SecondForBrand implements SecondCategoryOnbrand {
-	SecondLevelCategory: { connect: { id: string } };
+	category: { connect: { id: string } };
 	constructor(id: string) {
-		this.SecondLevelCategory.connect.id = id;
+		this.category.connect.id = id;
 	}
 }
 
