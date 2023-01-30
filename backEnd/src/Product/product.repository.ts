@@ -258,11 +258,11 @@ export class ProductRepository implements IProductRepository {
 		setCategoryOnBrand: setBrandsOnCategory,
 	): Promise<SecondLevelCategory> {
 		const brands = setCategoryOnBrand.categories;
-		const setBrands: BrandForSecond[] = [];
+		const setBrands: SecondForBrand[] = [];
 		for (const brand of brands) {
 			setBrands.push(new SecondForBrand(brand));
 		}
-		const {name, firstLevelId, alias} = setBrandsOnCategory;
+		const { name } = setBrandsOnCategory;
 		return this.prismaService.client.secondLevelCategory.create({
 			data: {
 				name,
