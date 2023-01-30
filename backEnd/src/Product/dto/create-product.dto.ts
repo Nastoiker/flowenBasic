@@ -172,7 +172,7 @@ export interface brandOnSecondCategory {
 }
 export class BrandForSecond implements brandOnSecondCategory {
 	brand: { connect: { id: string } };
-	constructor(id: string) {
+	constructor( id : string) {
 		this.brand.connect.id = id;
 	}
 }

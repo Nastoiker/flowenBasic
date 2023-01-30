@@ -4,8 +4,11 @@ import {
 	ProductUpdate,
 	ModelCreate,
 	ModelDeviceDto,
-	BrandDevice
+	BrandDevice,
 } from './dto/create-product.dto';
+import {
+	setSecondCategoryOnBrand
+} from './dto/firstCategory.dto';
 import {
 	Brand,
 	FirstLevelCategory,
@@ -35,12 +38,7 @@ export interface IProductService {
 		oldPrice?: number | undefined;
 		TagId: string | undefined;
 	}>;
-	setBrandOnSecondCategory:(
-		name: string,
-		firstLevelId: string,
-		alias: string,
-		brands: string[],
-	) => Promise<SecondLevelCategory>;
+	setBrandOnSecondCategory: (setBrands: setSecondCategoryOnBrand) => Promise<SecondLevelCategory>;
 	getByFirstCategory: (firstCategory: string) => Promise<SecondLevelCategory[] | null>;
 	setSecondCategory: (
 		name: string,

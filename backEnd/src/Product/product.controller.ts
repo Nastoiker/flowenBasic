@@ -15,6 +15,7 @@ import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
+import { setSecondCategoryOnBrand } from './dto/firstCategory.dto';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -276,11 +277,11 @@ export class ProductController extends BaseController {
 		return res.status(200).type('json').send(category);
 	}
 	async setBrandOnSecondCategory(
-		{ body }: Request<{}, {}, string[]>,
+		{ body }: Request<{}, {}, setSecondCategoryOnBrand>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-		const category = await this.productService.setBrandOnSecondCategory();
+		const category = await this.productService.setBrandOnSecondCategory(body);
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}

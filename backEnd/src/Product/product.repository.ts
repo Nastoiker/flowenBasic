@@ -21,6 +21,7 @@ import {
 	Basket,
 } from '@prisma/client';
 import { IProductRepository } from './product.repository.interface';
+import {setSecondCategoryOnBrand} from "./dto/firstCategory.dto";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -232,22 +233,21 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	async setBrandOnSecondCategory(
-		name: string,
-		firstLevelId: string,
-		alias: string,
-		brands: string[],
+		setBrandsOnCategory: setSecondCategoryOnBrand,
 	): Promise<SecondLevelCategory> {
-		const brandss = [];
+		const brands = setBrandsOnCategory.categories;
+		const setBrands: BrandForSecond[] = [];
 		for (const brand of brands) {
-			brandss.push(new BrandForSecond(brand));
+			setBrands.push(new BrandForSecond(brand));
 		}
+		const { name, firstLevelId, alias } = setBrandsOnCategory;
 		return this.prismaService.client.secondLevelCategory.create({
 			data: {
 				name,
 				firstLevelId,
 				alias,
 				brands: {
-					create: [...brandss],
+					create: [...setBrands],
 				},
 			},
 		});

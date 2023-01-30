@@ -18,6 +18,7 @@ import sharp = require('sharp');
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { mkdir } from 'fs';
+import {setSecondCategoryOnBrand} from "./dto/firstCategory.dto";
 @injectable()
 export class ProductService implements IProductService {
 	constructor(@inject(TYPES.ProductRepository) private productRepository: ProductRepository) {}
@@ -137,11 +138,8 @@ export class ProductService implements IProductService {
 		return this.productRepository.getProductById(id);
 	}
 	async setBrandOnSecondCategory(
-		name: string,
-		firstLevelId: string,
-		alias: string,
-		brands: string[],
+		setBrandsOnCategory: setSecondCategoryOnBrand,
 	): Promise<SecondLevelCategory> {
-		return this.productRepository.setBrandOnSecondCategory(name, firstLevelId, alias, brands);
+		return this.productRepository.setBrandOnSecondCategory(setBrandsOnCategory);
 	}
 }
