@@ -1,4 +1,4 @@
-import {IsArray, IsBoolean, IsNumber, IsString} from 'class-validator';
+import { IsArray, IsBoolean, IsNumber, IsString } from 'class-validator';
 export class setSecondCategoryOnBrand {
 	@IsString()
 	name: string;
@@ -6,7 +6,14 @@ export class setSecondCategoryOnBrand {
 	firstLevelId: string;
 	@IsString()
 	alias: string;
-    @IsArray()
+	@IsArray()
 	@IsString()
-    categories: string[];
+	brands: string[];
+}
+export class setBrandsOnCategory {
+	@IsString()
+	name: string;
+	@IsArray()
+	@IsString()
+	categories: string[];
 }
