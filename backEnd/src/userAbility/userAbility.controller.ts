@@ -46,18 +46,30 @@ export class userAbility extends BaseController {
 			},
 		]);
 	}
-	async productBuyUser(req: Request, res: Response, next: NextFunction): Promise<void> {
+	async productBuyUser(
+		req: Request<{}, {}, { productId: string; title: string; comment: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
 		const writtenById = await this.userService.getUserInfo(req.user);
-		const productId = await this.productService.find(req.params['id'].slice(1));
-		const product = { ...req.body, writtenById: writtenById?.id, productId: productId?.id };
-		const result = await this.userAbilityService.setComment(product);
-		if (!result) {
-			next(new HTTPError(422, 'Ошибка создания коммента '));
+		const productId = await this.productService.find(req.body.productId);
+		if (!productId || !writtenById) {
+			next(new HTTPError(422, 'не найдены ids'));
+		} else {
+			const product = {
+				...req.body,
+				writtenById: writtenById.id,
+				modelDeviceId: productId.id,
+			};
+			const result = await this.userAbilityService.setComment(product);
+			if (!result) {
+				next(new HTTPError(422, 'Ошибка создания коммента '));
+			}
+			this.ok(res, { mes: 'Ваш комментарий оставлен' });
 		}
-		this.ok(res, { mes: 'Ваш комментарий оставлен' });
 	}
 	async addProductToBasket(
-		req: Request<{}, {}, { productId: string; quanity: number }>,
+		req: Request<{}, {}, { productId: string; quantity: number }>,
 		res: Response,
 		next: NextFunction,
 	) {
@@ -68,7 +80,7 @@ export class userAbility extends BaseController {
 			await this.userAbilityService.addBasket(
 				req.body.productId,
 				writtenById.id,
-				req.body.quanity,
+				req.body.quantity,
 			);
 		}
 	}

@@ -123,7 +123,7 @@ model Comment {
   id          String       @id @default(uuid())
   createdAt   DateTime  @default(now())
   title String
-  pictures String
+  pictures String?
   comment     String
   writtenById String
   modelDeviceId   String

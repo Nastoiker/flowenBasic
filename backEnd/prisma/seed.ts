@@ -19,20 +19,23 @@ const brand: Prisma.BrandCreateInput[] = [
 	},
 ];
 const tag: Prisma.TagCreateInput[] = [
+	// {
+	// 	name: 'Популярные',
+	// },
+	// {
+	// 	name: 'Дешевые',
+	// },
+	// {
+	// 	name: 'Беспроводные',
+	// },
+	// {
+	// 	name: 'Скидка',
+	// },
+	// {
+	// 	name: 'Новые',
+	// },
 	{
-		name: 'Популярные',
-	},
-	{
-		name: 'Дешевые',
-	},
-	{
-		name: 'Беспроводные',
-	},
-	{
-		name: 'Скидка',
-	},
-	{
-		name: 'Новые',
+		name: 'Флагманы',
 	},
 ];
 // const model: Prisma.ModelDeviceCreateInput[] = [
@@ -112,13 +115,13 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	// for (const u of tag) {
-	// 	const user = await prisma.tag.create({
-	// 		data: u,
-	// 	});
-	// 	console.log(`Created user with id: ${user.id}`);
-	// }
-	await prisma.secondLevelCategory.deleteMany({});
+	for (const u of tag) {
+		const user = await prisma.tag.create({
+			data: u,
+		});
+		console.log(`Created user with id: ${user.id}`);
+	}
+	// await prisma.secondLevelCategory.deleteMany({});
 	console.log(`Seeding finished.`);
 }
 
