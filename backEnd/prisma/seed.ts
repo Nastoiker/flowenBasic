@@ -112,12 +112,13 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	for (const u of tag) {
-		const user = await prisma.tag.create({
-			data: u,
-		});
-		console.log(`Created user with id: ${user.id}`);
-	}
+	// for (const u of tag) {
+	// 	const user = await prisma.tag.create({
+	// 		data: u,
+	// 	});
+	// 	console.log(`Created user with id: ${user.id}`);
+	// }
+	await prisma.secondLevelCategory.deleteMany({});
 	console.log(`Seeding finished.`);
 }
 

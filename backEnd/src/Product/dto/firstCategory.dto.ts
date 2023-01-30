@@ -8,7 +8,10 @@ export class setSecondCategoryOnBrand {
 	alias: string;
 	@IsArray()
 	@IsString()
-	brands: string[];
+	id: string[];
+}
+interface Connect {
+	id: string;
 }
 export class setBrandsOnCategory {
 	@IsString()

@@ -7,7 +7,13 @@ import {
 	Comment,
 	ModelDevice,
 } from '@prisma/client';
-import {BrandDevice, ModelDeviceDto, ProductCreate, ProductModel, ProductUpdate} from './dto/create-product.dto';
+import {
+	BrandDevice,
+	ModelDeviceDto,
+	ProductCreate,
+	ProductModel,
+	ProductUpdate,
+} from './dto/create-product.dto';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
@@ -18,7 +24,7 @@ import sharp = require('sharp');
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { mkdir } from 'fs';
-import {setBrandsOnCategory, setSecondCategoryOnBrand} from "./dto/firstCategory.dto";
+import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
 @injectable()
 export class ProductService implements IProductService {
 	constructor(@inject(TYPES.ProductRepository) private productRepository: ProductRepository) {}
@@ -147,7 +153,13 @@ export class ProductService implements IProductService {
 	async setCategoryOnBrand(setBrandsOnCategory: setBrandsOnCategory): Promise<Brand> {
 		return this.productRepository.setCategoryOnBrand(setBrandsOnCategory);
 	}
-	async getProductByBrandSecondCategory(secondLevelId: string, brandId: string): Promise<ModelDevice[] | null> {
+	async getProductByBrandSecondCategory(
+		secondLevelId: string,
+		brandId: string,
+	): Promise<ModelDevice[] | null> {
 		return this.productRepository.getProductByBrandSecondCategory(secondLevelId, brandId);
+	}
+	async getBrands(): Promise<Brand[]> {
+		return this.productRepository.getBrands();
 	}
 }

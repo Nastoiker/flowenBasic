@@ -173,16 +173,3 @@ export interface brandOnSecondCategory {
 export interface SecondCategoryOnbrand {
 	category: { connect: { id: string } };
 }
-export class BrandForSecond implements brandOnSecondCategory {
-	brand: { connect: { id: string } };
-	constructor(id: string) {
-		this.brand.connect.id = id;
-	}
-}
-export class SecondForBrand implements SecondCategoryOnbrand {
-	category: { connect: { id: string } };
-	constructor(id: string) {
-		this.category.connect.id = id;
-	}
-}
-

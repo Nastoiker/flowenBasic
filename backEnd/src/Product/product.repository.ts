@@ -3,13 +3,12 @@ import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
 import {
 	BrandDevice,
-	BrandForSecond,
 	brandOnSecondCategory,
 	Comment,
 	ModelDeviceDto,
 	ProductModel,
 	ProductUpdate,
-	Rating, SecondForBrand,
+	Rating, SecondCategoryOnbrand,
 } from './dto/create-product.dto';
 import {
 	Brand,
@@ -21,7 +20,7 @@ import {
 	Basket,
 } from '@prisma/client';
 import { IProductRepository } from './product.repository.interface';
-import {setBrandsOnCategory, setSecondCategoryOnBrand} from "./dto/firstCategory.dto";
+import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -192,7 +191,7 @@ export class ProductRepository implements IProductRepository {
 				Comment: true,
 			},
 		});
-	};
+	}
 	async setCommentProduct(comment: Comment): Promise<Comment> {
 		return this.prismaService.client.comment.create({
 			data: {
@@ -227,26 +226,27 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async getBrands(): Promise<Brand[]> {
+		return this.prismaService.client.brand.findMany();
+	}
 	async setRatingProduct(rating: Rating): Promise<Rating> {
 		return this.prismaService.client.rating.create({
 			data: rating,
 		});
 	}
 	//создание категории к брендам
-	async setBrandOnSecondCategory(
-		setBrandsOnCategory: setSecondCategoryOnBrand,
-	): Promise<SecondLevelCategory> {
-		const brands = setBrandsOnCategory.brands;
-		const setBrands: BrandForSecond[] = [];
+	async setBrandOnSecondCategory(setBrandsOnCategory: setSecondCategoryOnBrand) {
+		const brands = setBrandsOnCategory.id;
+		const setBrands: brandOnSecondCategory[] = [];
 		for (const brand of brands) {
-			setBrands.push(new BrandForSecond(brand));
+			setBrands.push({ brand: { connect: { id: brand } } });
 		}
 		const { name, firstLevelId, alias } = setBrandsOnCategory;
-		return this.prismaService.client.secondLevelCategory.create({
+		return await this.prismaService.client.secondLevelCategory.create({
 			data: {
 				name,
-				firstLevelId,
 				alias,
+				firstLevelId,
 				brands: {
 					create: [...setBrands],
 				},
@@ -254,13 +254,11 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	//создание брендов к категории
-	async setCategoryOnBrand(
-		setCategoryOnBrand: setBrandsOnCategory,
-	): Promise<Brand> {
+	async setCategoryOnBrand(setCategoryOnBrand: setBrandsOnCategory): Promise<Brand> {
 		const brands = setCategoryOnBrand.categories;
-		const setBrands: SecondForBrand[] = [];
+		const setBrands: SecondCategoryOnbrand[] = [];
 		for (const brand of brands) {
-			setBrands.push(new SecondForBrand(brand));
+			setBrands.push({ category: { connect: { id: brand } } });
 		}
 		const { name } = setBrandsOnCategory;
 		return this.prismaService.client.brand.create({
@@ -271,19 +269,19 @@ export class ProductRepository implements IProductRepository {
 				},
 			},
 		});
-	};
+	}
 	async getProductByBrandSecondCategory(secondCategoryId: string, brandId: string) {
 		return await this.prismaService.client.modelDevice.findMany({
 			where: {
 				secondCategoryId,
-				brandId
+				brandId,
 			},
 			include: {
 				brand: true,
 				Comment: true,
 			},
 		});
-	};
+	}
 }
 // constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
 // async create({

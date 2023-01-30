@@ -3,7 +3,7 @@ import { TYPES } from '../types';
 import { inject, injectable } from 'inversify';
 import { Ilogger } from '../logger/logger.interface';
 import { BaseController } from '../common/base.controller';
-import {Comment, ModelDeviceDto, ProductCreate, ProductUpdate} from './dto/create-product.dto';
+import { Comment, ModelDeviceDto, ProductCreate, ProductUpdate } from './dto/create-product.dto';
 import { IProductService } from './product.service.interface';
 import { NextFunction, Request, Response } from 'express';
 import { HTTPError } from '../errors/http-error';
@@ -15,7 +15,7 @@ import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
-import {setBrandsOnCategory, setSecondCategoryOnBrand} from './dto/firstCategory.dto';
+import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -133,6 +133,12 @@ export class ProductController extends BaseController {
 				path: '/getProductByBrandSecondCategory',
 				method: 'post',
 				func: this.getProductByBrandSecondCategory,
+				middlewares: [],
+			},
+			{
+				path: '/getBrands',
+				method: 'get',
+				func: this.getBrands,
 				middlewares: [],
 			},
 		]);
@@ -321,7 +327,7 @@ export class ProductController extends BaseController {
 		return res.status(200).type('json').send(brands);
 	}
 	async getProductByBrandSecondCategory(
-		{ body }: Request<{}, {}, {  secondLevelId: string; brandId: string }>,
+		{ body }: Request<{}, {}, { secondLevelId: string; brandId: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -333,5 +339,13 @@ export class ProductController extends BaseController {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
 		this.ok(res, { ...category });
+	}
+	async getBrands(
+		request: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const category = await this.productService.getBrands();
+		return res.status(200).type('json').send(category);
 	}
 }
