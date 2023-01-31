@@ -29,6 +29,9 @@ export class UserAbilityService {
 		return this.userRepository.find(user);
 	}
 	async setRatingProduct(rating: Rating): Promise<Rating | null> {
-		return this.productRepository.setRatingProduct(rating);
+		return this.productRepository.setRating(rating);
+	}
+	async deleteBasket(id: string): Promise<Basket | null> {
+		return this.productRepository.deleteProductToBasket(id);
 	}
 }

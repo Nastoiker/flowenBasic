@@ -33,6 +33,12 @@ export class userAbility extends BaseController {
 				middlewares: [new AuthGuard()],
 			},
 			{
+				path: '/deleteBasket',
+				method: 'post',
+				func: this.deleteProductToBasket,
+				middlewares: [new AuthGuard()],
+			},
+			{
 				path: '/getBasket',
 				method: 'get',
 				func: this.getBasketUser,
@@ -40,6 +46,12 @@ export class userAbility extends BaseController {
 			},
 			{
 				path: '/comment',
+				method: 'post',
+				func: this.setComment,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/setRating',
 				method: 'post',
 				func: this.setRatingProduct,
 				middlewares: [new AuthGuard()],
@@ -80,13 +92,53 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка создания коммента '));
+			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
 		} else {
 			await this.userAbilityService.addBasket(
 				req.body.productId,
 				writtenById.id,
 				req.body.quantity,
 			);
+		}
+	}
+	async deleteProductToBasket(
+		req: Request<{}, {}, { id: string }>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
+		} else {
+			await this.userAbilityService.deleteBasket(req.body.id);
+		}
+	}
+	async setComment(
+		req: Request<
+			{},
+			{},
+			{
+				comment: string;
+				writtenById: string;
+				modelDeviceId: string;
+				title: string;
+				pictures: string;
+			}
+		>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка создания коммента '));
+		} else {
+			await this.userAbilityService.setComment({
+				comment: req.body.comment,
+				modelDeviceId: req.body.modelDeviceId,
+				writtenById: writtenById.id,
+				title: req.body.title,
+				pictures: req.body.pictures,
+			});
 		}
 	}
 	async setRatingProduct(
@@ -96,7 +148,7 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка создания коммента '));
+			next(new HTTPError(422, 'Ошибка рейтинга '));
 		} else {
 			await this.userAbilityService.setRatingProduct({
 				modelDeviceId: req.body.productId,

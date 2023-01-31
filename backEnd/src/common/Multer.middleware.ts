@@ -14,7 +14,6 @@ export class MulterMiddleware implements IMiddleware {
 		// 	},
 		// }
 		const upload = multer({ storage }).single('files');
-
 		try {
 			upload(req, res, (err) => {
 				console.log('1' + req.file?.originalname);

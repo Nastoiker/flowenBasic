@@ -125,6 +125,13 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async deleteProductToBasket(id: string): Promise<Basket | null> {
+		return this.prismaService.client.basket.delete({
+			where: {
+				id,
+			},
+		});
+	}
 	async updateByIdPrice(id: string, price: number): Promise<Product | null> {
 		return this.prismaService.client.product.update({
 			where: {
@@ -230,7 +237,7 @@ export class ProductRepository implements IProductRepository {
 	async getBrands(): Promise<Brand[]> {
 		return this.prismaService.client.brand.findMany();
 	}
-	async setRatingProduct(rating: Rating): Promise<Rating> {
+	async setRating(rating: Rating): Promise<Rating> {
 		return this.prismaService.client.rating.create({
 			data: rating,
 		});
