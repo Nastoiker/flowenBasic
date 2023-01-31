@@ -150,7 +150,7 @@ export class Comment {
 	modelDeviceId: string;
 	@IsString()
 	@IsOptional()
-	pictures: string;
+	pictures: string | null;
 	@IsString()
 	title: string;
 }

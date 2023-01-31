@@ -47,7 +47,11 @@ export class userAbility extends BaseController {
 		]);
 	}
 	async productBuyUser(
-		req: Request<{}, {}, { productId: string; title: string; comment: string }>,
+		req: Request<
+			{},
+			{},
+			{ productId: string; title: string; comment: string; pictures: string }
+		>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -60,6 +64,7 @@ export class userAbility extends BaseController {
 				...req.body,
 				writtenById: writtenById.id,
 				modelDeviceId: productId.id,
+				pictures: req.body.pictures,
 			};
 			const result = await this.userAbilityService.setComment(product);
 			if (!result) {

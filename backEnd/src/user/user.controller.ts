@@ -16,6 +16,9 @@ import { IConfigService } from '../config/config.service.interface';
 import { AuthMiddleware } from '../common/auth.middleware';
 import { AuthGuard } from '../common/Auth.guard';
 import { OAuth2Client } from 'google-auth-library';
+import { MulterMiddleware } from '../common/Multer.middleware';
+import { MFile } from '../files/mfile.class';
+import { FileService } from '../files/file.service';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -23,6 +26,7 @@ export class UserController extends BaseController implements IUserController {
 		@inject(TYPES.LoggerService) private loggerService: Ilogger,
 		@inject(TYPES.UserService) private userService: UserService,
 		@inject(TYPES.ConfigService) private configService: IConfigService,
+		@inject(TYPES.FileService) private fileService: FileService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
@@ -49,6 +53,12 @@ export class UserController extends BaseController implements IUserController {
 				method: 'get',
 				func: this.profileInfo,
 				middlewares: [],
+			},
+			{
+				path: '/updateAvatar',
+				method: 'post',
+				func: this.updateAvatar,
+				middlewares: [new AuthGuard(), new MulterMiddleware()],
 			},
 		]);
 	}
@@ -125,5 +135,25 @@ export class UserController extends BaseController implements IUserController {
 				},
 			);
 		});
+	}
+	public async updateAvatar(request: Request, res: Response, next: NextFunction): Promise<void> {
+		const writtenById = await this.userService.getUserInfo(request.user);
+		if (request.file) {
+			if (!request.file.mimetype.includes('image')) {
+				return next(new HTTPError(401, 'Файл должен быть фотографией'));
+			}
+			const buffer = await this.fileService.convertToWebp(request.file.buffer);
+			const file = new MFile({
+				originalname: `${request.file.originalname.split('.')[0]}.webp`,
+				buffer,
+			});
+			const upload = await this.userService.saveAvatar(file, writtenById!.id);
+			if (!upload) {
+				return next(new HTTPError(401, 'Ошибка добавления аватара'));
+			}
+			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname });
+		} else {
+			return next(new HTTPError(401, 'Ошибка обновления аватара'));
+		}
 	}
 }

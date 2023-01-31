@@ -17,6 +17,16 @@ export class UserRepository implements IUserRepository {
 			},
 		});
 	}
+	async updateAvatar(avatar: string, id: string): Promise<UserModel> {
+		return this.prismaService.client.userModel.update({
+			where: {
+				id,
+			},
+			data: {
+				avatar,
+			},
+		});
+	}
 	async getBasketByUser(userId: string): Promise<Basket[] | null> {
 		return this.prismaService.client.basket.findMany({
 			where: {

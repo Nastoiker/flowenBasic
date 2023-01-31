@@ -19,7 +19,6 @@ import { TYPES } from '../types';
 import { ProductRepository } from './product.repository';
 import { writeFile, access, pathExistsSync } from 'fs-extra';
 import { path } from 'app-root-path';
-import sharp = require('sharp');
 
 import { MFile } from '../files/mfile.class';
 import { FileElementResponse } from '../files/dto/fileElement.response';
@@ -134,9 +133,7 @@ export class ProductService implements IProductService {
 		return res;
 	}
 
-	async convertToWebp(file: Buffer): Promise<Buffer> {
-		return sharp(file).webp().toBuffer();
-	}
+
 	async getCategory(): Promise<FirstLevelCategory[] | null> {
 		return this.productRepository.getCategory();
 	}

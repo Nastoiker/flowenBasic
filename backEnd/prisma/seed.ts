@@ -19,21 +19,21 @@ const brand: Prisma.BrandCreateInput[] = [
 	},
 ];
 const tag: Prisma.TagCreateInput[] = [
-	// {
-	// 	name: 'Популярные',
-	// },
-	// {
-	// 	name: 'Дешевые',
-	// },
-	// {
-	// 	name: 'Беспроводные',
-	// },
-	// {
-	// 	name: 'Скидка',
-	// },
-	// {
-	// 	name: 'Новые',
-	// },
+	{
+		name: 'Популярные',
+	},
+	{
+		name: 'Дешевые',
+	},
+	{
+		name: 'Беспроводные',
+	},
+	{
+		name: 'Скидка',
+	},
+	{
+		name: 'Новые',
+	},
 	{
 		name: 'Флагманы',
 	},
@@ -115,8 +115,8 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	for (const u of tag) {
-		const user = await prisma.tag.create({
+	for (const u of brand) {
+		const user = await prisma.brand.create({
 			data: u,
 		});
 		console.log(`Created user with id: ${user.id}`);

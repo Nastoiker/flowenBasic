@@ -5,4 +5,5 @@ export interface IUserRepository {
 	createUser: (user: User) => Promise<UserModel>;
 	findProfile: (login: string) => Promise<UserModel | null>;
 	getBasketByUser: (userId: string) => Promise<Basket[] | null>;
+	updateAvatar: (avatar: string, id: string) => Promise<UserModel>;
 }

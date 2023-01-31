@@ -7,6 +7,10 @@ import { IConfigService } from '../config/config.service.interface';
 import { TYPES } from '../types';
 import { IUserRepository } from './user.repository.interface';
 import { UserModel } from '@prisma/client';
+import {access, pathExistsSync, writeFile} from 'fs-extra';
+import { path } from 'app-root-path';
+import {MFile} from "../files/mfile.class";
+import {mkdir} from "fs";
 
 @injectable()
 export class UserService {
@@ -14,7 +18,6 @@ export class UserService {
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.UserRepository) private userRepository: IUserRepository,
 	) {}
-
 	public async validateUser({ email, password }: UserLoginDto): Promise<boolean> {
 		const validateUSer = await this.userRepository.find(email);
 		if (!validateUSer) {
@@ -40,7 +43,21 @@ export class UserService {
 	public async getUserInfo(user: string): Promise<UserModel | null> {
 		return this.userRepository.find(user);
 	}
-	public async getProfileInfo(login: string) {
+	public async saveAvatar(file: MFile, userId: string) {
+		if (!pathExistsSync(`${path}/uploads/user/avatar/${userId}`)) {
+			mkdir(`./uploads/user/avatar/${userId}`, (err) => {
+				// eslint-disable-next-line no-empty
+				if (err) {
+					return console.error(err);
+				}
+			});
+		}
+		await access(`${path}/uploads/user/avatar/${userId}`, (err) => {
+			writeFile(`${path}/uploads/user/avatar/${userId}/${file.originalname}`, file.buffer);
+		});
+		return this.userRepository.updateAvatar(file.originalname, userId);
+	}
+	async getProfileInfo(login: string) {
 		return await this.userRepository.findProfile(login).then((res) => {
 			if (res) {
 				const { hashpassword, email, ...profile } = res;

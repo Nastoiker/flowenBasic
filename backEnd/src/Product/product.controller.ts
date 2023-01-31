@@ -16,12 +16,14 @@ import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
 import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
+import {FileService} from "../files/file.service";
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.ProductService) private productService: IProductService,
 		@inject(TYPES.LoggerService) private loggerService: Ilogger,
+		@inject(TYPES.FileService) private fileService: FileService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
@@ -184,7 +186,7 @@ export class ProductController extends BaseController {
 		if (request.file) {
 			const savearray: MFile[] = [new MFile(request.file)];
 			if (request.file.mimetype.includes('image')) {
-				const buffer = await this.productService.convertToWebp(request.file.buffer);
+				const buffer = await this.fileService.convertToWebp(request.file.buffer);
 				savearray.push(
 					new MFile({
 						originalname: `${request.file.originalname.split('.')[0]}.webp`,

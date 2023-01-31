@@ -8,7 +8,8 @@ import {
 	ModelDeviceDto,
 	ProductModel,
 	ProductUpdate,
-	Rating, SecondCategoryOnbrand,
+	Rating,
+	SecondCategoryOnbrand,
 } from './dto/create-product.dto';
 import {
 	Brand,

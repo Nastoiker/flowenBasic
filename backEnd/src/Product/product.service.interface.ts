@@ -1,5 +1,4 @@
 import {
-	Comment,
 	ProductCreate,
 	ProductUpdate,
 	ModelCreate,
@@ -13,10 +12,10 @@ import {
 	ModelDevice,
 	Product,
 	SecondLevelCategory,
+	Comment,
 } from '@prisma/client';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MFile } from '../files/mfile.class';
-import sharp from 'sharp';
 
 export interface IProductService {
 	create: (product: ProductCreate) => Promise<Product | null>;
@@ -50,7 +49,6 @@ export interface IProductService {
 	getProductByBrandSecondCategory: (
 		secondLevelId: string,
 		brandId: string,
-	) => Promise<Model[] | null>;
+	) => Promise<ModelDevice[] | null>;
 	saveFile: (files: MFile[], productId: string) => Promise<FileElementResponse[] | null>;
-	convertToWebp: (file: Buffer) => Promise<Buffer>;
 }

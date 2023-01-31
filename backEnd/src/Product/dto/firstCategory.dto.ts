@@ -10,9 +10,7 @@ export class setSecondCategoryOnBrand {
 	@IsString()
 	id: string[];
 }
-interface Connect {
-	id: string;
-}
+
 export class setBrandsOnCategory {
 	@IsString()
 	name: string;

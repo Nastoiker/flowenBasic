@@ -23,6 +23,7 @@ import { IProductService } from './Product/product.service.interface';
 import { userAbility } from './userAbility/userAbility.controller';
 import { UserAbilityService } from './userAbility/userAbility.service';
 import { UserAbilityRepository } from './userAbility/userAbility.repository';
+import { FileService } from './files/file.service';
 
 const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<Ilogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -40,6 +41,7 @@ const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<UserAbilityRepository>(TYPES.UserAbilityRepository)
 		.to(UserAbilityRepository)
 		.inSingletonScope();
+	bind<FileService>(TYPES.FileService).to(FileService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
 

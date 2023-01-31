@@ -1,4 +1,8 @@
 import { injectable } from 'inversify';
-import * as sharp from 'sharp';
+import sharp = require('sharp');
 @injectable()
-export class FileService {}
+export class FileService {
+	async convertToWebp(file: Buffer): Promise<Buffer> {
+		return sharp(file).webp().toBuffer();
+	}
+}

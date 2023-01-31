@@ -112,7 +112,7 @@ CREATE TABLE "Comment" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "title" TEXT NOT NULL,
-    "pictures" TEXT NOT NULL,
+    "pictures" TEXT,
     "comment" TEXT NOT NULL,
     "writtenById" TEXT NOT NULL,
     "modelDeviceId" TEXT NOT NULL,
