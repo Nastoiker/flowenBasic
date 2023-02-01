@@ -156,6 +156,9 @@ export class ProductService implements IProductService {
 	): Promise<ModelDevice[] | null> {
 		return this.productRepository.getProductByBrandSecondCategory(secondLevelId, brandId);
 	}
+	async getBrandProductByCategory(secondLevelId: string, brandId: string): Promise<Brand> {
+		return this.getBrandProductByCategory(secondLevelId, brandId);
+	}
 	async getBrands(): Promise<Brand[]> {
 		return this.productRepository.getBrands();
 	}

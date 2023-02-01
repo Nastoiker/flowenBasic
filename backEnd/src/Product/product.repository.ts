@@ -125,13 +125,6 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async deleteProductToBasket(id: string): Promise<Basket | null> {
-		return this.prismaService.client.basket.delete({
-			where: {
-				id,
-			},
-		});
-	}
 	async updateByIdPrice(id: string, price: number): Promise<Product | null> {
 		return this.prismaService.client.product.update({
 			where: {
@@ -152,11 +145,7 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async createBrandProduct(brand: BrandDevice): Promise<Brand | null> {
-		return this.prismaService.client.brand.create({
-			data: { ...brand },
-		});
-	}
+
 	async findBrandByName(name: string): Promise<Brand | null> {
 		return this.prismaService.client.brand.findFirst({
 			where: {

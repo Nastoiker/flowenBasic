@@ -350,4 +350,12 @@ export class ProductController extends BaseController {
 		const category = await this.productService.getBrands();
 		return res.status(200).type('json').send(category);
 	}
+	async getBrandProductByCategory(
+		request: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const category = await this.productService.getBrands();
+		return res.status(200).type('json').send(category);
+	}
 }

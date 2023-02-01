@@ -9,6 +9,7 @@ import { HTTPError } from '../errors/http-error';
 import { UserService } from '../user/user.service';
 import { UserAbilityService } from './userAbility.service';
 import { AuthGuard } from '../common/Auth.guard';
+import {updateProductToBasketDto} from "./dto/update.basket";
 @injectable()
 export class userAbility extends BaseController {
 	constructor(
@@ -54,6 +55,12 @@ export class userAbility extends BaseController {
 				path: '/setRating',
 				method: 'post',
 				func: this.setRatingProduct,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/updateRating',
+				method: 'post',
+				func: this.updateProductToBasket,
 				middlewares: [new AuthGuard()],
 			},
 		]);
@@ -155,6 +162,18 @@ export class userAbility extends BaseController {
 				writtenById: writtenById.id,
 				number: req.body.quanity,
 			});
+		}
+	}
+	async updateProductToBasket(
+		req: Request<{}, {}, updateProductToBasketDto>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка получения корзины '));
+		} else {
+			await this.userAbilityService.updateProductToBasket(req.body);
 		}
 	}
 	async getBasketUser(req: Request, res: Response, next: NextFunction) {

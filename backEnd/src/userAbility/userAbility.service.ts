@@ -6,6 +6,7 @@ import { IUserRepository } from '../user/user.repository.interface';
 import { ProductRepository } from '../Product/product.repository';
 import { UserAbilityRepository } from './userAbility.repository';
 import { UserModel, Basket } from '@prisma/client';
+import {updateProductToBasketDto} from "./dto/update.basket";
 @injectable()
 export class UserAbilityService {
 	constructor(
@@ -32,6 +33,9 @@ export class UserAbilityService {
 		return this.productRepository.setRating(rating);
 	}
 	async deleteBasket(id: string): Promise<Basket | null> {
-		return this.productRepository.deleteProductToBasket(id);
+		return this.userAbilityServiceRepository.deleteProductToBasket(id);
+	}
+	async updateProductToBasket(basket: updateProductToBasketDto): Promise<Basket | null> {
+		return this.userAbilityServiceRepository.updateProductToBasket(basket);
 	}
 }

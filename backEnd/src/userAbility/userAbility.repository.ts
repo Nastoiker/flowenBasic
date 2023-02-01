@@ -4,6 +4,7 @@ import { TYPES } from '../types';
 import { PrismaService } from '../database/prisma.service';
 import { Comment } from '../Product/dto/create-product.dto';
 import { Basket } from '@prisma/client';
+import {updateProductToBasketDto} from "./dto/update.basket";
 @injectable()
 export class UserAbilityRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
@@ -15,6 +16,28 @@ export class UserAbilityRepository {
 			include: {
 				model: true,
 				writtenBy: true,
+			},
+		});
+	}
+	async deleteProductToBasket(id: string): Promise<Basket | null> {
+		return this.prismaService.client.basket.delete({
+			where: {
+				id,
+			},
+		});
+	}
+	async updateProductToBasket({
+		id,
+		buying,
+		quantity,
+	}: updateProductToBasketDto): Promise<Basket | null> {
+		return this.prismaService.client.basket.update({
+			where: {
+				id,
+			},
+			data: {
+				buying,
+				quantity,
 			},
 		});
 	}
