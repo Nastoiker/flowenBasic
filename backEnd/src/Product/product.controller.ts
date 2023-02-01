@@ -143,6 +143,12 @@ export class ProductController extends BaseController {
 				func: this.getBrands,
 				middlewares: [],
 			},
+			{
+				path: '/getBrandProductByCategory',
+				method: 'post',
+				func: this.getBrandProductByCategory,
+				middlewares: [],
+			},
 		]);
 	}
 	async create(
@@ -198,9 +204,9 @@ export class ProductController extends BaseController {
 			}
 			const upload = await this.productService.saveFile(savearray, request.body.productId);
 			if (!upload) {
-				return next(new HTTPError(401, 'Ошибка добавления фотографии'));
+				return next(new HTTPError(401, 'Ошибка сохранения фотографии'));
 			}
-			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname });
+			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname, product: upload });
 		} else {
 			return next(new HTTPError(401, 'Ошибка добавления фотографии'));
 		}
@@ -340,7 +346,7 @@ export class ProductController extends BaseController {
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
-		this.ok(res, { ...category });
+		this.ok(res, { category });
 	}
 	async getBrands(
 		request: Request,
@@ -351,11 +357,14 @@ export class ProductController extends BaseController {
 		return res.status(200).type('json').send(category);
 	}
 	async getBrandProductByCategory(
-		request: Request,
+		{ body }: Request<{}, {}, { secondLevelId: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-		const category = await this.productService.getBrands();
+		const category = await this.productService.getBrandProductByCategory(body.secondLevelId);
+		if (!category || category.length === 0) {
+			return next(new HTTPError(404, 'Неизвестная категория'));
+		}
 		return res.status(200).type('json').send(category);
 	}
 }

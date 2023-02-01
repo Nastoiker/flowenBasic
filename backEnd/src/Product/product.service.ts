@@ -83,8 +83,8 @@ export class ProductService implements IProductService {
 	): Promise<SecondLevelCategory | null> {
 		return this.productRepository.setSecondCategory(name, firstLevelId, alias);
 	}
-	async saveFile(files: MFile[], productId: string): Promise<FileElementResponse[] | null> {
-		const product = await this.getById(productId);
+	async saveFile(files: MFile[], productId: string): Promise<Product | null> {
+		const product = await this.productRepository.getProductById(productId);
 		if (!product) {
 			return null;
 		}
@@ -93,19 +93,30 @@ export class ProductService implements IProductService {
 		const brandId = product['brand']['name'];
 		// @ts-ignore
 		const modelDeviceId = product['modelDevice']['name'];
+		let image = product.image;
+		if (!image) {
+			image = '';
+		}
 		const name = product.name;
 		if (!pathExistsSync(`./uploads/product/${brandId}`)) {
 			mkdir(`./uploads/product/${brandId}`, (err) => {
 				// eslint-disable-next-line no-empty
 				if (err) {
-					return console.error(err);
+					console.error(err);
 				}
 			});
 		}
 		if (!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}`)) {
 			mkdir(`./uploads/product/${brandId}/${modelDeviceId}`, (err) => {
 				if (err) {
-					return console.error(err);
+					console.error(err);
+				}
+			});
+		}
+		if (!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}/${product.Color}`)) {
+			mkdir(`./uploads/product/${brandId}/${modelDeviceId}/${product.Color}`, (err) => {
+				if (err) {
+					console.error(err);
 				}
 			});
 		}
@@ -113,32 +124,32 @@ export class ProductService implements IProductService {
 		const res: FileElementResponse[] = [];
 		let images = '';
 		for (const file of files) {
-			await access(`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`, (err) => {
-				writeFile(
-					`${upload}/${brandId}/${modelDeviceId}/${file.originalname}`,
-					file.buffer,
-				);
-			});
+			await access(
+				`${upload}/${brandId}/${modelDeviceId}/${product.Color}/${file.originalname}`,
+				(err) => {
+					writeFile(
+						`${upload}/${brandId}/${modelDeviceId}/${product.Color}/${file.originalname}`,
+						file.buffer,
+					);
+				},
+			);
 			res.push({
-				url: `${upload}/${brandId}/${modelDeviceId}/${name}`,
+				url: `${upload}/${brandId}/${modelDeviceId}/${product.Color}/${name}`,
 				name: file.originalname,
 			});
 			if (images.length > 0) {
-				images.concat(`/${file.originalname}`);
+				images.concat(`/${file.originalname.split('.')[0]}.webp`);
 			} else {
-				images = file.originalname;
+				images = `${file.originalname.split('.')[0]}.webp`;
 			}
 		}
-		await this.productRepository.updateByIdPhoto(productId, images);
-		return res;
+		return await this.productRepository.updateByIdPhoto(productId, images + ',' + image);
 	}
-
-
 	async getCategory(): Promise<FirstLevelCategory[] | null> {
 		return this.productRepository.getCategory();
 	}
 	async getById(id: string): Promise<Product | null> {
-		return this.productRepository.getProductById(id);
+		return await this.productRepository.getProductById(id);
 	}
 	//создание категории к брендам
 	async setBrandOnSecondCategory(
@@ -156,8 +167,8 @@ export class ProductService implements IProductService {
 	): Promise<ModelDevice[] | null> {
 		return this.productRepository.getProductByBrandSecondCategory(secondLevelId, brandId);
 	}
-	async getBrandProductByCategory(secondLevelId: string, brandId: string): Promise<Brand> {
-		return this.getBrandProductByCategory(secondLevelId, brandId);
+	async getBrandProductByCategory(secondLevelId: string): Promise<Brand[]> {
+		return this.productRepository.getBrandProductByCategory(secondLevelId);
 	}
 	async getBrands(): Promise<Brand[]> {
 		return this.productRepository.getBrands();

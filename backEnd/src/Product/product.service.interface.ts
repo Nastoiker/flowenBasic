@@ -50,5 +50,6 @@ export interface IProductService {
 		secondLevelId: string,
 		brandId: string,
 	) => Promise<ModelDevice[] | null>;
-	saveFile: (files: MFile[], productId: string) => Promise<FileElementResponse[] | null>;
+	saveFile: (files: MFile[], productId: string) => Promise<Product | null>;
+	getBrandProductByCategory: (secondLevelId: string) => Promise<Brand[]>;
 }

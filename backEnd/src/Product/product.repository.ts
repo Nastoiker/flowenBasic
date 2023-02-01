@@ -56,7 +56,7 @@ export class ProductRepository implements IProductRepository {
 		});
 	}
 	async getProductById(id: string): Promise<Product | null> {
-		return this.prismaService.client.product.findFirst({
+		return await this.prismaService.client.product.findFirst({
 			where: {
 				id,
 			},
@@ -87,13 +87,14 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async getBrandProductByCategory(id: string, categoryId: string) {
-		return this.prismaService.client.secondLevelCategory.findMany({
+	async getBrandProductByCategory(categoryId: string) {
+		return this.prismaService.client.brand.findMany({
 			where: {
-				brands: {
+				secondLevelCategory: {
 					some: {
-						brand: {
+						category: {
 							id: categoryId,
+							// alias: 'smartphones',
 						},
 					},
 				},
