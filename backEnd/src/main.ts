@@ -24,6 +24,9 @@ import { userAbility } from './userAbility/userAbility.controller';
 import { UserAbilityService } from './userAbility/userAbility.service';
 import { UserAbilityRepository } from './userAbility/userAbility.repository';
 import { FileService } from './files/file.service';
+import { AdminService } from './adminAbility/admin.service';
+import { AdminRepository } from './adminAbility/admin.repository';
+import { AdminController } from './adminAbility/admin.controller';
 
 const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<Ilogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -42,6 +45,9 @@ const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 		.to(UserAbilityRepository)
 		.inSingletonScope();
 	bind<FileService>(TYPES.FileService).to(FileService).inSingletonScope();
+	bind<AdminService>(TYPES.AdminService).to(AdminService).inSingletonScope();
+	bind<AdminRepository>(TYPES.AdminRepository).to(AdminRepository).inSingletonScope();
+	bind<AdminController>(TYPES.AdminController).to(AdminController).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
 

@@ -173,4 +173,7 @@ export class ProductService implements IProductService {
 	async getBrands(): Promise<Brand[]> {
 		return this.productRepository.getBrands();
 	}
+	async getProductsDiscount(): Promise<Product[]> {
+		return this.productRepository.getProductsDiscount();
+	}
 }

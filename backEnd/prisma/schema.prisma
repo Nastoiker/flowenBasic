@@ -74,8 +74,8 @@ model Basket {
 model Product {
   id                  String         @id @default(uuid())
   brand               Brand       @relation("BrandDevices", fields: [brandId], references: [id])
-  modelDevice         ModelDevice @relation( fields: [modelDeviceId], references: [id])
-  Tag   Tag   @relation("TagProduct", fields: [TagId], references: [id], onUpdate: NoAction)
+  modelDevice         ModelDevice @relation("ModelByProduct",fields: [modelDeviceId], references: [id], onDelete: Cascade)
+  tag   Tag   @relation("TagProduct", fields: [TagId], references: [id], onUpdate: NoAction)
   name                String @unique
   price               Int
   oldPrice            Int?
@@ -86,7 +86,7 @@ model Product {
   image String?
   Memory Int?
   Ram Int?
-  modelDeviceId       String @unique
+  modelDeviceId       String
   quantity            Int @default(0)
   basket Basket[] @relation("ProductBought")
 }
@@ -110,7 +110,7 @@ model BrandOnSecondCategory {
 model ModelDevice {
   id      String       @id @default(uuid())
   name    String
-  product Product[]
+  product Product[] @relation("ModelByProduct")
   secondCategoryId String
   brandId String
   secondCategory SecondLevelCategory @relation("ModelDevice", fields: [secondCategoryId], references: [id], onUpdate: NoAction)
@@ -139,9 +139,10 @@ model Rating {
     writtenBy   UserModel @relation("RatingWritenBy", fields: [writtenById], references: [id])
     model     ModelDevice   @relation("RatingProduct", fields: [modelDeviceId], references: [id], onUpdate: NoAction)
 }
+
 model Tag {
   id      String       @id @default(uuid())
   name     String    @unique
-  Product   Product[] @relation("TagProduct")
+  product   Product[] @relation("TagProduct")
 }
 

@@ -9,7 +9,7 @@ import { HTTPError } from '../errors/http-error';
 import { UserService } from '../user/user.service';
 import { UserAbilityService } from './userAbility.service';
 import { AuthGuard } from '../common/Auth.guard';
-import {updateProductToBasketDto} from "./dto/update.basket";
+import { updateProductToBasketDto } from './dto/update.basket';
 @injectable()
 export class userAbility extends BaseController {
 	constructor(

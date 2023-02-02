@@ -7,10 +7,10 @@ import { IConfigService } from '../config/config.service.interface';
 import { TYPES } from '../types';
 import { IUserRepository } from './user.repository.interface';
 import { UserModel } from '@prisma/client';
-import {access, pathExistsSync, writeFile} from 'fs-extra';
+import { access, pathExistsSync, writeFile } from 'fs-extra';
 import { path } from 'app-root-path';
-import {MFile} from "../files/mfile.class";
-import {mkdir} from "fs";
+import { MFile } from '../files/mfile.class';
+import { mkdir } from 'fs';
 
 @injectable()
 export class UserService {

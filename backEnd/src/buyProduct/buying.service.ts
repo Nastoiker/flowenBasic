@@ -1,3 +1,1 @@
-export class BuyingService {
-
-}
+export class BuyingService {}

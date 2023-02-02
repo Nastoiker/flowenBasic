@@ -6,7 +6,7 @@ import { IUserRepository } from '../user/user.repository.interface';
 import { ProductRepository } from '../Product/product.repository';
 import { UserAbilityRepository } from './userAbility.repository';
 import { UserModel, Basket } from '@prisma/client';
-import {updateProductToBasketDto} from "./dto/update.basket";
+import { updateProductToBasketDto } from './dto/update.basket';
 @injectable()
 export class UserAbilityService {
 	constructor(

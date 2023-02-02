@@ -16,7 +16,7 @@ import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
 import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
-import {FileService} from "../files/file.service";
+import { FileService } from '../files/file.service';
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -149,6 +149,12 @@ export class ProductController extends BaseController {
 				func: this.getBrandProductByCategory,
 				middlewares: [],
 			},
+			{
+				path: '/getProductsDiscount',
+				method: 'get',
+				func: this.getProductsDiscount,
+				middlewares: [],
+			},
 		]);
 	}
 	async create(
@@ -206,7 +212,11 @@ export class ProductController extends BaseController {
 			if (!upload) {
 				return next(new HTTPError(401, 'Ошибка сохранения фотографии'));
 			}
-			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname, product: upload });
+			this.ok(res, {
+				mess: 'фото было обновлено с id',
+				id: request.file.originalname,
+				product: upload,
+			});
 		} else {
 			return next(new HTTPError(401, 'Ошибка добавления фотографии'));
 		}
@@ -366,5 +376,13 @@ export class ProductController extends BaseController {
 			return next(new HTTPError(404, 'Неизвестная категория'));
 		}
 		return res.status(200).type('json').send(category);
+	}
+	async getProductsDiscount(
+		request: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const product = await this.productService.getProductsDiscount();
+		return res.status(200).type('json').send(product);
 	}
 }

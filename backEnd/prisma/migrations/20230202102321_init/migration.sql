@@ -147,7 +147,4 @@ CREATE UNIQUE INDEX "SecondLevelCategory_name_key" ON "SecondLevelCategory"("nam
 CREATE UNIQUE INDEX "Product_name_key" ON "Product"("name");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Product_modelDeviceId_key" ON "Product"("modelDeviceId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "Tag_name_key" ON "Tag"("name");

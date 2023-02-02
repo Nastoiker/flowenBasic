@@ -178,7 +178,7 @@ export class ProductRepository implements IProductRepository {
 				name,
 			},
 			include: {
-				Product: true,
+				product: true,
 			},
 		});
 	}
@@ -277,6 +277,17 @@ export class ProductRepository implements IProductRepository {
 			include: {
 				brand: true,
 				Comment: true,
+			},
+		});
+	}
+	async getProductsDiscount(): Promise<Product[]> {
+		return this.prismaService.client.product.findMany({
+			where: {
+				NOT: [
+					{
+						oldPrice: null,
+					},
+				],
 			},
 		});
 	}

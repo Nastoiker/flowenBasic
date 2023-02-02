@@ -18,4 +18,7 @@ export const TYPES = {
 	BuyProductController: Symbol.for('BuyProductController'),
 	BuyProductService: Symbol.for('BuyProductService'),
 	BuyProductRepository: Symbol.for('BuyProductRepository'),
+	AdminController: Symbol.for('AdminController'),
+	AdminService: Symbol.for('AdminService'),
+	AdminRepository: Symbol.for('AdminRepository'),
 };

@@ -4,7 +4,7 @@ import { TYPES } from '../types';
 import { PrismaService } from '../database/prisma.service';
 import { Comment } from '../Product/dto/create-product.dto';
 import { Basket } from '@prisma/client';
-import {updateProductToBasketDto} from "./dto/update.basket";
+import { updateProductToBasketDto } from './dto/update.basket';
 @injectable()
 export class UserAbilityRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}

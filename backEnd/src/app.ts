@@ -17,6 +17,9 @@ import { UserAbilityRepository } from './userAbility/userAbility.repository';
 import { userAbility } from './userAbility/userAbility.controller';
 import cors from 'cors';
 import multer from 'multer';
+import { AdminController } from './adminAbility/admin.controller';
+import { AdminService } from './adminAbility/admin.service';
+import { AdminRepository } from './adminAbility/admin.repository';
 @injectable()
 export class App {
 	server!: Server;
@@ -33,6 +36,10 @@ export class App {
 		@inject(TYPES.ProductController) private productController: ProductController,
 		@inject(TYPES.UserAbilityRepository) private userAbilityRepository: UserAbilityRepository,
 		@inject(TYPES.userAbility) private UserAbility: userAbility,
+
+		@inject(TYPES.AdminController) private adminController: AdminController,
+		@inject(TYPES.AdminService) private adminService: AdminService,
+		@inject(TYPES.AdminRepository) private adminRepository: AdminRepository,
 	) {
 		this.app = express();
 		this.port = 8000;
@@ -52,6 +59,7 @@ export class App {
 		this.app.use('/users', this.userController.router);
 		this.app.use('/product', this.productController.router);
 		this.app.use('/product', this.UserAbility.router);
+		this.app.use('/admin', this.adminController.router);
 	}
 	public async init(): Promise<void> {
 		this.useMiddleWares();
