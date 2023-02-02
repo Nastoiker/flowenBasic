@@ -58,7 +58,7 @@ export class userAbility extends BaseController {
 				middlewares: [new AuthGuard()],
 			},
 			{
-				path: '/updateRating',
+				path: '/updateBasket',
 				method: 'post',
 				func: this.updateProductToBasket,
 				middlewares: [new AuthGuard()],
@@ -157,11 +157,12 @@ export class userAbility extends BaseController {
 		if (!writtenById) {
 			next(new HTTPError(422, 'Ошибка рейтинга '));
 		} else {
-			await this.userAbilityService.setRatingProduct({
+			const basket = await this.userAbilityService.setRatingProduct({
 				modelDeviceId: req.body.productId,
 				writtenById: writtenById.id,
 				number: req.body.quanity,
 			});
+			this.ok(res, { basket });
 		}
 	}
 	async updateProductToBasket(
@@ -173,15 +174,17 @@ export class userAbility extends BaseController {
 		if (!writtenById) {
 			next(new HTTPError(422, 'Ошибка получения корзины '));
 		} else {
-			await this.userAbilityService.updateProductToBasket(req.body);
+			const update = await this.userAbilityService.updateProductToBasket(req.body);
+			this.ok(res, { update });
 		}
 	}
 	async getBasketUser(req: Request, res: Response, next: NextFunction) {
-		const writtenById = await this.userService.getUserInfo(req.user);
-		if (!writtenById) {
+		const userId = await this.userService.getUserInfo(req.user);
+		if (!userId) {
 			next(new HTTPError(422, 'Ошибка получения корзины '));
 		} else {
-			await this.userAbilityService.getBasketUser(writtenById.id);
+			const basket = await this.userAbilityService.getBasketUser(userId.id);
+			this.ok(res, { basket });
 		}
 	}
 }

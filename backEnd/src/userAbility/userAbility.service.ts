@@ -13,7 +13,7 @@ export class UserAbilityService {
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.UserRepository) private userRepository: IUserRepository,
 		@inject(TYPES.ProductRepository) private productRepository: ProductRepository,
-		@inject(TYPES.ProductRepository)
+		@inject(TYPES.UserAbilityRepository)
 		private userAbilityServiceRepository: UserAbilityRepository,
 	) {}
 
