@@ -187,6 +187,7 @@ export class ProductRepository implements IProductRepository {
 			include: {
 				brand: true,
 				Comment: true,
+				product: true,
 			},
 		});
 	}
