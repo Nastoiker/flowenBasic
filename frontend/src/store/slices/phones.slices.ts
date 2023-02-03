@@ -1,4 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {ProductState} from "../product.slice";
+import {ProductModel} from "../../../interfaces/product.interfaces";
 interface Phone {
     userId: number;
     id:     number;
@@ -6,7 +8,7 @@ interface Phone {
     body:   string;
 }
 interface StatePhones {
-    phones: Phone[];
+    phones: ProductModel[];
     isLoading: boolean;
 }
 const initialState:StatePhones = {
