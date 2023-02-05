@@ -5,7 +5,8 @@ CREATE TABLE "UserModel" (
     "login" TEXT NOT NULL,
     "phone" TEXT,
     "hashpassword" TEXT NOT NULL,
-    "avatar" TEXT
+    "avatar" TEXT,
+    "isActive" BOOLEAN NOT NULL
 );
 
 -- CreateTable
@@ -77,7 +78,7 @@ CREATE TABLE "Product" (
     "modelDeviceId" TEXT NOT NULL,
     "quantity" INTEGER NOT NULL DEFAULT 0,
     CONSTRAINT "Product_brandId_fkey" FOREIGN KEY ("brandId") REFERENCES "Brand" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
-    CONSTRAINT "Product_modelDeviceId_fkey" FOREIGN KEY ("modelDeviceId") REFERENCES "ModelDevice" ("id") ON DELETE RESTRICT ON UPDATE CASCADE,
+    CONSTRAINT "Product_modelDeviceId_fkey" FOREIGN KEY ("modelDeviceId") REFERENCES "ModelDevice" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT "Product_TagId_fkey" FOREIGN KEY ("TagId") REFERENCES "Tag" ("id") ON DELETE RESTRICT ON UPDATE NO ACTION
 );
 

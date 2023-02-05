@@ -6,4 +6,6 @@ export interface IUserRepository {
 	findProfile: (login: string) => Promise<UserModel | null>;
 	getBasketByUser: (userId: string) => Promise<Basket[] | null>;
 	updateAvatar: (avatar: string, id: string) => Promise<UserModel>;
+	checkActiveUser: (id: string) => Promise<UserModel | null>;
+	verifyEmail: (id: string) => Promise<UserModel | null>;
 }

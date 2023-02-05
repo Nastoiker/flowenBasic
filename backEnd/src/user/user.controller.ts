@@ -19,6 +19,8 @@ import { OAuth2Client } from 'google-auth-library';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
+import {MailService} from "../Mail/Mail.service";
+import {UserModel} from "@prisma/client";
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -27,6 +29,7 @@ export class UserController extends BaseController implements IUserController {
 		@inject(TYPES.UserService) private userService: UserService,
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.FileService) private fileService: FileService,
+		@inject(TYPES.MailService) private emailService: MailService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
@@ -35,6 +38,12 @@ export class UserController extends BaseController implements IUserController {
 				method: 'post',
 				func: this.register,
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
+			},
+			{
+				path: '/verify:id',
+				method: 'get',
+				func: this.verifyEmail,
+				middlewares: [],
 			},
 			{
 				path: '/login',
@@ -70,8 +79,14 @@ export class UserController extends BaseController implements IUserController {
 		const result = await this.userService.createUser(body);
 		if (!result) {
 			next(new HTTPError(422, 'Ошибка создания пользователя '));
+		} else {
+			this.ok(res, { email: result?.email, id: result?.id });
+			await this.emailService.sendActivateEmail(result?.email, result.id);
 		}
-		this.ok(res, { email: result?.email, id: result?.id });
+	}
+	async verifyEmail(request: Request, res: Response, next: NextFunction) {
+		const getInfoProfile = await this.userService.verifyEmail(request.params['id'].slice(1));
+		this.ok(res, { ...getInfoProfile });
 	}
 	async loginByGoogle(
 		{ body }: Request<{}, {}, { CLIENT_ID: string; token: string }>,
@@ -100,6 +115,11 @@ export class UserController extends BaseController implements IUserController {
 		const checkDbUser = await this.userService.validateUser(body);
 		if (!checkDbUser) {
 			return next(new HTTPError(401, 'ошибка авторизации', 'login'));
+		}
+		const userModel = (await this.userService.getUserInfo(body.email)) as UserModel;
+		if (!userModel.isActive) {
+			await this.emailService.sendActivateEmail(userModel.email, userModel.id);
+			return next(new HTTPError(401, 'подтвердите почту', 'login'));
 		}
 		const jwt = await this.jwtSign(body.email, this.configService.get('SECRET'));
 		this.ok(res, { jwt });
@@ -156,4 +176,5 @@ export class UserController extends BaseController implements IUserController {
 			return next(new HTTPError(401, 'Ошибка обновления аватара'));
 		}
 	}
+
 }

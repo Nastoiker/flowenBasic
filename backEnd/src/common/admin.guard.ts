@@ -1,6 +1,9 @@
 import { IMiddleware } from './middlewares.interface';
 import { NextFunction, Request, Response } from 'express';
 import { config, DotenvConfigOutput, DotenvParseOutput } from 'dotenv';
+import { inject } from 'inversify';
+import { TYPES } from '../types';
+import { IConfigService } from '../config/config.service.interface';
 
 export class AdminGuard implements IMiddleware {
 	private _config: DotenvParseOutput;

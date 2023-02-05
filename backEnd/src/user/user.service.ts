@@ -65,4 +65,7 @@ export class UserService {
 			}
 		});
 	}
+	async verifyEmail(id: string): Promise<UserModel | null> {
+		return await this.userRepository.verifyEmail(id);
+	}
 }

@@ -11,6 +11,7 @@ export class UserRepository implements IUserRepository {
 	async createUser({ email, login, hashpassword }: User): Promise<UserModel> {
 		return this.prismaService.client.userModel.create({
 			data: {
+				isActive: false,
 				email,
 				login,
 				hashpassword,
@@ -56,5 +57,26 @@ export class UserRepository implements IUserRepository {
 				Comment: true,
 			},
 		});
+	}
+	async checkActiveUser(id: string): Promise<UserModel | null> {
+		return this.prismaService.client.userModel.findFirst({
+			where: {
+				id: id,
+				isActive: true,
+			},
+		});
+	}
+	async verifyEmail(id: string): Promise<UserModel | null> {
+		const checkActive = await this.checkActiveUser(id);
+		if (checkActive) {
+			return null;
+		} else {
+			return this.prismaService.client.userModel.update({
+				where: { id },
+				data: {
+					isActive: true,
+				},
+			});
+		}
 	}
 }

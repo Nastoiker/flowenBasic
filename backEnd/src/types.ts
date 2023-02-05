@@ -1,3 +1,5 @@
+import {MailService} from "./Mail/Mail.service";
+
 export const TYPES = {
 	Application: Symbol.for('Application'),
 	UserService: Symbol.for('UserService'),
@@ -21,4 +23,5 @@ export const TYPES = {
 	AdminController: Symbol.for('AdminController'),
 	AdminService: Symbol.for('AdminService'),
 	AdminRepository: Symbol.for('AdminRepository'),
+	MailService: Symbol.for('MailService'),
 };

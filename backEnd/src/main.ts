@@ -27,6 +27,7 @@ import { FileService } from './files/file.service';
 import { AdminService } from './adminAbility/admin.service';
 import { AdminRepository } from './adminAbility/admin.repository';
 import { AdminController } from './adminAbility/admin.controller';
+import { MailService } from './Mail/Mail.service';
 
 const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<Ilogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -48,6 +49,7 @@ const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<AdminService>(TYPES.AdminService).to(AdminService).inSingletonScope();
 	bind<AdminRepository>(TYPES.AdminRepository).to(AdminRepository).inSingletonScope();
 	bind<AdminController>(TYPES.AdminController).to(AdminController).inSingletonScope();
+	bind<MailService>(TYPES.MailService).to(MailService).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
 

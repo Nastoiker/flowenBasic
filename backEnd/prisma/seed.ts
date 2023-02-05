@@ -115,12 +115,18 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	for (const u of brand) {
-		const user = await prisma.brand.create({
-			data: u,
-		});
-		console.log(`Created user with id: ${user.id}`);
-	}
+	// for (const u of brand) {
+	// 	const user = await prisma.brand.create({
+	// 		data: u,
+	// 	});
+	// 	console.log(`Created user with id: ${user.id}`);
+	// }
+	// await prisma.userModel.update({
+	// 	where: { id: 'c2041df3-c82b-409b-be80-797bdd5618b2' },
+	// 	data: {
+	// 		isActive: false,
+	// 	},
+	// });
 	// await prisma.secondLevelCategory.deleteMany({});
 	console.log(`Seeding finished.`);
 }
