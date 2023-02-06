@@ -9,7 +9,7 @@ import { UserAbilityService } from '../userAbility/userAbility.service';
 import { AuthGuard } from '../common/Auth.guard';
 
 @injectable()
-export class userAbility extends BaseController {
+export class buying extends BaseController {
 	constructor(
 		@inject(TYPES.ConfigService) private configService: IConfigService,
 		@inject(TYPES.ProductService) private productService: IProductService,
@@ -20,7 +20,7 @@ export class userAbility extends BaseController {
 		super(loggerService);
 		this.bindRoutes([
 			{
-				path: '/info:id',
+				path: '/buy:id',
 				method: 'post',
 				func: this.buyingProduct,
 				middlewares: [new AuthGuard()],

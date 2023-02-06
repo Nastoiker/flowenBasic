@@ -49,7 +49,16 @@ model SecondLevelCategory {
    brands BrandOnSecondCategory[]
 }
 
-
+model Payment {
+    id String @id @default(autoincrement())
+    uuid String @unique
+    orderId String
+    amount String
+    paymentAmount String?
+    isFinal Boolean
+    url String
+    chatId Int
+}
 model BoughtProduct {
     id String @id @default(uuid())
     delivered         Boolean

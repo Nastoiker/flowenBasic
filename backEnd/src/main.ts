@@ -28,6 +28,9 @@ import { AdminService } from './adminAbility/admin.service';
 import { AdminRepository } from './adminAbility/admin.repository';
 import { AdminController } from './adminAbility/admin.controller';
 import { MailService } from './Mail/Mail.service';
+import { CryptomusService } from './cryptomus/cryptomus.service';
+import { CronService, CronService } from './cront/cron.service';
+import { CronRepository } from './cront/cron.repository';
 
 const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<Ilogger>(TYPES.LoggerService).to(LoggerService).inSingletonScope();
@@ -50,6 +53,9 @@ const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<AdminRepository>(TYPES.AdminRepository).to(AdminRepository).inSingletonScope();
 	bind<AdminController>(TYPES.AdminController).to(AdminController).inSingletonScope();
 	bind<MailService>(TYPES.MailService).to(MailService).inSingletonScope();
+	bind<CryptomusService>(TYPES.CryptomusService).to(CryptomusService).inSingletonScope();
+	bind<CronService>(TYPES.CronService).to(CronService).inSingletonScope();
+	bind<CronRepository>(TYPES.CronRepository).to(CronRepository).inSingletonScope();
 	bind<App>(TYPES.Application).to(App).inSingletonScope();
 });
 

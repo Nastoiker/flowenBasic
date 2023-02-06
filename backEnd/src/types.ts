@@ -1,4 +1,6 @@
 import {MailService} from "./Mail/Mail.service";
+import {CronRepository} from "./cront/cron.repository";
+import {CryptomusService} from "./cryptomus/cryptomus.service";
 
 export const TYPES = {
 	Application: Symbol.for('Application'),
@@ -24,4 +26,7 @@ export const TYPES = {
 	AdminService: Symbol.for('AdminService'),
 	AdminRepository: Symbol.for('AdminRepository'),
 	MailService: Symbol.for('MailService'),
+	CronRepository: Symbol.for('CronRepository'),
+	CronService: Symbol.for('CronService'),
+	CryptomusService: Symbol.for('CryptomusService'),
 };
