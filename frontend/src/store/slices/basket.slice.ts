@@ -1,17 +1,25 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductState} from "../product.slice";
 import {ProductModel} from "../../../interfaces/product.interfaces";
-
-interface StatePhones {
-    phones: ProductModel[];
+interface StateCard {
+    productId: string;
+    orderId: string;
+    userId: string;
+    boughtProductId?: string | null;
+    quantity: number;
+    createdAt: string;
     isLoading: boolean;
 }
-const initialState:StatePhones = {
-    phones: [],
+const initialState: StateCard = {
+    productId: '',
+    orderId: '',
+    userId: '',
+    boughtProductId: '',
+    quantity: 1,
+    createdAt: '',
     isLoading: true,
 };
-const phonesSlice = createSlice({
-    name: 'phones',
+const cardSlice = createSlice({
+    name: 'cardSlice',
     initialState,
     reducers: {
         getPhonesFetch: (state) => {
@@ -21,10 +29,8 @@ const phonesSlice = createSlice({
             state.isLoading = false;
         },
         getPhonesSuccess: (state, action) => {
-            state.phones = action.payload;
+            state = action.payload;
             state.isLoading = false;
         },
     },
 });
-export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess } = phonesSlice.actions;
-export default phonesSlice.reducer;

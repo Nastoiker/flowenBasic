@@ -139,6 +139,9 @@ CREATE TABLE "Tag" (
 );
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserModel_email_key" ON "UserModel"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Address_userId_key" ON "Address"("userId");
 
 -- CreateIndex

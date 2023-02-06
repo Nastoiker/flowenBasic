@@ -19,8 +19,8 @@ import { OAuth2Client } from 'google-auth-library';
 import { MulterMiddleware } from '../common/Multer.middleware';
 import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
-import {MailService} from "../Mail/Mail.service";
-import {UserModel} from "@prisma/client";
+import { MailService } from '../Mail/Mail.service';
+import { UserModel } from '@prisma/client';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -176,5 +176,4 @@ export class UserController extends BaseController implements IUserController {
 			return next(new HTTPError(401, 'Ошибка обновления аватара'));
 		}
 	}
-
 }

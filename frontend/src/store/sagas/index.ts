@@ -9,7 +9,7 @@ export const fetchData = createAsyncThunk('users/fetchData', async () => {
 export default function* rootSaga() {
     yield all([phonesCatSaga()]);
 }
-export interface ResponseGenerator{
+export interface  ResponseGenerator{
     config?:any,
     data?:any,
     headers?:any,

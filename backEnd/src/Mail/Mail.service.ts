@@ -17,7 +17,7 @@ export class MailService {
 			},
 		});
 	}
-	async sendActivateEmail(to: string, link: string) {
+	async sendActivateEmail(to: string, link: string): Promise<void> {
 		const verifyLink = this.configService.get('URL_API') + `/users/verify:${link}`;
 		await this.transport.sendMail({
 			from: this.configService.get('ADMIN_EMAILVERIFY'),

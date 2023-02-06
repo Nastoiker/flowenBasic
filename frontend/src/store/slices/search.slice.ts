@@ -1,16 +1,15 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductState} from "../product.slice";
-import {ProductModel} from "../../../interfaces/product.interfaces";
-
-interface StatePhones {
-    phones: ProductModel[];
-    isLoading: boolean;
+interface SerchState {
+    search: string;
+    filters: string[];
+    currentBrand: string;
+    currentSecondCategory: string;
 }
-const initialState:StatePhones = {
-    phones: [],
+const initialState:SerchState = {
+    search: '',
     isLoading: true,
 };
-const phonesSlice = createSlice({
+const searchSlice = createSlice({
     name: 'phones',
     initialState,
     reducers: {
@@ -26,5 +25,3 @@ const phonesSlice = createSlice({
         },
     },
 });
-export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess } = phonesSlice.actions;
-export default phonesSlice.reducer;

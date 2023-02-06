@@ -11,9 +11,9 @@ const Phones = ():JSX.Element => {
     const phones = useAppSelector(state => state.phone.phones);
     return <div>
         PHONES
-        { phones.map(p => (<div key={p.}>
-            <h1 >{p.title}</h1>
-            <p>{p.body}</p>
+        { phones.map(p => (<div key={p.name}>
+            <h1 >{p.name}</h1>
+            {/*<p>{p.description}</p>*/}
         </div>)) }
     </div>;
 };
