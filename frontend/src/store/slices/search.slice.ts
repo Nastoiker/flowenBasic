@@ -4,6 +4,7 @@ interface SerchState {
     filters: string[];
     currentBrand: string;
     currentSecondCategory: string;
+    isLoading: true;
 }
 const initialState:SerchState = {
     search: '',
