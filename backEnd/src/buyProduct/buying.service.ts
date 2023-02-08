@@ -8,20 +8,16 @@ export class BuyingService {
 		uuid: string,
 		orderId: string,
 		status: string,
-		amount: string,
 		paymentAmount: string,
 		isFinal: boolean,
-		url: string,
 		userId: string,
 	) {
 		return this.cronRepository.createPayment(
 			uuid,
 			orderId,
 			status,
-			amount,
 			paymentAmount,
 			isFinal,
-			url,
 			userId,
 		);
 	}

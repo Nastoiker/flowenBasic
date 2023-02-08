@@ -11,20 +11,20 @@ export class CronService implements ICronService {
 		@inject(TYPES.CryptomusService) private cryptomus: CryptomusService,
 	) {}
 	init(): void {
-		cron.schedule('*/5*****', async () => {
+		console.log(1);
+		cron.schedule('*/5 * * * * *', async () => {
 			const payments = await this.cronRepository.findMany();
 			if (!payments) {
 				return null;
 			}
 			for (const payment of payments) {
-				if (!payment.url) {
-					return null;
-				}
 				const res = await this.cryptomus.checkPayment(payment.uuid);
 				if (!res) {
 					console.log('ошибка');
 					continue;
 				}
+				console.log(2);
+				console.log(payment);
 				if (res.result.is_final) {
 					console.log(res.result.status);
 				}
@@ -32,7 +32,6 @@ export class CronService implements ICronService {
 					payment.uuid,
 					payment.finnalyPrice,
 					payment.isFinal,
-					payment.url,
 				);
 			}
 		});

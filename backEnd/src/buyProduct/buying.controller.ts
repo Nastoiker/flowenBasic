@@ -12,6 +12,7 @@ import { NextFunction, Request, Response } from 'express';
 import { UserLoginDto } from '../user/dto/user-login.dto';
 import { HTTPError } from '../errors/http-error';
 import { BuyingService } from './buying.service';
+import {CronService} from "../cront/cron.service";
 
 @injectable()
 export class buying extends BaseController {
@@ -22,7 +23,8 @@ export class buying extends BaseController {
 		@inject(TYPES.LoggerService) private loggerService: Ilogger,
 		@inject(TYPES.UserAbilityService) private userAbilityService: UserAbilityService,
 		@inject(TYPES.CryptomusService) private cryptomusService: ICryptomusService,
-		@inject(TYPES.BuyingService) private  buyingService: BuyingService,
+		@inject(TYPES.BuyingService) private buyingService: BuyingService,
+		@inject(TYPES.CronService) private cronService: CronService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
@@ -44,7 +46,10 @@ export class buying extends BaseController {
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
-		const payment = await this.cryptomusService.createPayment(10, '1');
+		const payment = await this.cryptomusService.createPayment(
+			req.body.amount,
+			req.body.orderId,
+		);
 		if (!payment) {
 			return next(new HTTPError(400, 'Ошибка создания оплаты '));
 		}
@@ -53,11 +58,10 @@ export class buying extends BaseController {
 			payment.result.order_id,
 			payment.result.status,
 			payment.result.amount,
-			payment.result.payment_amount,
 			payment.result.is_final,
-			payment.result.url,
 			writtenById.id,
 		);
 		this.ok(res, { message: payment.result.url });
+		await this.cronService.init();
 	}
 }

@@ -17,9 +17,7 @@ export class CronRepository {
 		orderId: string,
 		status: string,
 		amount: string,
-		paymentAmount: string,
 		isFinal: boolean,
-		url: string,
 		userId: string,
 	) {
 		return this.prismaService.client.boughtProduct.create({
@@ -28,12 +26,12 @@ export class CronRepository {
 				isFinal,
 				userId,
 				delivered: false,
-				finnalyPrice: paymentAmount,
+				finnalyPrice: amount,
 			},
 		});
 	}
 
-	async update(uuid: string, paymentAmount: string, isFinal: boolean, url: string) {
+	async update(uuid: string, paymentAmount: string, isFinal: boolean) {
 		return this.prismaService.client.boughtProduct.update({
 			where: { uuid },
 			data: {
