@@ -50,7 +50,7 @@ model SecondLevelCategory {
 }
 
 model Payment {
-    id String @id @default(autoincrement())
+    id String @id @default(uuid())
     uuid String @unique
     orderId String
     amount String
@@ -61,7 +61,11 @@ model Payment {
 }
 model BoughtProduct {
     id String @id @default(uuid())
+    uuid String @unique
+     created_at DateTime    @default(now())
     delivered         Boolean
+    isFinal Boolean
+    url String?
     updated_at     DateTime     @updatedAt
     basket Basket[] @relation("BoughtProduct")
     user UserModel @relation("UserBought", fields: [userId], references: [id])

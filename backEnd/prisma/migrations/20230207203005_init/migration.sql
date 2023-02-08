@@ -38,9 +38,25 @@ CREATE TABLE "SecondLevelCategory" (
 );
 
 -- CreateTable
+CREATE TABLE "Payment" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "uuid" TEXT NOT NULL,
+    "orderId" TEXT NOT NULL,
+    "amount" TEXT NOT NULL,
+    "paymentAmount" TEXT,
+    "isFinal" BOOLEAN NOT NULL,
+    "url" TEXT NOT NULL,
+    "chatId" INTEGER NOT NULL
+);
+
+-- CreateTable
 CREATE TABLE "BoughtProduct" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "uuid" TEXT NOT NULL,
+    "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "delivered" BOOLEAN NOT NULL,
+    "isFinal" BOOLEAN NOT NULL,
+    "url" TEXT,
     "updated_at" DATETIME NOT NULL,
     "userId" TEXT NOT NULL,
     "finnalyPrice" TEXT NOT NULL,
@@ -146,6 +162,12 @@ CREATE UNIQUE INDEX "Address_userId_key" ON "Address"("userId");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "SecondLevelCategory_name_key" ON "SecondLevelCategory"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Payment_uuid_key" ON "Payment"("uuid");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "BoughtProduct_uuid_key" ON "BoughtProduct"("uuid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Product_name_key" ON "Product"("name");

@@ -1,6 +1,7 @@
-import {MailService} from "./Mail/Mail.service";
-import {CronRepository} from "./cront/cron.repository";
-import {CryptomusService} from "./cryptomus/cryptomus.service";
+import { MailService } from './Mail/Mail.service';
+import { CronRepository } from './cront/cron.repository';
+import { CryptomusService } from './cryptomus/cryptomus.service';
+import {BuyingService} from "./buyProduct/buying.service";
 
 export const TYPES = {
 	Application: Symbol.for('Application'),
@@ -19,9 +20,7 @@ export const TYPES = {
 	userAbility: Symbol.for('userAbility'),
 	FileService: Symbol.for('FileService'),
 	FilesController: Symbol.for('FilesController'),
-	BuyProductController: Symbol.for('BuyProductController'),
-	BuyProductService: Symbol.for('BuyProductService'),
-	BuyProductRepository: Symbol.for('BuyProductRepository'),
+	BuyProductController: Symbol.for('buying'),
 	AdminController: Symbol.for('AdminController'),
 	AdminService: Symbol.for('AdminService'),
 	AdminRepository: Symbol.for('AdminRepository'),
@@ -29,4 +28,5 @@ export const TYPES = {
 	CronRepository: Symbol.for('CronRepository'),
 	CronService: Symbol.for('CronService'),
 	CryptomusService: Symbol.for('CryptomusService'),
+	BuyingService: Symbol.for('BuyingService'),
 };

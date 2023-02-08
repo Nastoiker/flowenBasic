@@ -1,21 +1,22 @@
-import {createPayment, ICryptomusService} from './cryptomus.interface';
+import { createPayment, ICryptomusService } from './cryptomus.interface';
 import { ConfigService } from '../config/config.service';
 import { IConfigService } from '../config/config.service.interface';
-import { injectable } from 'inversify';
+import {inject, injectable} from 'inversify';
 import crypto from 'crypto';
 import axios from 'axios';
+import {TYPES} from "../types";
 @injectable()
 export class CryptomusService implements ICryptomusService {
 	private apiKey: string;
 	private merchantId: string;
-	constructor(private readonly configService: IConfigService) {
+	constructor(@inject(TYPES.ConfigService) private readonly configService: ConfigService) {
 		this.apiKey = this.configService.get('CRYPTO_API_KEY');
 		this.merchantId = this.configService.get('CRYPTO_MERCHANT_KEY');
 	}
 	async checkPayment(uuid: string): Promise<createPayment | undefined> {
 		try {
 			const payload = {
-				uuid
+				uuid,
 			};
 			const { data } = await axios.post(
 				'https://api.cryptomus.com/v1/payment/info',
@@ -30,7 +31,7 @@ export class CryptomusService implements ICryptomusService {
 		}
 	}
 
-	async createPayment(amount: number, orderId: string): Promise<createPayment | undefined>{
+	async createPayment(amount: number, orderId: string): Promise<createPayment | undefined> {
 		try {
 			const payload = {
 				amount: amount.toString(),

@@ -20,6 +20,10 @@ import multer from 'multer';
 import { AdminController } from './adminAbility/admin.controller';
 import { AdminService } from './adminAbility/admin.service';
 import { AdminRepository } from './adminAbility/admin.repository';
+import {CryptomusService} from "./cryptomus/cryptomus.service";
+import {CronService} from "./cront/cron.service";
+import {CronRepository} from "./cront/cron.repository";
+import {buying} from "./buyProduct/buying.controller";
 @injectable()
 export class App {
 	server!: Server;
@@ -36,10 +40,13 @@ export class App {
 		@inject(TYPES.ProductController) private productController: ProductController,
 		@inject(TYPES.UserAbilityRepository) private userAbilityRepository: UserAbilityRepository,
 		@inject(TYPES.userAbility) private UserAbility: userAbility,
-
 		@inject(TYPES.AdminController) private adminController: AdminController,
 		@inject(TYPES.AdminService) private adminService: AdminService,
 		@inject(TYPES.AdminRepository) private adminRepository: AdminRepository,
+		@inject(TYPES.CryptomusService) private cryptomusService: CryptomusService,
+		@inject(TYPES.CronService) private cronService: CronService,
+		@inject(TYPES.CronRepository) private cronRepository: CronRepository,
+		@inject(TYPES.BuyProductController) private buyProductController: buying,
 	) {
 		this.app = express();
 		this.port = 8000;
@@ -60,6 +67,7 @@ export class App {
 		this.app.use('/product', this.productController.router);
 		this.app.use('/product', this.UserAbility.router);
 		this.app.use('/admin', this.adminController.router);
+		this.app.use('/buy', this.buyProductController.router);
 	}
 	public async init(): Promise<void> {
 		this.useMiddleWares();
