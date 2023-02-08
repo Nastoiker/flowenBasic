@@ -2,9 +2,9 @@ import { createPayment, ICryptomusService } from './cryptomus.interface';
 import { ConfigService } from '../config/config.service';
 import { IConfigService } from '../config/config.service.interface';
 import {inject, injectable} from 'inversify';
-import crypto from 'crypto';
 import axios from 'axios';
 import {TYPES} from "../types";
+import crypto from 'crypto';
 @injectable()
 export class CryptomusService implements ICryptomusService {
 	private apiKey: string;
@@ -36,11 +36,12 @@ export class CryptomusService implements ICryptomusService {
 			const payload = {
 				amount: amount.toString(),
 				currency: 'USD',
-				order_od: orderId,
+				order_id: orderId,
 			};
 			const { data } = await axios.post('https://api.cryptomus.com/v1/payment', payload, {
 				headers: this.getHeader(JSON.stringify(payload)),
 			});
+			console.log(data);
 			return data;
 		} catch (e) {
 			console.error(e);

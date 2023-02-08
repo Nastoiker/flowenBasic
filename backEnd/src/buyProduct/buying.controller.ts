@@ -44,7 +44,7 @@ export class buying extends BaseController {
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
-		const payment = await this.cryptomusService.createPayment(1, '10');
+		const payment = await this.cryptomusService.createPayment(10, '1');
 		if (!payment) {
 			return next(new HTTPError(400, 'Ошибка создания оплаты '));
 		}
