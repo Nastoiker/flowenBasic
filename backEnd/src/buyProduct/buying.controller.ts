@@ -52,7 +52,7 @@ export class buying extends BaseController {
 				continue;
 			}
 			// @ts-ignore
-			product = product['product']['price'] as number;
+			product = product['product']['price'] * product['product']['quantity'];
 			basket.push(product);
 		}
 		// @ts-ignore
