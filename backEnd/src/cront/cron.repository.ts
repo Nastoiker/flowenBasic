@@ -1,7 +1,7 @@
 import { PrismaService } from '../database/prisma.service';
 import { TYPES } from '../types';
 import { inject, injectable } from 'inversify';
-import { BoughtProduct } from '@prisma/client';
+import {Basket, BoughtProduct} from '@prisma/client';
 @injectable()
 export class CronRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
@@ -38,6 +38,26 @@ export class CronRepository {
 				uuid,
 				finnalyPrice: paymentAmount,
 				isFinal,
+			},
+		});
+	}
+	async getBasketProduct(id: string): Promise<Basket | null> {
+		return this.prismaService.client.basket.findFirst({
+			where: {
+				id,
+			},
+			include: {
+				product: true,
+			},
+		});
+	}
+	async updateBuyingStatusBakset(id: string) {
+		return this.prismaService.client.basket.updateMany({
+			where: {
+				boughtProductId: id,
+			},
+			data: {
+				buying: true,
 			},
 		});
 	}

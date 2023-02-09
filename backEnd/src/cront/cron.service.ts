@@ -28,11 +28,13 @@ export class CronService implements ICronService {
 				if (res.result.is_final) {
 					console.log(res.result.status);
 				}
-				await this.cronRepository.update(
+				//получение id для обновления статуса корзины
+				const { id } = await this.cronRepository.update(
 					payment.uuid,
 					payment.finnalyPrice,
 					payment.isFinal,
 				);
+				await this.cronRepository.updateBuyingStatusBakset(id);
 			}
 		});
 	}

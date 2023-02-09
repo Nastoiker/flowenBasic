@@ -32,13 +32,12 @@ export class buying extends BaseController {
 				path: '/buy',
 				method: 'post',
 				func: this.buyingProduct,
-				middlewares: [],
-				// new AuthGuard()
+				middlewares: [new AuthGuard()],
 			},
 		]);
 	}
 	async buyingProduct(
-		req: Request<{}, {}, { orderId: string; amount: number }>,
+		req: Request<{}, {}, { basketId: string[]; amount: number }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
@@ -46,10 +45,19 @@ export class buying extends BaseController {
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
-		const payment = await this.cryptomusService.createPayment(
-			req.body.amount,
-			req.body.orderId,
-		);
+		const basket = [];
+		for (const id of req.body.basketId) {
+			let product = await this.buyingService.getBasketProduct(id);
+			if (!product) {
+				continue;
+			}
+			// @ts-ignore
+			product = product['product']['price'] as number;
+			basket.push(product);
+		}
+		// @ts-ignore
+		const sum = basket.reduce((a, b) => a + b, 0);
+		const payment = await this.cryptomusService.createPayment(sum, req.body.basketId.join(''));
 		if (!payment) {
 			return next(new HTTPError(400, 'Ошибка создания оплаты '));
 		}

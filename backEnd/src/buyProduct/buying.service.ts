@@ -21,4 +21,9 @@ export class BuyingService {
 			userId,
 		);
 	}
+
+	async getBasketProduct(basketId: string) {
+		return this.cronRepository.getBasketProduct(basketId);
+	}
+
 }
