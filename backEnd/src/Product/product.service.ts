@@ -27,6 +27,9 @@ import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCatego
 @injectable()
 export class ProductService implements IProductService {
 	constructor(@inject(TYPES.ProductRepository) private productRepository: ProductRepository) {}
+	async findLikeSqlModelBrand(searchByWorld: string): Promise<Product[] | null> {
+		return this.productRepository.findLikeSqlModelBrand(searchByWorld);
+	}
 	async create(product: ProductCreate): Promise<Product | null> {
 		if (await this.productRepository.findProduct(product.name)) {
 			return null;

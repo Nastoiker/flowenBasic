@@ -155,7 +155,26 @@ export class ProductController extends BaseController {
 				func: this.getProductsDiscount,
 				middlewares: [],
 			},
+			{
+				path: '/findLikeSqlModelBrand:name',
+				method: 'get',
+				func: this.findLikeSqlModelBrand,
+				middlewares: [],
+			},
 		]);
+	}
+	async findLikeSqlModelBrand(
+		req: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<OutInterface | void> {
+		const newProduct = await this.productService.findLikeSqlModelBrand(
+			req.params['name'].slice(1),
+		);
+		if (!newProduct || newProduct?.length === 0) {
+			return next(new HTTPError(401, 'продукт не найден'));
+		}
+		return res.status(200).type('json').send(newProduct);
 	}
 	async create(
 		{ body }: Request<{}, {}, ProductCreate>,

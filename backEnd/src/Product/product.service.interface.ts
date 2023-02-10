@@ -21,6 +21,7 @@ export interface IProductService {
 	create: (product: ProductCreate) => Promise<Product | null>;
 	createModel: (model: ModelDeviceDto) => Promise<ModelDevice | null>;
 	createBrand: (brand: BrandDevice) => Promise<Brand | null>;
+	findLikeSqlModelBrand: (searchByWorld: string) => Promise<Product[] | null>;
 
 	find: (name: string) => Promise<Product | null>;
 	getById: (id: string) => Promise<Product | null>;

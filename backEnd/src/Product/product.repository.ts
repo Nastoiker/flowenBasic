@@ -19,6 +19,7 @@ import {
 	SecondLevelCategory,
 	FirstLevelCategory,
 	Basket,
+	Prisma,
 } from '@prisma/client';
 import { IProductRepository } from './product.repository.interface';
 import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
@@ -26,6 +27,21 @@ import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCatego
 @injectable()
 export class ProductRepository implements IProductRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
+	async findLikeSqlModelBrand(searchByWorld: string): Promise<Product[] | null> {
+		console.log(searchByWorld);
+		// const query = `%${searchByWorld}%`;
+		// return await this.prismaService.client.$queryRawUnsafe<Product[]>(
+		// 	'SELECT * FROM Product where name LIKE $1',
+		// 	`%${searchByWorld}`,
+		// );
+		return await this.prismaService.client.product.findMany({
+			where: {
+				name: {
+					startsWith: searchByWorld,
+				},
+			},
+		});
+	}
 	async createProduct(data: ProductModel): Promise<Product> {
 		return this.prismaService.client.product.create({
 			data: { ...data },
