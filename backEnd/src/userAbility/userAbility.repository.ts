@@ -26,6 +26,16 @@ export class UserAbilityRepository {
 			},
 		});
 	}
+	async editQuantityBasketProduct(id: string, quantity: number): Promise<Basket | null> {
+		return this.prismaService.client.basket.update({
+			where: {
+				id,
+			},
+			data: {
+				quantity,
+			},
+		});
+	}
 	async updateProductToBasket({
 		id,
 		buying,

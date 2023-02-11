@@ -35,6 +35,9 @@ export class UserAbilityService {
 	async deleteBasket(id: string): Promise<Basket | null> {
 		return this.userAbilityServiceRepository.deleteProductToBasket(id);
 	}
+	async editQuantityBasketProduct(id: string, quantity: number): Promise<Basket | null> {
+		return this.userAbilityServiceRepository.editQuantityBasketProduct(id, quantity);
+	}
 	async updateProductToBasket(basket: updateProductToBasketDto): Promise<Basket | null> {
 		return this.userAbilityServiceRepository.updateProductToBasket(basket);
 	}

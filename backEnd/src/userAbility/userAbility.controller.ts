@@ -63,6 +63,12 @@ export class userAbility extends BaseController {
 				func: this.updateProductToBasket,
 				middlewares: [new AuthGuard()],
 			},
+			{
+				path: '/editQuantityBasketProduct',
+				method: 'post',
+				func: this.editQuantityBasketProduct,
+				middlewares: [new AuthGuard()],
+			},
 		]);
 	}
 	async productBuyUser(
@@ -90,6 +96,21 @@ export class userAbility extends BaseController {
 				next(new HTTPError(422, 'Ошибка создания коммента '));
 			}
 			this.ok(res, { mes: 'Ваш комментарий оставлен' });
+		}
+	}
+	async editQuantityBasketProduct(
+		req: Request<{}, {}, { productId: string; quantity: number }>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
+		} else {
+			await this.userAbilityService.editQuantityBasketProduct(
+				writtenById.id,
+				req.body.quantity,
+			);
 		}
 	}
 	async addProductToBasket(

@@ -2,10 +2,14 @@ import { inject, injectable } from 'inversify';
 import { createTransport, Transporter } from 'nodemailer';
 import { TYPES } from '../types';
 import { IConfigService } from '../config/config.service.interface';
+import { MailRepository } from './Mail.repository';
 @injectable()
 export class MailService {
 	private transport: Transporter;
-	constructor(@inject(TYPES.ConfigService) private readonly configService: IConfigService) {
+	constructor(
+		@inject(TYPES.ConfigService) private readonly configService: IConfigService,
+		@inject(TYPES.MailRepository) private readonly mailRepository: MailRepository,
+	) {
 		this.transport = createTransport({
 			host: this.configService.get('HOST_SMTP'),
 			port: Number(this.configService.get('SMTP_PORT')),
@@ -31,5 +35,23 @@ export class MailService {
 			</div>
 			`,
 		});
+	}
+	async sendForAll(file: Express.Multer.File): Promise<void | null> {
+		const allUser = await this.mailRepository.getEmailAllUser();
+		return await this.sendNews(allUser, 'Акция', file.buffer);
+	}
+	async sendNews(to: string[], message: string, html: Buffer): Promise<void | null> {
+		try {
+			await this.transport.sendMail({
+				from: this.configService.get('ADMIN_EMAILVERIFY'),
+				to,
+				subject: 'Новость',
+				text: '',
+				html: html,
+			});
+		} catch {
+			return null;
+		}
+
 	}
 }

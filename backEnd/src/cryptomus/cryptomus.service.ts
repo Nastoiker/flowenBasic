@@ -1,9 +1,9 @@
 import { createPayment, ICryptomusService } from './cryptomus.interface';
 import { ConfigService } from '../config/config.service';
 import { IConfigService } from '../config/config.service.interface';
-import {inject, injectable} from 'inversify';
+import { inject, injectable } from 'inversify';
 import axios from 'axios';
-import {TYPES} from "../types";
+import { TYPES } from '../types';
 import crypto from 'crypto';
 @injectable()
 export class CryptomusService implements ICryptomusService {

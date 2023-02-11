@@ -12,7 +12,7 @@ import { NextFunction, Request, Response } from 'express';
 import { UserLoginDto } from '../user/dto/user-login.dto';
 import { HTTPError } from '../errors/http-error';
 import { BuyingService } from './buying.service';
-import {CronService} from "../cront/cron.service";
+import { CronService } from '../cront/cron.service';
 
 @injectable()
 export class buying extends BaseController {

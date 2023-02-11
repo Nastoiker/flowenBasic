@@ -1,7 +1,7 @@
 import { PrismaService } from '../database/prisma.service';
 import { TYPES } from '../types';
 import { inject, injectable } from 'inversify';
-import {Basket, BoughtProduct} from '@prisma/client';
+import { Basket, BoughtProduct } from '@prisma/client';
 @injectable()
 export class CronRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
