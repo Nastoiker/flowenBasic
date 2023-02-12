@@ -16,7 +16,7 @@ function App() {
   const [count, setCount] = useState(0);
   const Auth = lazy(() => import('./pages/Authorization/Authorization'));
   const Registration = lazy(() => import('./pages/Register/Register'));
-    const DetalisPhone = lazy(() => import('./pages/Authorization/Authorization'));
+    const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
     return (
     <div className="App">
@@ -36,7 +36,7 @@ function App() {
             <Route path="/join" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /> </Suspense>} />
             <Route path="/product" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /> </Suspense>} />
             <Route path="/product/phone" element={<Suspense fallback={<h2>Загрузка...</h2>}><Phones /> </Suspense>} />
-            <Route path="/product/phone:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
+            <Route path="/product/phone/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Router>

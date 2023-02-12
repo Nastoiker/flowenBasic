@@ -254,7 +254,7 @@ export class ProductController extends BaseController {
 		this.ok(res, { mess: 'товар был удален с id', id: body.id });
 	}
 	async findByAlias(req: Request, res: Response, next: NextFunction): Promise<void> {
-		const newProduct = await this.productService.findByAlias(req.params['id'].slice(1));
+		const newProduct = await this.productService.findByAlias(req.params['alias'].slice(1));
 		if (!newProduct) {
 			return next(new HTTPError(404, 'Продукт не найден'));
 		}

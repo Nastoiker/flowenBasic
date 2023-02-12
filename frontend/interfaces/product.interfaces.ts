@@ -14,6 +14,7 @@ export interface SmartPhone {
     id: string,
     name: string,
     price: string,
+    alias: string,
     oldPrice: number,
     TagId: string,
     brandId: string,
