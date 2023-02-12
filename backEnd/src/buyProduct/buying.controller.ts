@@ -9,7 +9,6 @@ import { UserAbilityService } from '../userAbility/userAbility.service';
 import { AuthGuard } from '../common/Auth.guard';
 import { ICryptomusService } from '../cryptomus/cryptomus.interface';
 import { NextFunction, Request, Response } from 'express';
-import { UserLoginDto } from '../user/dto/user-login.dto';
 import { HTTPError } from '../errors/http-error';
 import { BuyingService } from './buying.service';
 import { CronService } from '../cront/cron.service';
@@ -43,7 +42,7 @@ export class buying extends BaseController {
 	): Promise<void> {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			return next(new HTTPError(422, 'Ошибка создания коммента '));
+			return next(new HTTPError(422, 'Ошибка получения пользователя '));
 		}
 		const basket = [];
 		for (const id of req.body.basketId) {

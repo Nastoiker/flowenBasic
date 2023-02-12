@@ -52,6 +52,12 @@ export class ProductController extends BaseController {
 				middlewares: [],
 			},
 			{
+				path: '/findByAlias:alias',
+				method: 'get',
+				func: this.findByAlias,
+				middlewares: [],
+			},
+			{
 				path: '',
 				method: 'get',
 				func: this.getAllProduct,
@@ -109,13 +115,13 @@ export class ProductController extends BaseController {
 				path: '/createModel',
 				method: 'post',
 				func: this.createModel,
-				middlewares: [new AdminGuard()],
+				middlewares: [new AdminGuard(), new ValidateMiddleware(ModelDeviceDto)],
 			},
 			{
 				path: '/createBrand',
 				method: 'post',
 				func: this.createBrand,
-				middlewares: [new AdminGuard()],
+				middlewares: [new AdminGuard(), new ValidateMiddleware(ProductCreate)],
 			},
 			//создание категории к брендам
 			{
@@ -174,7 +180,7 @@ export class ProductController extends BaseController {
 		if (!newProduct || newProduct?.length === 0) {
 			return next(new HTTPError(401, 'продукт не найден'));
 		}
-		return res.status(200).type('json').send(newProduct);
+		this.arr(res, newProduct);
 	}
 	async create(
 		{ body }: Request<{}, {}, ProductCreate>,
@@ -247,7 +253,13 @@ export class ProductController extends BaseController {
 		}
 		this.ok(res, { mess: 'товар был удален с id', id: body.id });
 	}
-
+	async findByAlias(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const newProduct = await this.productService.findByAlias(req.params['id'].slice(1));
+		if (!newProduct) {
+			return next(new HTTPError(404, 'Продукт не найден'));
+		}
+		this.ok(res, { ...newProduct });
+	}
 	async find(req: Request, res: Response, next: NextFunction): Promise<void> {
 		const newProduct = await this.productService.find(req.params['id'].slice(1));
 		if (!newProduct) {
@@ -275,7 +287,7 @@ export class ProductController extends BaseController {
 		if (!product) {
 			return next(new HTTPError(404, 'Продукт не найден'));
 		}
-		return res.status(200).type('json').send(product);
+		this.arr(res, product);
 	}
 	async getByFirstCategoryProducts(
 		{ body }: Request<{}, {}, { firstLevelId: string }>,
@@ -286,7 +298,7 @@ export class ProductController extends BaseController {
 		if (!products) {
 			return next(new HTTPError(404, 'Нету такой категории'));
 		}
-		return res.status(200).type('json').send(products);
+		this.arr(res, products);
 	}
 
 	async updateProduct(
@@ -337,7 +349,7 @@ export class ProductController extends BaseController {
 		}
 		// @ts-ignore
 		category.forEach((c) => delete c.secondLevelCategory);
-		return res.status(200).type('json').send(category);
+		this.arr(res, category);
 	}
 	//создание категории к брендам
 	async setBrandOnSecondCategory(
@@ -349,7 +361,7 @@ export class ProductController extends BaseController {
 		if (!category) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
-		return res.status(200).type('json').send(category);
+		this.arr(res, category);
 	}
 	//создание брендов к категории
 	async setCategoryOnBrand(
@@ -361,7 +373,7 @@ export class ProductController extends BaseController {
 		if (!brands) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}
-		return res.status(200).type('json').send(brands);
+		this.arr(res, brands);
 	}
 	async getProductByBrandSecondCategory(
 		{ body }: Request<{}, {}, { secondLevelId: string; brandId: string }>,
@@ -383,7 +395,7 @@ export class ProductController extends BaseController {
 		next: NextFunction,
 	): Promise<void | OutInterface> {
 		const category = await this.productService.getBrands();
-		return res.status(200).type('json').send(category);
+		this.arr(res, category);
 	}
 	async getBrandProductByCategory(
 		{ body }: Request<{}, {}, { secondLevelId: string }>,
@@ -394,7 +406,7 @@ export class ProductController extends BaseController {
 		if (!category || category.length === 0) {
 			return next(new HTTPError(404, 'Неизвестная категория'));
 		}
-		return res.status(200).type('json').send(category);
+		this.arr(res, category);
 	}
 	async getProductsDiscount(
 		request: Request,
@@ -402,6 +414,6 @@ export class ProductController extends BaseController {
 		next: NextFunction,
 	): Promise<void | OutInterface> {
 		const product = await this.productService.getProductsDiscount();
-		return res.status(200).type('json').send(product);
+		this.arr(res, product);
 	}
 }

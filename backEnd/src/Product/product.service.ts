@@ -54,6 +54,9 @@ export class ProductService implements IProductService {
 	async delete(id: string): Promise<Product | null> {
 		return this.productRepository.deleteProduct(id);
 	}
+	async findByAlias(alias: string): Promise<Product | null> {
+		return this.productRepository.findByAlias(alias);
+	}
 	async find(name: string): Promise<Product | null> {
 		return this.productRepository.findProduct(name);
 	}

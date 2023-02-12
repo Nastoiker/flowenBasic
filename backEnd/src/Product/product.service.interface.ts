@@ -24,6 +24,7 @@ export interface IProductService {
 	findLikeSqlModelBrand: (searchByWorld: string) => Promise<Product[] | null>;
 
 	find: (name: string) => Promise<Product | null>;
+	findByAlias: (alias: string) => Promise<Product | null>;
 	getById: (id: string) => Promise<Product | null>;
 	delete: (id: string) => Promise<Product | null>;
 	update: (product: ProductUpdate) => Promise<Product | null>;

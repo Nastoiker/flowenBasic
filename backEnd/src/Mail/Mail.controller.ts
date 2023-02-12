@@ -2,21 +2,13 @@ import { inject, injectable } from 'inversify';
 import { BaseController } from '../common/base.controller';
 import { TYPES } from '../types';
 import { IConfigService } from '../config/config.service.interface';
-import { IProductService } from '../Product/product.service.interface';
-import { UserService } from '../user/user.service';
 import { Ilogger } from '../logger/logger.interface';
-import { UserAbilityService } from '../userAbility/userAbility.service';
-import { ICryptomusService } from '../cryptomus/cryptomus.interface';
-import { BuyingService } from '../buyProduct/buying.service';
-import { CronService } from '../cront/cron.service';
 import { AuthGuard } from '../common/Auth.guard';
 import { NextFunction, Request, Response } from 'express';
 import { MulterMiddleware } from '../common/Multer.middleware';
-import xml from 'xml';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { HTTPError } from '../errors/http-error';
 import { MailService } from './Mail.service';
-import {AdminGuard} from "../common/admin.guard";
 
 @injectable()
 export class MailController extends BaseController {

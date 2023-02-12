@@ -3,6 +3,8 @@ import { UserModel } from '@prisma/client';
 export class ProductModel {
 	@IsString()
 	name: string;
+	@IsString()
+	alias: string;
 	@IsNumber()
 	price: number;
 	@IsOptional()
@@ -78,6 +80,8 @@ export class ProductUpdate {
 export class ProductCreate {
 	@IsString()
 	name: string;
+	@IsString()
+	alias: string;
 	@IsNumber()
 	price: number;
 	@IsOptional()

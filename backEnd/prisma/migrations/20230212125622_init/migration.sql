@@ -81,6 +81,7 @@ CREATE TABLE "Basket" (
 -- CreateTable
 CREATE TABLE "Product" (
     "id" TEXT NOT NULL PRIMARY KEY,
+    "alias" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "price" INTEGER NOT NULL,
     "oldPrice" INTEGER,
@@ -158,6 +159,12 @@ CREATE TABLE "Tag" (
 CREATE UNIQUE INDEX "UserModel_email_key" ON "UserModel"("email");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "UserModel_login_key" ON "UserModel"("login");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "UserModel_phone_key" ON "UserModel"("phone");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Address_userId_key" ON "Address"("userId");
 
 -- CreateIndex
@@ -170,7 +177,16 @@ CREATE UNIQUE INDEX "Payment_uuid_key" ON "Payment"("uuid");
 CREATE UNIQUE INDEX "BoughtProduct_uuid_key" ON "BoughtProduct"("uuid");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Product_alias_key" ON "Product"("alias");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Product_name_key" ON "Product"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Brand_name_key" ON "Brand"("name");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ModelDevice_name_key" ON "ModelDevice"("name");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Tag_name_key" ON "Tag"("name");

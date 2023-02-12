@@ -12,8 +12,8 @@ datasource db {
 model UserModel {
   id       String       @id @default(uuid())
   email    String @unique
-  login    String
-  phone String?
+  login    String @unique
+  phone String? @unique
   hashpassword String
   basket    Basket[] @relation("UserBasket")
   Comment  Comment[] @relation("CommentWritenBy")
@@ -90,6 +90,7 @@ model Product {
   brand               Brand       @relation("BrandDevices", fields: [brandId], references: [id])
   modelDevice         ModelDevice @relation("ModelByProduct",fields: [modelDeviceId], references: [id], onDelete: Cascade)
   tag   Tag   @relation("TagProduct", fields: [TagId], references: [id], onUpdate: NoAction)
+  alias String @unique
   name                String @unique
   price               Int
   oldPrice            Int?
@@ -109,7 +110,7 @@ model Product {
 
 model Brand {
   id      String       @id @default(uuid())
-  name    String
+  name    String @unique
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
   model ModelDevice[] @relation("BrandByModel")
@@ -123,7 +124,7 @@ model BrandOnSecondCategory {
   }
 model ModelDevice {
   id      String       @id @default(uuid())
-  name    String
+  name    String @unique
   product Product[] @relation("ModelByProduct")
   secondCategoryId String
   brandId String

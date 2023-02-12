@@ -64,6 +64,13 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async findByAlias(alias: string): Promise<Product | null> {
+		return this.prismaService.client.product.findFirst({
+			where: {
+				alias,
+			},
+		});
+	}
 	async findBrand(name: string): Promise<Brand | null> {
 		return this.prismaService.client.brand.findFirst({
 			where: {
