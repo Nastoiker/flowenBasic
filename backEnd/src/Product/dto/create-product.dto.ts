@@ -25,6 +25,9 @@ export class ProductModel {
 	color?: string;
 	@IsString()
 	@IsOptional()
+	ColorAlias?: string;
+	@IsString()
+	@IsOptional()
 	image?: string;
 	@IsNumber()
 	quantity: number;
@@ -100,6 +103,9 @@ export class ProductCreate {
 	@IsString()
 	@IsOptional()
 	Color?: string;
+	@IsString()
+	@IsOptional()
+	ColorAlias?: string;
 	@IsString()
 	@IsOptional()
 	image?: string;

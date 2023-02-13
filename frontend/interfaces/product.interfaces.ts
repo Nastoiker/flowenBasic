@@ -19,12 +19,31 @@ export interface SmartPhone {
     TagId: string,
     brandId: string,
     Color: string,
+    ColorAlias: string,
+    brand: Brand,
+    modelDevice: ModelDevice,
     Description: string,
     image: string | null,
     Memory: number,
     Ram: number,
     modelDeviceId: string,
     quantity: string,
+    rating?: Rating,
+}
+export interface Rating {
+    id: string,
+    createdAt: string,
+    number: string,
+    writtenById: string,
+    modelDeviceId: string,
+}
+export interface ModelDevice {
+    id: string,
+    name: string,
+    secondCategoryId: string,
+    brandId: string,
+    comment?: Comment,
+    rating?: Rating,
 }
 export interface ProductModel {
     id: string;

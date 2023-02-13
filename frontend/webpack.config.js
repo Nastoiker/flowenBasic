@@ -1,3 +1,4 @@
+import path from 'path';
 module.exports = {
     module: {
         rules: [
@@ -13,5 +14,11 @@ module.exports = {
                 use: ['@svgr/webpack'],
             },
         ],
+        resolve: {
+            alias: {
+                '@product': path.resolve(__dirname, 'backEnd/uploads/product'),
+                '@user': path.resolve(__dirname, '../flowenBasic/uploads/product')
+            }
+        }
     },
 }

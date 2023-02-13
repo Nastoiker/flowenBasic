@@ -88,6 +88,7 @@ CREATE TABLE "Product" (
     "TagId" TEXT NOT NULL,
     "brandId" TEXT NOT NULL,
     "Color" TEXT,
+    "ColorAlias" TEXT,
     "Description" TEXT,
     "image" TEXT,
     "Memory" INTEGER,

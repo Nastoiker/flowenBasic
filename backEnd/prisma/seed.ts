@@ -115,8 +115,8 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	for (const u of firrtCategory) {
-		const user = await prisma.firstLevelCategory.create({
+	for (const u of tag) {
+		const user = await prisma.tag.create({
 			data: u,
 		});
 		console.log(`Created user with id: ${user.id}`);

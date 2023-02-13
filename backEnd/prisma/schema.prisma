@@ -97,6 +97,7 @@ model Product {
   TagId               String
   brandId             String
   Color               String?
+  ColorAlias          String?
   Description         String?
   image String?
   Memory Int?

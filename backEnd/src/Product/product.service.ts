@@ -98,7 +98,7 @@ export class ProductService implements IProductService {
 		// @ts-ignore
 		const brandId = product['brand']['name'];
 		// @ts-ignore
-		const modelDeviceId = product['modelDevice']['name'];
+		const modelDeviceId = product['modelDevice']['name'].trim().replace(' ', '-');
 		let image = product.image;
 		if (!image) {
 			image = '';
@@ -119,8 +119,10 @@ export class ProductService implements IProductService {
 				}
 			});
 		}
-		if (!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}/${product.Color}`)) {
-			mkdir(`./uploads/product/${brandId}/${modelDeviceId}/${product.Color}`, (err) => {
+		if (
+			!pathExistsSync(`./uploads/product/${brandId}/${modelDeviceId}/${product.ColorAlias}`)
+		) {
+			mkdir(`./uploads/product/${brandId}/${modelDeviceId}/${product.ColorAlias}`, (err) => {
 				if (err) {
 					console.error(err);
 				}

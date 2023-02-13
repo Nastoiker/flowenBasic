@@ -58,9 +58,10 @@ export class App {
 	}
 	public useMiddleWares(): void {
 		// const upload = new multer({ dest: './uploads/' });
-		this.app.use(express.static(__dirname));
 		this.app.use(json());
 		this.app.use(cors());
+		this.app.use(express.static('uploads'));
+		this.app.use(express.static(__dirname));
 		const authMiddleWare = new AuthMiddleware(this.configService.get('SECRET'));
 		this.app.use(authMiddleWare.execute.bind(authMiddleWare));
 	}
