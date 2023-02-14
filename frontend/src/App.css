@@ -5,7 +5,26 @@
 /*  padding: 2rem;*/
 /*  text-align: center;*/
 /*}*/
+html,
+body {
+    margin: 0;
+    padding: 0;
 
+    color: var(--black);
+    background: #F5F6F8;
+
+    font-family: "Noto Sans", sans-serif;
+}
+
+a {
+    text-decoration: none;
+
+    color: inherit;
+}
+
+* {
+    box-sizing: border-box;
+}
 /*.logo {*/
 /*  height: 6em;*/
 /*  padding: 1.5em;*/
@@ -17,6 +36,21 @@
 /*.logo.react:hover {*/
 /*  filter: drop-shadow(0 0 2em #61dafbaa);*/
 /*}*/
+:root {
+    --black: #3B434E;
+    --gray-light: #EBEBEB;
+    --gray: #A4A4A4;
+    --white: rgb(255 255 255);
+    --primary: #7653FC;
+    --green: green;
+    --red: rgb(187 99 99);
+    --red-light: #DC6969;
+    --green-ligth: rgb(196 238 196);
+    --font-family: "Noto Sans KR", sans-serif;
+    --primary-hover: purple;
+    --paragraph-color: #3B434E;
+    --gray-dark: #787D85;
+}
 
 /*@keyframes logo-spin {*/
 /*  from {*/
