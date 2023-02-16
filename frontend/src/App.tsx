@@ -11,6 +11,8 @@ import DetalisPhone from './pages/Phones/Details';
 import {Checkbox} from "./components/checkbox/Checkbox";
 import {Filters} from "./components/Filters/Filter";
 import {Menu} from "./components/Menu/Menu";
+import Alert from "./ui/alert/alert";
+import SliderDemo from "./ui/slider/slider";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,7 +27,8 @@ function App() {
         <h1 className="text-3xl  font-bold underline">
             Hello world!
         </h1>
-
+        <SliderDemo />
+        <Alert />
         {/*<Checkbox text={'ASDAD'}/>*/}
         <Router>
             <Menu />
