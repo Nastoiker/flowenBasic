@@ -1,3 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilites;
+.text {
+    @apply text-bold;
+}
 .cover {
     position: fixed;
     top: 0;

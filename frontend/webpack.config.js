@@ -17,7 +17,8 @@ module.exports = {
         resolve: {
             alias: {
                 '@product': path.resolve(__dirname, 'backEnd/uploads/product'),
-                '@user': path.resolve(__dirname, '../flowenBasic/uploads/product')
+                '@user': path.resolve(__dirname, '../flowenBasic/uploads/product'),
+                '@ui': path.resolve(__dirname, './src/ui')
             }
         }
     },

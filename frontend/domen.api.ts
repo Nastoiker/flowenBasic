@@ -33,5 +33,8 @@ export const DOMEN = {
         find: '/user/profile:',
         login:  '/user/login',
         register:'/user/register',
+    },
+    comment: {
+        createComment: '/'
     }
 };
