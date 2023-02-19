@@ -4,15 +4,18 @@ import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
 import {useAppSelector} from "../../../store";
 import {Button} from "../../../ui/button";
+import {CommentForm} from "../../Comment/CommentForm";
+import {Htag} from "../../Htag/Htag";
+import {Comment} from "../../Comment/Comment";
 const api_url = 'http://localhost:8000';
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({phone}: phoneProps): JSX.Element => {
     const img = phone.image?.split(',');
-    const currentModel = useAppSelector(state => state.phone.model);
 //../../../../../backEnd/uploads
 //     const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
     const photo1 =  img &&  `${api_url}/product/${phone.brand.name}/${phone.modelDevice.name.replace(' ', '-')}/${phone.ColorAlias}/${img[0]}`;
-    return <div className={"flex"}>
+    return <>
+        <div className={"flex"}>
         {
             img && <img src={photo1} className={"rounded-3xl object-cover"} alt={"Phone"}/>
         }
@@ -22,5 +25,11 @@ export const Phone = ({phone}: phoneProps): JSX.Element => {
             <Button>Добавить в корзину</Button>
             <Paragraph type={'small'}>{phone.Description}</Paragraph>
         </div>
-    </div>;
+    </div>
+        <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
+        <div>
+            <Htag type={"h1"}>Комментарии</Htag>
+            { phone.modelDevice.comment ? phone.modelDevice.comment.map( c => <Comment userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
+        </div>
+    </>;
 };

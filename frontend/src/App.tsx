@@ -33,7 +33,8 @@ function App() {
                 </h1>
                 <Search />
                 <h1 className={"text-"}></h1>
-                <header><a href="">webdev</a>
+                <header>
+                    <a href="">webdev</a>
                     <nav>
                         <ul>
                             <li><a href="#"></a></li>

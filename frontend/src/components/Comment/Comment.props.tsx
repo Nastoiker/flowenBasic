@@ -1,7 +1,6 @@
 export interface CommentProps {
-    name: string;
+    userId: string;
     images?: string[];
     comment: string;
-    avatar?: string;
-    date: string;
+    date: Date;
 }

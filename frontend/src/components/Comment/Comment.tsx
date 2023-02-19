@@ -2,15 +2,15 @@ import {Htag} from "../Htag/Htag";
 import {CommentProps} from "./Comment.props";
 import {Paragraph} from "../Paragraph/Paragraph";
 
-export const Comment = ({name, images, comment, avatar, date }: CommentProps) : JSX.Element => {
-    const img =` ${avatar}`;
+export const Comment = ({userId, images, comment, date }: CommentProps) : JSX.Element => {
+    const img =``;
     return <div className={"flex"}>
         <img src={img} className="rounded-full" alt="avatar"/>
-        <div className={}>
+        <div>
             <Htag type={"h3"}>
-                {name}
+                {userId}
             </Htag>
-            <span>{date}</span>
+            <span>{date.toString()}</span>
             <Paragraph type={"medium"}>{comment}</Paragraph>
         </div>
         { images && images.map(image => <img src={`${image}`} className={"rounded-md"} alt="photoComments"/>)}

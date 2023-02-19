@@ -9,6 +9,7 @@ export interface Comment {
     comment: string;
     writtenById: string;
     productId: string;
+    pictures?: string;
 }
 export interface SmartPhone {
     id: string,
@@ -42,8 +43,8 @@ export interface ModelDevice {
     name: string,
     secondCategoryId: string,
     brandId: string,
-    comment?: Comment,
-    rating?: Rating,
+    comment?: Comment[],
+    rating?: Rating[],
 }
 export interface ProductModel {
     id: string;

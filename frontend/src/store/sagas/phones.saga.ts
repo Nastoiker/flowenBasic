@@ -19,6 +19,9 @@ export function* workerPhonesSaga() {
     console.log(formatProduct);
     yield put(getPhonesSuccess(formatProduct));
 }
+// export function* getModelSaga() {
+//     const model = yield call(() => fetch('http://localhost:800/'));
+// }
 function* phonesCatSaga() {
     yield takeEvery('phones/getPhonesFetch', workerPhonesSaga);
 }

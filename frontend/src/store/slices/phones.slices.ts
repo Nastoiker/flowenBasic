@@ -1,9 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ProductState} from "../product.slice";
-import {ProductModel} from "../../../interfaces/product.interfaces";
+import {ModelDevice, ProductModel} from "../../../interfaces/product.interfaces";
 
 interface StatePhones {
     phones: ProductModel[];
+    currentModel?: ModelDevice[];
     isLoading: boolean;
 }
 const initialState:StatePhones = {
@@ -24,6 +25,9 @@ const phonesSlice = createSlice({
             state.phones = action.payload;
             state.isLoading = false;
         },
+        setCurrentModel: (state, {payload}) => {
+            state.currentModel = payload;
+        }
     },
 });
 export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess } = phonesSlice.actions;
