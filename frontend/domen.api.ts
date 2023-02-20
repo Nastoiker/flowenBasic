@@ -16,18 +16,18 @@
 //         register: process.env.DOMEN + '/user/register',
 //     }
 // };
-const some = 'http://localhost:8000';
+export const api_url = 'http://localhost:8000';
 export const DOMEN = {
     product: {
-        create:  some + '/product/create',
-        getAll: some +'/product/',
-        getByName: some + '/product/info:',
-        deleteProduct: some +   '/product/delete',
-        update: some +  '/product/update',
-        getByCategory:some +   '/product/byCategory',
-        getCategory: some + '/product/getCategory',
-        getById:  some + 'http://localhost:8000/product/getProductById:',
-        getFirstCategory:  some + '/product/getFirstCategory'
+        create:  api_url + '/product/create',
+        getAll: api_url +'/product/',
+        getByName: api_url + '/product/info:',
+        deleteProduct: api_url +   '/product/delete',
+        update: api_url +  '/product/update',
+        getByCategory:api_url +   '/product/byCategory',
+        getCategory: api_url + '/product/getCategory',
+        getById:  api_url + 'http://localhost:8000/product/getProductById:',
+        getFirstCategory:  api_url + '/product/getFirstCategory'
     },
     user: {
         find: '/user/profile:',

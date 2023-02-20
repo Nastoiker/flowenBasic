@@ -14,7 +14,7 @@ export interface Comment {
 export interface SmartPhone {
     id: string,
     name: string,
-    price: string,
+    price: number,
     alias: string,
     oldPrice: number,
     TagId: string,
@@ -24,7 +24,7 @@ export interface SmartPhone {
     brand: Brand,
     modelDevice: ModelDevice,
     Description: string,
-    image: string | null,
+    image: string,
     Memory: number,
     Ram: number,
     modelDeviceId: string,
@@ -57,7 +57,7 @@ export interface ProductModel {
     modelDeviceId: string;
     brand: Brand;
     Comment: Comment[];
-    smartphones?: SmartPhone[];
+    product: SmartPhone[];
 }
 export interface  secondLevelCategory {
     id: string,

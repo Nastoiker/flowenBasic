@@ -3,6 +3,7 @@ import {useEffect} from "react";
 import {getProducts} from "../../store/product.slice";
 import {getPhonesFetch} from "../../store/slices/phones.slices";
 import {PhoneCard} from "../../components/Product/Card/phone.card";
+import {api_url} from "../../../domen.api";
 
 const Phones = ():JSX.Element => {
     const dispatch = useAppDispatch();
@@ -10,9 +11,9 @@ const Phones = ():JSX.Element => {
         dispatch(getPhonesFetch());
     }, [dispatch]);
     const phones = useAppSelector(state => state.phone.phones);
-    return <div>
+    return (<div>
         PHONES
-        { phones.map(p => (<PhoneCard name={p.name} img={'sad'} price={p.price} />)) }
-    </div>;
+        { phones.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${p.alias}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) }
+    </div>);
 };
 export default Phones;
