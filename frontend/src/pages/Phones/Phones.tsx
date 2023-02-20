@@ -11,9 +11,8 @@ const Phones = ():JSX.Element => {
         dispatch(getPhonesFetch());
     }, [dispatch]);
     const phones = useAppSelector(state => state.phone.phones);
-    return (<div>
-        PHONES
-        { phones.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${p.alias}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) }
+    return (<div className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-flow-col justify-items-center"}>
+        { phones.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) }
     </div>);
 };
 export default Phones;

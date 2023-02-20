@@ -133,16 +133,16 @@ export class ProductService implements IProductService {
 		let images = '';
 		for (const file of files) {
 			await access(
-				`${upload}/${brandId}/${modelDeviceId}/${product.Color}/${file.originalname}`,
+				`${upload}/${brandId}/${modelDeviceId}/${product.ColorAlias}/${file.originalname}`,
 				(err) => {
 					writeFile(
-						`${upload}/${brandId}/${modelDeviceId}/${product.Color}/${file.originalname}`,
+						`${upload}/${brandId}/${modelDeviceId}/${product.ColorAlias}/${file.originalname}`,
 						file.buffer,
 					);
 				},
 			);
 			res.push({
-				url: `${upload}/${brandId}/${modelDeviceId}/${product.Color}/${name}`,
+				url: `${upload}/${brandId}/${modelDeviceId}/${product.ColorAlias}/${name}`,
 				name: file.originalname,
 			});
 			if (images.length > 0) {
