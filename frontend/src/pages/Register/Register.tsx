@@ -14,4 +14,4 @@ const Register = () => {
         <Button>Авторизация</Button>
     </div>);
 }
-export default  Register;
+export default Register;

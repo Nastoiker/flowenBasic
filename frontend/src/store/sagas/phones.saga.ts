@@ -22,7 +22,9 @@ export function* workerPhonesSaga() {
 // export function* getModelSaga() {
 //     const model = yield call(() => fetch('http://localhost:800/'));
 // }
+
 function* phonesCatSaga() {
     yield takeEvery('phones/getPhonesFetch', workerPhonesSaga);
 }
+
 export default  phonesCatSaga;
