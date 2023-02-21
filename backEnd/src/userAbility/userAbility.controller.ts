@@ -10,6 +10,9 @@ import { UserService } from '../user/user.service';
 import { UserAbilityService } from './userAbility.service';
 import { AuthGuard } from '../common/Auth.guard';
 import { updateProductToBasketDto } from './dto/update.basket';
+import { MFile } from '../files/mfile.class';
+import { FileService } from '../files/file.service';
+import { MulterMiddleware } from '../common/Multer.middleware';
 @injectable()
 export class userAbility extends BaseController {
 	constructor(
@@ -18,6 +21,7 @@ export class userAbility extends BaseController {
 		@inject(TYPES.UserService) private userService: UserService,
 		@inject(TYPES.LoggerService) private loggerService: Ilogger,
 		@inject(TYPES.UserAbilityService) private userAbilityService: UserAbilityService,
+		@inject(TYPES.FileService) private fileService: FileService,
 	) {
 		super(loggerService);
 		this.bindRoutes([
@@ -49,7 +53,7 @@ export class userAbility extends BaseController {
 				path: '/comment',
 				method: 'post',
 				func: this.setComment,
-				middlewares: [new AuthGuard()],
+				middlewares: [new AuthGuard(), new MulterMiddleware()],
 			},
 			{
 				path: '/setRating',
@@ -147,15 +151,24 @@ export class userAbility extends BaseController {
 			{},
 			{
 				comment: string;
-				writtenById: string;
 				modelDeviceId: string;
 				title: string;
-				pictures: string;
 			}
 		>,
 		res: Response,
 		next: NextFunction,
 	) {
+		if (!req.file) {
+			return next(new HTTPError(401, 'Файл должен быть фотографией'));
+		}
+		const savearray: MFile[] = [new MFile(req.file)];
+		const buffer = await this.fileService.convertToWebp(req.file.buffer);
+		savearray.push(
+			new MFile({
+				originalname: `${req.file.originalname.split('.')[0]}.webp`,
+				buffer,
+			}),
+		);
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
 			next(new HTTPError(422, 'Ошибка создания коммента '));
@@ -165,7 +178,7 @@ export class userAbility extends BaseController {
 				modelDeviceId: req.body.modelDeviceId,
 				writtenById: writtenById.id,
 				title: req.body.title,
-				pictures: req.body.pictures,
+				file: savearray,
 			});
 		}
 	}

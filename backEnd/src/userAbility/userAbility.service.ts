@@ -18,6 +18,7 @@ export class UserAbilityService {
 	) {}
 
 	async setComment(comment: Comment) {
+
 		return this.productRepository.setCommentProduct(comment);
 	}
 	async addBasket(productId: string, userId: string, quantity: number): Promise<Basket | null> {

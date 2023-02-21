@@ -1,5 +1,6 @@
 import { IsArray, IsNumber, IsString, IsOptional, IsDate, IsBoolean } from 'class-validator';
 import { UserModel } from '@prisma/client';
+import {MFile} from "../../files/mfile.class";
 export class ProductModel {
 	@IsString()
 	name: string;
@@ -158,11 +159,10 @@ export class Comment {
 	writtenById: string;
 	@IsString()
 	modelDeviceId: string;
-	@IsString()
-	@IsOptional()
-	pictures: string | null;
+
 	@IsString()
 	title: string;
+	file?: MFile[] | string;
 }
 export class Tag {
 	@IsString()
