@@ -199,6 +199,16 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async findModelById(id: string): Promise<ModelDevice | null> {
+		return this.prismaService.client.modelDevice.findFirst({
+			where: {
+				id,
+			},
+			include: {
+				brand: true,
+			},
+		});
+	}
 	async findTagByName(name: string): Promise<Tag | null> {
 		return this.prismaService.client.tag.findFirst({
 			where: {

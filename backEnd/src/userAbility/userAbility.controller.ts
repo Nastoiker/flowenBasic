@@ -53,7 +53,8 @@ export class userAbility extends BaseController {
 				path: '/comment',
 				method: 'post',
 				func: this.setComment,
-				middlewares: [new AuthGuard(), new MulterMiddleware()],
+				middlewares: [new MulterMiddleware()],
+				// new AuthGuard(),
 			},
 			{
 				path: '/setRating',
@@ -159,7 +160,11 @@ export class userAbility extends BaseController {
 		next: NextFunction,
 	) {
 		if (!req.file) {
-			return next(new HTTPError(401, 'Файл должен быть фотографией'));
+			 return next(new HTTPError(401, 'Файл должен быть фотографией'));
+		}
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			return next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
 		const savearray: MFile[] = [new MFile(req.file)];
 		const buffer = await this.fileService.convertToWebp(req.file.buffer);
@@ -169,10 +174,6 @@ export class userAbility extends BaseController {
 				buffer,
 			}),
 		);
-		const writtenById = await this.userService.getUserInfo(req.user);
-		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка создания коммента '));
-		} else {
 			await this.userAbilityService.setComment({
 				comment: req.body.comment,
 				modelDeviceId: req.body.modelDeviceId,
@@ -180,7 +181,6 @@ export class userAbility extends BaseController {
 				title: req.body.title,
 				file: savearray,
 			});
-		}
 	}
 	async setRatingProduct(
 		req: Request<{}, {}, { productId: string; quanity: number }>,

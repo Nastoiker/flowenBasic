@@ -5,8 +5,13 @@ import { IConfigService } from '../config/config.service.interface';
 import { IUserRepository } from '../user/user.repository.interface';
 import { ProductRepository } from '../Product/product.repository';
 import { UserAbilityRepository } from './userAbility.repository';
-import { UserModel, Basket } from '@prisma/client';
+import {UserModel, Basket, Product} from '@prisma/client';
 import { updateProductToBasketDto } from './dto/update.basket';
+import {MFile} from "../files/mfile.class";
+import {access, pathExistsSync, writeFile} from "fs-extra";
+import {mkdir} from "fs";
+import {path} from "app-root-path";
+import {FileElementResponse} from "../files/dto/fileElement.response";
 @injectable()
 export class UserAbilityService {
 	constructor(
@@ -18,8 +23,66 @@ export class UserAbilityService {
 	) {}
 
 	async setComment(comment: Comment) {
+		if(!comment.file) { return this.productRepository.setCommentProduct(comment); }
+		const model = await this.productRepository.findModelById(comment.modelDeviceId);
+		if (!model) { return null; }
+		// @ts-ignore
+		const brandName = model['brand']['name'];
+		const modelDeviceName = model.name.trim().replace(' ', '-');
+		let image = comment.file;
+		if (!image) {
+			image = '';
+		}
+		const name = product.name;
+		if (!pathExistsSync(`./uploads/comment/${brandName}`)) {
+			mkdir(`./uploads/product/${brandName}`, (err) => {
+				// eslint-disable-next-line no-empty
+				if (err) {
+					console.error(err);
+				}
+			});
+		}
+		if (!pathExistsSync(`./uploads/product/${brandName}/${modelDeviceName}`)) {
+			mkdir(`./uploads/product/${brandName}/${modelDeviceName}`, (err) => {
+				if (err) {
+					console.error(err);
+				}
+			});
+		}
+		if (
+			!pathExistsSync(`./uploads/product/${brandName}/${modelDeviceName}/${comment.writtenById}`)
+		) {
+			mkdir(`./uploads/product/${brandName}/${modelDeviceName}/${comment.writtenById}`, (err) => {
+				if (err) {
+					console.error(err);
+				}
+			});
+		}
+		const upload = `${path}/uploads/product`;
+		const res: FileElementResponse[] = [];
+		let images = '';
+		for (const file of comment.file) {
+			await access(
+				`${upload}/${brandName}/${modelDeviceName}/${comment.writtenById}/${file.originalname}`,
+				(err) => {
+					writeFile(
+						`${upload}/${brandName}/${modelDeviceName}/${comment.writtenById}/${file.originalname}`,
+						file.buffer,
+					);
+				},
+			);
+			res.push({
+				url: `${upload}/${brandName}/${modelDeviceName}/${comment.writtenById}/${name}`,
+				name: file.originalname,
+			});
+			if (images.length > 0) {
+				images.concat(`/${file.originalname.split('.')[0]}.webp`);
+			} else {
+				images = `${file.originalname.split('.')[0]}.webp`;
+			}
+		}
 
-		return this.productRepository.setCommentProduct(comment);
+		return this.productRepository.setCommentProduct({});
 	}
 	async addBasket(productId: string, userId: string, quantity: number): Promise<Basket | null> {
 		return this.productRepository.addProductToBasket(productId, userId, quantity, false);

@@ -162,7 +162,7 @@ export class Comment {
 
 	@IsString()
 	title: string;
-	file?: MFile[] | string;
+	file?: MFile[];
 }
 export class Tag {
 	@IsString()
