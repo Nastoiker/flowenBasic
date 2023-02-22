@@ -3,4 +3,5 @@ export interface CommentProps {
     images?: string[];
     comment: string;
     date: Date;
+    title: string;
 }

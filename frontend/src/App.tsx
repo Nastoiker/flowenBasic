@@ -1,4 +1,4 @@
-import {lazy, useState, Suspense} from 'react'
+import {lazy, useState, Suspense, useEffect} from 'react'
 import eactLogo from './assets/react.svg';
 import './App.css';
 import {Route, BrowserRouter as Router, Routes, useLocation} from "react-router-dom";
@@ -16,6 +16,8 @@ import SliderDemo from "./ui/slider/slider";
 import {Search} from "./components/Search/Search";
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
+import {getPhonesFetch} from "./store/slices/phones.slices";
+import {useAppDispatch} from "./store";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -23,6 +25,11 @@ function App() {
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getPhonesFetch());
+    }, [dispatch]);
     return (
             <div className="App max-w-screen-xl mx-auto" >
                 <Header />

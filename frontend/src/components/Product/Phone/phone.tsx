@@ -2,15 +2,21 @@ import {phoneProps} from "./phone.props";
 import {Paragraph} from "../../Paragraph/Paragraph";
 import {useEffect, useState} from "react";
 import {useSelector} from "react-redux";
-import {useAppSelector} from "../../../store";
+import {useAppDispatch, useAppSelector} from "../../../store";
 import {Button} from "../../../ui/button";
 import {CommentForm} from "../../Comment/CommentForm";
 import {Htag} from "../../Htag/Htag";
 import {Comment} from "../../Comment/Comment";
 const api_url = 'http://localhost:8000';
 import './phone.css';
+import {setCurrentModel} from "../../../store/slices/phones.slices";
+import {ModelDevice} from "../../../../interfaces/product.interfaces";
 // import photoSmartphone from '@product/3909225.webp';
-export const Phone = ({phone}: phoneProps): JSX.Element => {
+export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
+    console.log(phone);
+    console.log('info' + phone.modelDeviceId);
+    console.log( currentModel + 'current');
+
     const img = phone.image?.split(',');
 //../../../../../backEnd/uploads
 //     const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
@@ -33,7 +39,7 @@ export const Phone = ({phone}: phoneProps): JSX.Element => {
         <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
         <div>
             <Htag type={"h1"}>Комментарии</Htag>
-            { phone.modelDevice.comment ? phone.modelDevice.comment.map( c => <Comment userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
+            { currentModel.Comment ? currentModel.Comment.map( c => <Comment key={c.id} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
         </div>
     </>;
 };

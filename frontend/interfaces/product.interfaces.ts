@@ -8,7 +8,8 @@ export interface Comment {
     createdAt: Date;
     comment: string;
     writtenById: string;
-    productId: string;
+    modelDeviceId: string;
+    title: string;
     pictures?: string;
 }
 export interface SmartPhone {
@@ -43,7 +44,7 @@ export interface ModelDevice {
     name: string,
     secondCategoryId: string,
     brandId: string,
-    comment?: Comment[],
+    Comment?: Comment[],
     rating?: Rating[],
 }
 export interface ProductModel {
@@ -78,4 +79,12 @@ export interface Product {
     brandId: string;
     modelDeviceId: string;
     TagId: string;
+}
+export interface Profile {
+    id: string;
+    login: string;
+    phone?: string | null;
+    avatar?: string | null;
+    isActive: boolean;
+    Comment: Comment[];
 }
