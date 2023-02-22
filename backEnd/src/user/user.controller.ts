@@ -67,6 +67,12 @@ export class UserController extends BaseController implements IUserController {
 				func: this.updateAvatar,
 				middlewares: [new AuthGuard(), new MulterMiddleware()],
 			},
+			{
+				path: '/acc:id',
+				method: 'get',
+				func: this.acc,
+				middlewares: [],
+			}
 		]);
 	}
 	async register(
@@ -129,6 +135,12 @@ export class UserController extends BaseController implements IUserController {
 				this.ok(res, { ...userInfo });
 			}
 		});
+	}
+	public async acc(request: Request, res: Response, next: NextFunction): Promise<void> {
+		const getInfoProfile = await this.userService.getProfileInfoById(
+			request.params['id'].slice(1),
+		);
+		this.ok(res, { ...getInfoProfile });
 	}
 	public async profileInfo(request: Request, res: Response, next: NextFunction): Promise<void> {
 		const getInfoProfile = await this.userService.getProfileInfo(request.params['id'].slice(1));

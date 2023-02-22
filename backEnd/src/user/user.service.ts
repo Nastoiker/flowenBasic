@@ -65,6 +65,14 @@ export class UserService {
 			}
 		});
 	}
+	async getProfileInfoById(id: string) {
+		return await this.userRepository.getProfileInfoById(id).then((res) => {
+			if (res) {
+				const { hashpassword, email, ...profile } = res;
+				return profile;
+			}
+		});
+	}
 	async verifyEmail(id: string): Promise<UserModel | null> {
 		return await this.userRepository.verifyEmail(id);
 	}

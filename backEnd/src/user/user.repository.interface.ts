@@ -1,4 +1,4 @@
-import { Basket, UserModel } from '@prisma/client';
+import { Basket, UserModel, Comment } from '@prisma/client';
 import { User } from './user.entity';
 export interface IUserRepository {
 	find: (email: string) => Promise<UserModel | null>;
@@ -8,5 +8,6 @@ export interface IUserRepository {
 	updateAvatar: (avatar: string, id: string) => Promise<UserModel>;
 	checkActiveUser: (id: string) => Promise<UserModel | null>;
 	verifyEmail: (id: string) => Promise<UserModel | null>;
-	deleteComment: (modelDeviceId: string, writtenById: string) => Promise<Comment | null>;
+	deleteComment: (commentId: string) => Promise<Comment | null>;
+	getProfileInfoById: (id: string) => Promise<UserModel | null>;
 }

@@ -13,7 +13,7 @@ import { updateProductToBasketDto } from './dto/update.basket';
 import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
 import { MulterMiddleware } from '../common/Multer.middleware';
-import {AdminGuard} from "../common/admin.guard";
+import { AdminGuard } from '../common/admin.guard';
 @injectable()
 export class userAbility extends BaseController {
 	constructor(
@@ -79,7 +79,7 @@ export class userAbility extends BaseController {
 				method: 'post',
 				func: this.deleteComment,
 				middlewares: [new AuthGuard()],
-			}
+			},
 		]);
 	}
 	async productBuyUser(
@@ -165,12 +165,17 @@ export class userAbility extends BaseController {
 		res: Response,
 		next: NextFunction,
 	) {
-		if (!req.file) {
-			 return next(new HTTPError(401, 'Файл должен быть фотографией'));
-		}
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка создания коммента '));
+		}
+		if (!req.file) {
+			return await this.userAbilityService.setComment({
+				comment: req.body.comment,
+				modelDeviceId: req.body.modelDeviceId,
+				writtenById: writtenById.id,
+				title: req.body.title,
+			});
 		}
 		const savearray: MFile[] = [new MFile(req.file)];
 		const buffer = await this.fileService.convertToWebp(req.file.buffer);
@@ -180,23 +185,26 @@ export class userAbility extends BaseController {
 				buffer,
 			}),
 		);
-			await this.userAbilityService.setComment({
-				comment: req.body.comment,
-				modelDeviceId: req.body.modelDeviceId,
-				writtenById: writtenById.id,
-				title: req.body.title,
-				file: savearray,
-			});
+		await this.userAbilityService.setComment({
+			comment: req.body.comment,
+			modelDeviceId: req.body.modelDeviceId,
+			writtenById: writtenById.id,
+			title: req.body.title,
+			file: savearray,
+		});
+		this.ok(res, { message: 'Коммент оставлен' });
 	}
-	async deleteComment(req: Request<{}, {}, { commentId: string }>,
-						res: Response,
-						next: NextFunction) {
+	async deleteComment(
+		req: Request<{}, {}, { commentId: string }>,
+		res: Response,
+		next: NextFunction,
+	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка рейтинга '));
 		}
-		const deleteComment = await this.userAbilityService.deleteComment();
-		this.ok(res, { message: 'Коммент удален'});
+		const deleteComment = await this.userAbilityService.deleteComment(req.body.commentId);
+		this.ok(res, { message: 'Коммент удален' });
 	}
 	async setRatingProduct(
 		req: Request<{}, {}, { productId: string; quanity: number }>,
@@ -207,13 +215,12 @@ export class userAbility extends BaseController {
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка рейтинга '));
 		}
-			const basket = await this.userAbilityService.setRatingProduct({
-				modelDeviceId: req.body.productId,
-				writtenById: writtenById.id,
-				number: req.body.quanity,
-			});
-			this.ok(res, { basket });
-
+		const basket = await this.userAbilityService.setRatingProduct({
+			modelDeviceId: req.body.productId,
+			writtenById: writtenById.id,
+			number: req.body.quanity,
+		});
+		this.ok(res, { basket });
 	}
 	async updateProductToBasket(
 		req: Request<{}, {}, updateProductToBasketDto>,

@@ -2,7 +2,7 @@ import { IUserRepository } from './user.repository.interface';
 import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
-import { Basket, UserModel } from '@prisma/client';
+import { Basket, UserModel, Comment } from '@prisma/client';
 import { User } from './user.entity';
 @injectable()
 export class UserRepository implements IUserRepository {
@@ -58,6 +58,17 @@ export class UserRepository implements IUserRepository {
 			},
 		});
 	}
+
+	async getProfileInfoById(id: string): Promise<UserModel | null> {
+		return this.prismaService.client.userModel.findFirst({
+			where: {
+				id,
+			},
+			include: {
+				Comment: true,
+			},
+		});
+	}
 	async checkActiveUser(id: string): Promise<UserModel | null> {
 		return this.prismaService.client.userModel.findFirst({
 			where: {
@@ -79,7 +90,11 @@ export class UserRepository implements IUserRepository {
 			});
 		}
 	}
-	async deleteComment(modelDeviceId: string, writtenById: string): Promise<Comment | null> {
-		return this.
+	async deleteComment(commentId: string): Promise<Comment | null> {
+		return this.prismaService.client.comment.delete({
+			where: {
+				id: commentId,
+			},
+		});
 	}
 }

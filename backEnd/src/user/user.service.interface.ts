@@ -10,4 +10,5 @@ export interface IUserService {
 	getUserInfo: (email: string) => Promise<UserModel | null>;
 	getBasketByUser: (userId: string) => Promise<Basket[] | null>;
 	saveAvatar: (file: MFile, userId: string) => Promise<UserModel>;
+	getProfileInfoById: (id: string) => Promise<UserModel | null>;
 }
