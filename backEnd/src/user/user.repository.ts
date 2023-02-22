@@ -79,4 +79,7 @@ export class UserRepository implements IUserRepository {
 			});
 		}
 	}
+	async deleteComment(modelDeviceId: string, writtenById: string): Promise<Comment | null> {
+		return this.
+	}
 }

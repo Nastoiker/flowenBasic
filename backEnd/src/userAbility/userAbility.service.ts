@@ -21,19 +21,16 @@ export class UserAbilityService {
 		@inject(TYPES.UserAbilityRepository)
 		private userAbilityServiceRepository: UserAbilityRepository,
 	) {}
-
+	async deleteComment(writtenById: string, modelDeviceId: string) {
+		return this.userRepository.deleteComment(modelDeviceId, writtenById);
+	}
 	async setComment(comment: Comment) {
-		if(!comment.file) { return this.productRepository.setCommentProduct(comment); }
+		if(!comment.file) { return this.productRepository.setCommentProduct(comment.comment, comment.writtenById, comment.modelDeviceId, comment.title, ''); }
 		const model = await this.productRepository.findModelById(comment.modelDeviceId);
 		if (!model) { return null; }
 		// @ts-ignore
 		const brandName = model['brand']['name'];
 		const modelDeviceName = model.name.trim().replace(' ', '-');
-		let image = comment.file;
-		if (!image) {
-			image = '';
-		}
-		const name = product.name;
 		if (!pathExistsSync(`./uploads/comment/${brandName}`)) {
 			mkdir(`./uploads/product/${brandName}`, (err) => {
 				// eslint-disable-next-line no-empty
@@ -81,8 +78,7 @@ export class UserAbilityService {
 				images = `${file.originalname.split('.')[0]}.webp`;
 			}
 		}
-
-		return this.productRepository.setCommentProduct({});
+		return this.productRepository.setCommentProduct(comment.comment, comment.writtenById, comment.modelDeviceId, comment.title, images);
 	}
 	async addBasket(productId: string, userId: string, quantity: number): Promise<Basket | null> {
 		return this.productRepository.addProductToBasket(productId, userId, quantity, false);

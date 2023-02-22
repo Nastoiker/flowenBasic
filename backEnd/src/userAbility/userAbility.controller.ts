@@ -13,6 +13,7 @@ import { updateProductToBasketDto } from './dto/update.basket';
 import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
 import { MulterMiddleware } from '../common/Multer.middleware';
+import {AdminGuard} from "../common/admin.guard";
 @injectable()
 export class userAbility extends BaseController {
 	constructor(
@@ -53,8 +54,7 @@ export class userAbility extends BaseController {
 				path: '/comment',
 				method: 'post',
 				func: this.setComment,
-				middlewares: [new MulterMiddleware()],
-				// new AuthGuard(),
+				middlewares: [new MulterMiddleware(), new AuthGuard()],
 			},
 			{
 				path: '/setRating',
@@ -74,6 +74,12 @@ export class userAbility extends BaseController {
 				func: this.editQuantityBasketProduct,
 				middlewares: [new AuthGuard()],
 			},
+			{
+				path: '/deleteComment',
+				method: 'post',
+				func: this.deleteComment,
+				middlewares: [new AuthGuard()],
+			}
 		]);
 	}
 	async productBuyUser(
@@ -182,6 +188,16 @@ export class userAbility extends BaseController {
 				file: savearray,
 			});
 	}
+	async deleteComment(req: Request<{}, {}, { commentId: string }>,
+						res: Response,
+						next: NextFunction) {
+		const writtenById = await this.userService.getUserInfo(req.user);
+		if (!writtenById) {
+			return next(new HTTPError(422, 'Ошибка рейтинга '));
+		}
+		const deleteComment = await this.userAbilityService.deleteComment();
+		this.ok(res, { message: 'Коммент удален'});
+	}
 	async setRatingProduct(
 		req: Request<{}, {}, { productId: string; quanity: number }>,
 		res: Response,
@@ -189,15 +205,15 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка рейтинга '));
-		} else {
+			return next(new HTTPError(422, 'Ошибка рейтинга '));
+		}
 			const basket = await this.userAbilityService.setRatingProduct({
 				modelDeviceId: req.body.productId,
 				writtenById: writtenById.id,
 				number: req.body.quanity,
 			});
 			this.ok(res, { basket });
-		}
+
 	}
 	async updateProductToBasket(
 		req: Request<{}, {}, updateProductToBasketDto>,

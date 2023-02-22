@@ -8,4 +8,5 @@ export interface IUserRepository {
 	updateAvatar: (avatar: string, id: string) => Promise<UserModel>;
 	checkActiveUser: (id: string) => Promise<UserModel | null>;
 	verifyEmail: (id: string) => Promise<UserModel | null>;
+	deleteComment: (modelDeviceId: string, writtenById: string) => Promise<Comment | null>;
 }

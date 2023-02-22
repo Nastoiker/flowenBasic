@@ -228,14 +228,14 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
-	async setCommentProduct(comment: Comment): Promise<Comment> {
+	async setCommentProduct(comment: string, writtenById: string, modelDeviceId: string, title: string, pictures: string): Promise<Comment> {
 		return this.prismaService.client.comment.create({
 			data: {
-				...comment,
-			},
-			include: {
-				model: true,
-				writtenBy: true,
+				comment,
+				modelDeviceId,
+				title,
+				writtenById,
+				pictures,
 			},
 		});
 	}
