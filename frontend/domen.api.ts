@@ -29,6 +29,9 @@ export const DOMEN = {
         getById:  api_url + 'http://localhost:8000/product/getProductById:',
         getFirstCategory:  api_url + '/product/getFirstCategory'
     },
+    brand: {
+      getBrands: api_url + '/product/getBrands'
+    },
     user: {
         find: '/user/profile:',
         login:  '/user/login',
@@ -36,5 +39,13 @@ export const DOMEN = {
     },
     comment: {
         createComment: '/'
+    },
+    admin: {
+        createProduct: api_url + '/product/create',
+        createModel: api_url + '/product/createModel',
+        createCategory: api_url + '/setBrandOnSecondCategory',
+        createBrand: api_url + '/setCategoryOnBrand',
+        deleteProduct: api_url + '/delete',
+        updatePictureProduct: api_url + '/uploadImage',
     }
 };

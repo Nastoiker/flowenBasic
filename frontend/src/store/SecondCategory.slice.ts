@@ -44,6 +44,7 @@ export const secondCategorySlice = createSlice({
         SetCurrentCategory: (state, {  payload }) => {
             state.currentCategory = payload;
         },
+
     },
     extraReducers: (builder) => {
         builder

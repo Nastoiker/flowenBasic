@@ -88,3 +88,7 @@ export interface Profile {
     isActive: boolean;
     Comment: Comment[];
 }
+export interface  Tag {
+    id: string,
+    name: string,
+}

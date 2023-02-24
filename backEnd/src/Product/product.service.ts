@@ -5,7 +5,7 @@ import {
 	SecondLevelCategory,
 	FirstLevelCategory,
 	Comment,
-	ModelDevice,
+	ModelDevice, Tag,
 } from '@prisma/client';
 import {
 	BrandDevice,
@@ -183,5 +183,8 @@ export class ProductService implements IProductService {
 	}
 	async getProductsDiscount(): Promise<Product[]> {
 		return this.productRepository.getProductsDiscount();
+	}
+	async getTags(): Promise<Tag[]> {
+		return this.productRepository.getTags();
 	}
 }

@@ -12,7 +12,7 @@ import {
 	ModelDevice,
 	Product,
 	SecondLevelCategory,
-	Comment,
+	Comment, Tag,
 } from '@prisma/client';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 import { MFile } from '../files/mfile.class';
@@ -55,4 +55,5 @@ export interface IProductService {
 	saveFile: (files: MFile[], productId: string) => Promise<Product | null>;
 	getBrandProductByCategory: (secondLevelId: string) => Promise<Brand[]>;
 	getProductsDiscount: () => Promise<Product[]>;
+	getTags: () => Promise<Tag[]>;
 }

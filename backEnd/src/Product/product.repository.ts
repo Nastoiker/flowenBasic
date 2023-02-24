@@ -219,6 +219,9 @@ export class ProductRepository implements IProductRepository {
 			},
 		});
 	}
+	async getTags(): Promise<Tag[]> {
+		return this.prismaService.client.tag.findMany({});
+	}
 	async getAllProducts() {
 		return await this.prismaService.client.modelDevice.findMany({
 			include: {

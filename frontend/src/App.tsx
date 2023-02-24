@@ -18,6 +18,8 @@ import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {getPhonesFetch} from "./store/slices/phones.slices";
 import {useAppDispatch} from "./store";
+import {AdminPage} from "./pages/Admin/Admin";
+import {getBrandsFetch} from "./store/slices/brand.slice";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -25,10 +27,12 @@ function App() {
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
+    const AdminPage = lazy(() => import('./pages/Admin/Admin'));
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getPhonesFetch());
+        dispatch(getBrandsFetch());
     }, [dispatch]);
     return (
             <div className="App max-w-screen-xl mx-auto" >
@@ -64,6 +68,7 @@ function App() {
                         <Route path="/product" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /> </Suspense>} />
                         <Route path="/product/phone" element={<Suspense fallback={<h2>Загрузка...</h2>}><Phones /> </Suspense>} />
                         <Route path="/product/phone/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
+                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Router>

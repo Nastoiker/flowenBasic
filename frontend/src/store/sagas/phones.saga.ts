@@ -12,7 +12,6 @@ export function* workerPhonesSaga() {
     // const data:AxiosResponse<ProductState[]> = yield call(() => axios.get( 'http://localhost:8000/product'));
     const data:Promise<ProductState> = yield call(() => fetch( 'http://localhost:8000/product/'));
     const formatProduct:ProductState[] = yield data.json();
-
     // const formatProduct:ResponseGenerator = yield data.data;
     // const data:Promise<> = yield call(fetch('https://jsonplaceholder.typicode.com/posts'));
     // const formatProduct:ProductState[] = yield data.data;

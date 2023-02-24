@@ -13,10 +13,10 @@ const AuthSlice = createSlice({
             state.token = action.payload;
             localStorage.setItem('token', action.payload);
         },
-        logoutSucces: (state) => {
+        logoutSuccess: (state) => {
             state.token = null;
             localStorage.removeItem('token');
         }
     }
 });
-export const {loginSuccess, logoutSucces} = AuthSlice.actions;
+export const {loginSuccess, logoutSuccess} = AuthSlice.actions;

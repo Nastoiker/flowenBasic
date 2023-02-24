@@ -167,6 +167,12 @@ export class ProductController extends BaseController {
 				func: this.findLikeSqlModelBrand,
 				middlewares: [],
 			},
+			{
+				path: '/tags',
+				method: 'get',
+				func: this.getTags,
+				middlewares: [],
+			},
 		]);
 	}
 	async findLikeSqlModelBrand(
@@ -414,6 +420,14 @@ export class ProductController extends BaseController {
 		next: NextFunction,
 	): Promise<void | OutInterface> {
 		const product = await this.productService.getProductsDiscount();
+		this.arr(res, product);
+	}
+	async getTags(
+		request: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void | OutInterface> {
+		const product = await this.productService.getTags();
 		this.arr(res, product);
 	}
 }
