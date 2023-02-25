@@ -305,7 +305,7 @@ export class ProductRepository implements IProductRepository {
 		for (const brand of brands) {
 			setBrands.push({ category: { connect: { id: brand } } });
 		}
-		const { name } = setBrandsOnCategory;
+		const name = setCategoryOnBrand.name;
 		return this.prismaService.client.brand.create({
 			data: {
 				name,
