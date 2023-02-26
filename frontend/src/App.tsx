@@ -20,6 +20,7 @@ import {getPhonesFetch} from "./store/slices/phones.slices";
 import {useAppDispatch} from "./store";
 import {AdminPage} from "./pages/Admin/Admin";
 import {getBrandsFetch} from "./store/slices/brand.slice";
+import PhoneModel from "./sections/PhoneModel";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -73,6 +74,7 @@ function App() {
                     </Routes>
                 </Router>
                 <Footer />
+                <PhoneModel />
             </div>
   )
 }

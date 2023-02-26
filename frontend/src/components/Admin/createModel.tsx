@@ -79,7 +79,6 @@ export const CreateModel = () => {
                     );
                 })}
             </select>
-            <Label htmlFor={'modelDeviceId'}>Модель</Label>
             <Button type={'submit'}> Создать</Button>
         </form>
     </div>

@@ -33,9 +33,9 @@ export const DOMEN = {
       getBrands: api_url + '/product/getBrands'
     },
     user: {
-        find: '/user/profile:',
-        login:  '/user/login',
-        register:'/user/register',
+        find: api_url + '/users/profile:',
+        login:  api_url + '/users/login',
+        register: api_url + '/users/register',
     },
     comment: {
         createComment: '/'
@@ -43,9 +43,9 @@ export const DOMEN = {
     admin: {
         createProduct: api_url + '/product/create',
         createModel: api_url + '/product/createModel',
-        createCategory: api_url + '/setBrandOnSecondCategory',
-        createBrand: api_url + '/setCategoryOnBrand',
+        createCategory: api_url + '/product/setBrandOnSecondCategory',
+        createBrand: api_url + '/product/setCategoryOnBrand',
         deleteProduct: api_url + '/delete',
-        updatePictureProduct: api_url + '/uploadImage',
+        updatePictureProduct: api_url + '/product/uploadImage',
     }
 };

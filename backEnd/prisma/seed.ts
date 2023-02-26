@@ -115,19 +115,19 @@ const userData = [brand, tag, firrtCategory];
 
 async function main() {
 	console.log(`Start seeding ...`);
-	for (const u of tag) {
-		const user = await prisma.tag.create({
-			data: u,
-		});
-		console.log(`Created user with id: ${user.id}`);
-	}
+	// for (const u of tag) {
+	// 	const user = await prisma.tag.create({
+	// 		data: u,
+	// 	});
+	// 	console.log(`Created user with id: ${user.id}`);
+	// }
 	// await prisma.userModel.update({
 	// 	where: { id: '35879279-421b-4272-8496-c7cdd5aec715' },
 	// 	data: {
 	// 		isActive: false,
 	// 	},
 	// });
-	// await prisma.tag.deleteMany({});
+	await prisma.product.deleteMany({});
 	// await prisma.secondLevelCategory.deleteMany({});
 	console.log(`Seeding finished.`);
 }

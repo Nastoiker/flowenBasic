@@ -13,6 +13,7 @@ import phonesCatSaga from "./sagas/phones.saga";
 import brandSlice from "./slices/brand.slice";
 import BrandSaga from "./sagas/brands.saga";
 import {rootSaga} from "./sagas/root.saga";
+import RegisterSlice from "./slices/register.slice";
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const sagaMiddleware = createSagaMiddleware();
@@ -24,6 +25,7 @@ export const store = configureStore({
         secondCategory: secondCategorySlice,
         phone: phonesSlice,
         brands: brandSlice,
+        register: RegisterSlice,
     },
     middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware),
 });

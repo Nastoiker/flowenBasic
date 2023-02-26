@@ -12,9 +12,20 @@ export interface ICreatePhone {
     ColorAlias: string;
     quantity: number;
     Description: string;
+    files: File;
 }
 export interface ICreateModel {
     name: string;
     secondCategoryId: string;
     brandId: string;
+}
+export interface ICreateSecondCategoryWithBrand {
+    alias: string;
+    name: string;
+    firstLevelId: string;
+    id: string[];
+}
+export interface  ICreateBrandWithSecondCategory {
+    categories: string[],
+    name: string,
 }
