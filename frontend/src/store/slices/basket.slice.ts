@@ -1,6 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ProductModel} from "../../../interfaces/product.interfaces";
-interface StateCard {
+export interface StateCard {
     productId: string;
     orderId: string;
     userId: string;

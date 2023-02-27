@@ -2,7 +2,6 @@ import React, { useRef, useLayoutEffect } from "react";
 import { useGLTF } from "@react-three/drei";
 import gsap from "gsap";
 import { useThree } from "@react-three/fiber";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 
 export default function Model({ ...props }) {
     const group = useRef();

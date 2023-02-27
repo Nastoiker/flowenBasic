@@ -6,7 +6,12 @@ import {DOMEN} from "../../../domen.api";
 function* login(action: any) {
     try {
         const { email, password } = action.payload;
-        const response: Promise<ProductState> = yield call((email, password) => fetch( DOMEN.user.login), email, password);
+        const response: Promise<ProductState> = yield call((email, password) => fetch( DOMEN.user.login, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }), email, password);
         const token = response.data.token;
         yield put(loginSuccess(token));
     } catch(error) {

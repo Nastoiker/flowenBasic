@@ -7,6 +7,7 @@ import axios from "axios";
 import {DOMEN} from "../../../domen.api";
 import {Label} from "../../ui/label";
 import {Htag} from "../Htag/Htag";
+import {Button} from "../../ui/button";
 
 export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps): JSX.Element => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<ICommentForm>();
@@ -27,7 +28,9 @@ export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps
             <div>
                 <Label htmlFor="title">Заголовок</Label>
                 <Input {...register('title', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>
-                <Textarea placeholder={"text"} />
+                <Input {...register('files', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>
+                <Textarea {...register('description', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"text"} />
+                <Button> Оставить комментарий</Button>
             </div>
         </form>
     )

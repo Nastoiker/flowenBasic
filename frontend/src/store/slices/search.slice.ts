@@ -4,7 +4,7 @@ interface SerchState {
     filters: string[];
     currentBrand: string;
     currentSecondCategory: string;
-    isLoading: true;
+    isLoading: boolean;
 }
 const initialState:SerchState = {
     search: '',
@@ -14,15 +14,17 @@ const searchSlice = createSlice({
     name: 'phones',
     initialState,
     reducers: {
-        getPhonesFetch: (state) => {
+        setSearch: (state, action) => {
+            state.search = action.payload
+        },
+        getPhonesFetchBySearch: (state) => {
+            state.isLoading = false;
+        },
+        getPhonesFailureBySearch: (state) => {
+            state.isLoading = false;
+        },
+        getPhonesSuccessBySearch: (state, action) => {
             state.isLoading = true;
-        },
-        getPhonesFailure: (state) => {
-            state.isLoading = false;
-        },
-        getPhonesSuccess: (state, action) => {
-            state.phones = action.payload;
-            state.isLoading = false;
         },
     },
 });

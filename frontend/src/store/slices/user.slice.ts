@@ -1,0 +1,50 @@
+import {createSlice} from "@reduxjs/toolkit";
+
+export interface userState {
+    email: string,
+    login: string,
+    password: string,
+    phone?: string,
+    avatar?: string,
+    address?: Address,
+
+}
+interface State {
+    user: userState;
+    isLoading: boolean,
+    token: string | null,
+}
+export interface Address {
+    city: string,
+    country: string,
+    streeet: string,
+    created_at: string,
+    updated_at: string,
+}
+
+export const initialState: State = {
+        user: {   email: '',
+            login: '',
+            password: '',
+        },
+        isLoading: false,
+}
+export const userSlice = createSlice({
+    name: 'user',
+    initialState,
+    reducers: {
+        setToken: (state) => {
+          state.token = localStorage.getItem('token');
+        },
+        getUserFetch: (state) => {
+            state.isLoading = false;
+        },
+        getUserFailed: (state, action) => {
+            state.isLoading = false;
+        },
+        getUserSuccess: (state, action) => {
+            state.isLoading = true;
+            state.user = action.payload;
+        }
+    }
+})

@@ -6,10 +6,13 @@ import {Button} from "../Button/Button";
 import {redirect, useNavigate} from 'react-router-dom';
 // import  * as SearchIcon  from './search.svg';
 import {Input} from "../Input/Input";
+import {useAppDispatch} from "../../store";
 export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
+   const dispatch = useAppDispatch();
    const [search, setSearch] = useState<string>('');
    const goToSearch = () => {
          redirect('/search');
+         dispatch();
    };
    const handleKeyDown = (e: KeyboardEvent) => {
       if(e.key=='Enter') {

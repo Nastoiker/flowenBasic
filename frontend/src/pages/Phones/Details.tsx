@@ -14,6 +14,7 @@ const Details =  (): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const dispatch = useAppDispatch();
+    // const user = useAppSelector(state => state.)
     useEffect(   () => {
         (async () => {
             const res = await fetch(  `http://localhost:8000/product/findByAlias:${id}`);

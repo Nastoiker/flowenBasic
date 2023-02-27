@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Canvas } from "@react-three/fiber";
-import { AdaptiveDpr, AdaptiveEvents, Environment } from "@react-three/drei";
+import {AdaptiveDpr, AdaptiveEvents, Environment, OrbitControls} from "@react-three/drei";
 import Model from "../components/Model/ModelIphone";
 import { Suspense } from "react";
 
@@ -27,9 +27,9 @@ const PhoneModel = () => {
                 <Environment preset="night" />
                 <AdaptiveDpr pixelated />
                 <AdaptiveEvents />
-                {/* <OrbitControls /> */}
+                 <OrbitControls />
             </Canvas>
-        // </Container>
+          // </Container>
     );
 };
 
