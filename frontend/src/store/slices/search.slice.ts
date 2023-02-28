@@ -1,4 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
+import {userSlice} from "./user.slice";
 interface SerchState {
     search: string;
     filters: string[];
@@ -28,3 +29,4 @@ const searchSlice = createSlice({
         },
     },
 });
+export default searchSlice.reducer;

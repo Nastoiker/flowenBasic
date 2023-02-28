@@ -5,10 +5,9 @@ import {registerSuccess, RegState} from "../slices/register.slice";
 import {DOMEN} from "../../../domen.api";
 
 function* WatchUserSaga() {
+    const token = localStorage.getItem('token');
+    if(!token) return;
     try {
-        const token = localStorage.getItem('token');
-        console.log( 'action' + email);
-        console.log(JSON.stringify(action.payload));
         const response: Promise<RegState> = yield call(() => fetch( DOMEN.user.register, { method: 'post',
             headers: {
                 'Content-Type': 'application/json',
@@ -24,4 +23,4 @@ function* WatchUserSaga() {
 function* userSaga() {
     yield takeEvery('user/getUserFetch', WatchUserSaga);
 }
-export default registerSaga;
+export default userSaga;

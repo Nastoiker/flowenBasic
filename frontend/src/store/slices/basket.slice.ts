@@ -1,5 +1,6 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ProductModel} from "../../../interfaces/product.interfaces";
+import {userSlice} from "./user.slice";
 export interface StateCard {
     productId: string;
     orderId: string;
@@ -34,3 +35,4 @@ const cardSlice = createSlice({
         },
     },
 });
+export default cardSlice.reducer;

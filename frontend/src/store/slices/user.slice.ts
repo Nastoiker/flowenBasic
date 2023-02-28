@@ -47,4 +47,6 @@ export const userSlice = createSlice({
             state.user = action.payload;
         }
     }
-})
+});
+export const { getUserFetch, getUserFailed, getUserSuccess} = userSlice.actions;
+export default userSlice.reducer;

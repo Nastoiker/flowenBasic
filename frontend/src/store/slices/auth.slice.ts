@@ -18,9 +18,10 @@ const AuthSlice = createSlice({
             state.login = 'failed';
         },
         loginSuccess: (state, action) => {
-            state.token = action.payload;
-            localStorage.setItem('token', action.payload);
+            state.token = action.payload.jwt;
+            localStorage.setItem('token', action.payload.jwt);
             state.login = 'success';
+            console.log(localStorage.getItem('token'));
         },
         logoutSuccess: (state) => {
             state.token = null;

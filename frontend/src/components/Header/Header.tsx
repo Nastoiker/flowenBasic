@@ -8,9 +8,12 @@ import {
     MenubarTrigger,
 } from "../../ui/menubar";
 import {Button} from "../../ui/button";
-
+import {Search} from "../Search/Search";
+import {useAppSelector} from "../../store";
+// import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
-    return (<Menubar  className={"flex border-none border-b-gray-200 bg-transparent justify-between"}>
+    const user = useAppSelector(state => state);
+    return (<><Menubar  className={"flex border-none border-b-gray-200 bg-transparent justify-between"}>
             <MenubarMenu>
                 <MenubarTrigger>File</MenubarTrigger>
                 <MenubarContent>
@@ -103,5 +106,10 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
         </Menubar>
+            <div className={""}>
+                <Button>Авторизироваться</Button>
+            </div>
+            <Search />
+    </>
     );
 }
