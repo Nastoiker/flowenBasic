@@ -21,6 +21,7 @@ import {useAppDispatch} from "./store";
 import {AdminPage} from "./pages/Admin/Admin";
 import {getBrandsFetch} from "./store/slices/brand.slice";
 import PhoneModel from "./sections/PhoneModel";
+import {getUserFetch} from "./store/slices/user.slice";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -30,35 +31,21 @@ function App() {
     const Phones = lazy(() => import('./pages/Phones/Phones'));
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));
     const dispatch = useAppDispatch();
-
+    const User = localStorage.getItem('token');
     useEffect(() => {
         dispatch(getPhonesFetch());
         dispatch(getBrandsFetch());
+        { User &&  dispatch(getUserFetch())}
     }, [dispatch]);
     return (
             <div className="App max-w-screen-xl mx-auto" >
-                <Header />
-                <Filters filterBy={[{name: 'filter'}]}/>
-                <h1 className="border border-blue p-30">test</h1>
-                <h1 className="text-3xl  font-bold underline">
-                    Hello world!
-                </h1>
-                <Search />
-                <h1 className={"text-"}></h1>
-                <header>
-                    <a href="">webdev</a>
-                    <nav>
-                        <ul>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                            <li><a href="#"></a></li>
-                        </ul>
-                    </nav>
-                </header>
-                <SliderDemo />
-                <Alert />
+
+
+                {/*<SliderDemo />*/}
+                {/*<Alert />*/}
                 {/*<Checkbox text={'ASDAD'}/>*/}
                 <Router>
+                    <Header />
                     <Menu />
                     <Routes>
                         <Route path="/" element={<Home />} />
@@ -76,7 +63,7 @@ function App() {
                 <Footer />
                 <PhoneModel />
             </div>
-  )
+  );
 }
 
 export default App

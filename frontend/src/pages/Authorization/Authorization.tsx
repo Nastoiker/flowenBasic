@@ -6,17 +6,21 @@ import {useAppDispatch} from "../../store";
 import {useForm} from "react-hook-form";
 import {ILogin, IRegister} from "../../../interfaces/register.interface";
 import {loginFetch} from "../../store/slices/auth.slice";
-import {redirect} from "react-router-dom";
+import {redirect, useNavigate} from "react-router-dom";
 
 const Authorization = (): JSX.Element => {
     const [isCorrect, setCorrect] = useState<boolean>(false);
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const redirectTo =  (to: string) => {
+        navigate(to);
+    };
     const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IRegister>();
     const onSubmit = async (formData: ILogin) => {
         try {
             dispatch(loginFetch(formData));
             if(localStorage.getItem('token')) {
-                redirect('/');
+                navigate('/');
             }
         } catch(e) {
             if(e instanceof Error ) {

@@ -36,6 +36,7 @@ export const DOMEN = {
         find: api_url + '/users/profile:',
         login:  api_url + '/users/login',
         register: api_url + '/users/register',
+        getInfoAfterAuth: api_url + '/users/authorAuthorization',
     },
     comment: {
         createComment: '/'

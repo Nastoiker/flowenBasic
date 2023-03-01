@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 export interface userState {
+    id: string;
     email: string,
     login: string,
     password: string,
@@ -45,7 +46,7 @@ export const userSlice = createSlice({
         getUserSuccess: (state, action) => {
             state.isLoading = true;
             state.user = action.payload;
-        }
+        },
     }
 });
 export const { getUserFetch, getUserFailed, getUserSuccess} = userSlice.actions;

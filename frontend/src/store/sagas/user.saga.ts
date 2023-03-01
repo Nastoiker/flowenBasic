@@ -3,19 +3,20 @@ import {loginSuccess} from "../slices/auth.slice";
 import {ProductState} from "../product.slice";
 import {registerSuccess, RegState} from "../slices/register.slice";
 import {DOMEN} from "../../../domen.api";
+import {getUserSuccess, userState} from "../slices/user.slice";
 
 function* WatchUserSaga() {
     const token = localStorage.getItem('token');
     if(!token) return;
     try {
-        const response: Promise<RegState> = yield call(() => fetch( DOMEN.user.register, { method: 'post',
+        const response: Promise<userState> = yield call(() => fetch( DOMEN.user.getInfoAfterAuth, { method: 'get',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + token,
             },
-            body: JSON.stringify(action.payload),
         }));
-        const token = response.data.token;
-        yield put(registerSuccess(token));
+        const user:userState[] = yield response.json();
+        yield put(getUserSuccess(user));
     } catch(error) {
 
     }
