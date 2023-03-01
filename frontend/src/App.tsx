@@ -1,4 +1,4 @@
-import {lazy, useState, Suspense, useEffect} from 'react'
+import {lazy, useState, Suspense, useEffect, Profiler} from 'react'
 import eactLogo from './assets/react.svg';
 import './App.css';
 import {Route, BrowserRouter as Router, Routes, useLocation} from "react-router-dom";
@@ -30,6 +30,7 @@ function App() {
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));
+    const Profile = lazy(() => import('./pages/Admin/Admin'));
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
@@ -57,6 +58,9 @@ function App() {
                         <Route path="/product/phone" element={<Suspense fallback={<h2>Загрузка...</h2>}><Phones /> </Suspense>} />
                         <Route path="/product/phone/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
                         <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                        <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Router>

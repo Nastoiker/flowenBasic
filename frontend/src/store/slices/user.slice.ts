@@ -8,7 +8,16 @@ export interface userState {
     phone?: string,
     avatar?: string,
     address?: Address,
-
+    comment? :CommentUser,
+}
+interface CommentUser {
+    id: string;
+    createdAt: Date;
+    title: string;
+    pictures: string;
+    comment: string;
+    writtenById: string;
+    modelDeviceId: string;
 }
 interface State {
     user: userState;
