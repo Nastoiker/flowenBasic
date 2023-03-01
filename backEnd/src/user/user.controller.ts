@@ -72,7 +72,13 @@ export class UserController extends BaseController implements IUserController {
 				method: 'get',
 				func: this.acc,
 				middlewares: [],
-			}
+			},
+			{
+				path: '/authorAuthorization',
+				method: 'get',
+				func: this.authorAuthorization,
+				middlewares: [new AuthGuard()],
+			},
 		]);
 	}
 	async register(
@@ -185,5 +191,17 @@ export class UserController extends BaseController implements IUserController {
 		} else {
 			return next(new HTTPError(401, 'Ошибка обновления аватара'));
 		}
+	}
+	public async authorAuthorization(
+		request: Request,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const writtenById = await this.userService.getUserInfo(request.user);
+		if (!writtenById) {
+			return next(new HTTPError(401, 'Ошибка входа'));
+		}
+		const { hashpassword, ...user } = writtenById;
+		this.ok(res, { ...user });
 	}
 }
