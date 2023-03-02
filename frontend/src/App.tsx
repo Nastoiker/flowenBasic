@@ -22,6 +22,7 @@ import {AdminPage} from "./pages/Admin/Admin";
 import {getBrandsFetch} from "./store/slices/brand.slice";
 import PhoneModel from "./sections/PhoneModel";
 import {getUserFetch} from "./store/slices/user.slice";
+import {Slider} from "./components/Slider/slider";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -64,6 +65,7 @@ function App() {
                         <Route path="*" element={<NotFound />} />
                     </Routes>
                 </Router>
+                <Slider sliders={[{id: 1, text:"smile", image:"nigger"}, {id: 2, text:"like", image:"ASdasdasd"}]}/>
                 <Footer />
                 <PhoneModel />
             </div>
