@@ -8,7 +8,7 @@ export interface userState {
     phone?: string,
     avatar?: string,
     address?: Address,
-    comment? :CommentUser,
+    comment?: CommentUser[],
 }
 interface CommentUser {
     id: string;

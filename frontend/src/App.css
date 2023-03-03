@@ -1,4 +1,6 @@
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 /*#root {*/
 /*  max-width: 1280px;*/
 /*  margin: 0 auto;*/
@@ -7,7 +9,7 @@
 /*}*/
 html,
 body {
-
+    /*@apply  max-w-screen-xl;*/
 
     color: var(--black);
     background: #F5F6F8;
@@ -51,13 +53,16 @@ a {
     --green: green;
     --red: rgb(187 99 99);
     --red-light: #DC6969;
+    --footer-color: #2C2C2C;
     --green-ligth: rgb(196 238 196);
     --font-family: "Noto Sans KR", sans-serif;
     --primary-hover: purple;
     --paragraph-color: #3B434E;
     --gray-dark: #787D85;
 }
-
+footer {
+    width: 1300px;
+}
 /*@keyframes logo-spin {*/
 /*  from {*/
 /*    transform: rotate(0deg);*/

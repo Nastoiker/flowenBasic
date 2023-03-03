@@ -13,7 +13,7 @@ function Profile() {
         <div>
             {
                 user.comment?.map( c => {
-
+                    <Comment />
                 })
             }
 

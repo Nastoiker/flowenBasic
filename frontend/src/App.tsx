@@ -23,6 +23,8 @@ import {getBrandsFetch} from "./store/slices/brand.slice";
 import PhoneModel from "./sections/PhoneModel";
 import {getUserFetch} from "./store/slices/user.slice";
 import {Slider} from "./components/Slider/slider";
+import apple from '/slider/sliderApple.png';
+import samsung from '/slider/sliderSamsung.webp';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -39,37 +41,39 @@ function App() {
         dispatch(getBrandsFetch());
         { User &&  dispatch(getUserFetch())}
     }, [dispatch]);
-    return (
-            <div className="App max-w-screen-xl mx-auto" >
+    return (<>
+        <div className="App max-w-screen-xl mx-auto" >
 
 
-                {/*<SliderDemo />*/}
-                {/*<Alert />*/}
-                {/*<Checkbox text={'ASDAD'}/>*/}
-                <Router>
-                    <Header />
-                    <Menu />
-                    <Routes>
-                        <Route path="/" element={<Home />} />
-                        <Route path="/home" element={<Home />}/>
-                        <Route path="/login" element={<Suspense fallback={<h2>Загрузка...</h2>}><Auth /></Suspense>} />
-                        <Route path="/register" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /></Suspense>} />
-                        <Route path="/join" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /> </Suspense>} />
-                        <Route path="/product" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /> </Suspense>} />
-                        <Route path="/product/phone" element={<Suspense fallback={<h2>Загрузка...</h2>}><Phones /> </Suspense>} />
-                        <Route path="/product/phone/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
-                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
-                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
-                        <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
-                        <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
-                        <Route path="*" element={<NotFound />} />
-                    </Routes>
-                </Router>
-                <Slider sliders={[{id: 1, text:"smile", image:"nigger"}, {id: 2, text:"like", image:"ASdasdasd"}]}/>
-                <Footer />
-                <PhoneModel />
-            </div>
-  );
+            {/*<SliderDemo />*/}
+            {/*<Alert />*/}
+            {/*<Checkbox text={'ASDAD'}/>*/}
+            <Router>
+                <Header />
+                <Menu />
+                <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/home" element={<Home />}/>
+                    <Route path="/login" element={<Suspense fallback={<h2>Загрузка...</h2>}><Auth /></Suspense>} />
+                    <Route path="/register" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /></Suspense>} />
+                    <Route path="/join" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /> </Suspense>} />
+                    <Route path="/product" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /> </Suspense>} />
+                    <Route path="/product/phone" element={<Suspense fallback={<h2>Загрузка...</h2>}><Phones /> </Suspense>} />
+                    <Route path="/product/phone/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}><DetalisPhone /> </Suspense>} />
+                    <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                    <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                    <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
+                    <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
+                    <Route path="*" element={<NotFound />} />
+                </Routes>
+            </Router>
+            <Slider sliders={[{id: 1, text:"smile", image:apple}, {id: 2, text:"like", image:samsung}]}/>
+            <PhoneModel />
+        </div>
+            {/*<Footer />*/}
+        </>
+
+);
 }
 
 export default App
