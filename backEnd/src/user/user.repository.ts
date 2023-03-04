@@ -45,6 +45,7 @@ export class UserRepository implements IUserRepository {
 			},
 			include: {
 				Comment: true,
+				basket: true,
 			},
 		});
 	}

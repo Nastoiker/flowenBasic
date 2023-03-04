@@ -42,7 +42,10 @@ export const DOMEN = {
         createComment: '/'
     },
     basket: {
-      getBaskeT: api_url + '/'
+        editCount: api_url + '/product/editQuantityBasketProduct',
+        getBasket: api_url + '/product/getBasket',
+        addBasket: api_url + '/product/addBasket',
+        deleteBasket: api_url + '/product/deleteBasket',
     },
     admin: {
         createProduct: api_url + '/product/create',

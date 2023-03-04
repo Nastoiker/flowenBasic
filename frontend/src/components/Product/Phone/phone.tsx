@@ -11,12 +11,39 @@ const api_url = 'http://localhost:8000';
 import './phone.css';
 import {setCurrentModel} from "../../../store/slices/phones.slices";
 import {ModelDevice} from "../../../../interfaces/product.interfaces";
+import {DOMEN} from "../../../../domen.api";
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
     console.log(phone);
     console.log('info' + phone.modelDeviceId);
     console.log( currentModel + 'current');
+    const token = localStorage.getItem('token');
+    const [basket, setIsBasket] =  useState<boolean>(false);
+    const [basketId, setIsBasketId] = useState<string>();
+    useEffect(() => {
+        (async () => {
+            if(basket) {
+                const res = await fetch(DOMEN.basket.addBasket, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({productId: phone.id, quantity: 1}),
+                });
+                const data = await res.json();
+                setIsBasketId(data.id);
+            } else {
+                const res = await fetch(DOMEN.basket.deleteBasket, {
+                    headers: {
+                        'Authorization': 'Bearer ' + token
+                    },
+                    method: 'POST',
+                    body: JSON.stringify({id: basketId}),
+                });
+            }
 
+        })();
+    }, [basket]);
     const img = phone.image?.split(',');
 //../../../../../backEnd/uploads
 //     const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
@@ -29,7 +56,7 @@ export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
         <div className={"space-y-8 w-96"}>
             <h1>{phone.name}</h1>
             <h2>{phone.price}</h2>
-            <Button>Добавить в корзину</Button>
+            {basket ? <Button onClick={() => setIsBasket(false)}>Убрать из корзины</Button> : <Button onClick={() => setIsBasket(true)}>Добавить в корзину</Button> }
             <Paragraph type={'small'}>{phone.Description}</Paragraph>
             <h1>Цвета</h1>
             <h1>Память</h1>

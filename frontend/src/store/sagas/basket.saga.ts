@@ -1,25 +1,61 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {loginSuccess} from "../slices/auth.slice";
 import {DOMEN} from "../../../domen.api";
-import {StateCard} from "../slices/basket.slice";
+import {basketState, getBasketFetch, getBasketSuccess} from "../slices/basket.slice";
 
 function* WatchBasketSaga() {
     const tokenUser = localStorage.getItem('token');
     try {
-        const response: Promise<StateCard> = yield call((email, password) => fetch( DOMEN, {
-            method: 'POST',
+        const response: Promise<basketState> = yield call(() => fetch( DOMEN.basket.getBasket, {
+            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + tokenUser;
+                'Authorization': 'Bearer ' + tokenUser,
             },
         }));
-        const token = response.data.token;
-        yield put(loginSuccess(token));
+        const basket:basketState = yield response.json();
+        yield put(getBasketSuccess(basket));
+    } catch(error) {
+
+    }
+}
+function* WatchDeleteBasketSaga(action: any) {
+    const tokenUser = localStorage.getItem('token');
+    try {
+        const res: Promise<basketState> =yield call(() => fetch(DOMEN.basket.deleteBasket, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + tokenUser
+            },
+            method: 'POST',
+            body: JSON.stringify({basketId: action.payload.id,}),
+        }));
+        yield put(getBasketFetch());
+    } catch(error) {
+
+    }
+}
+function* WatchEditCountBasketSaga(action: any) {
+    console.log(action.payload);
+    const tokenUser = localStorage.getItem('token');
+    try {
+        const res: Promise<basketState> = yield call(() => fetch(DOMEN.basket.editCount, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + tokenUser
+            },
+            method: 'POST',
+            body: JSON.stringify({basketId: action.payload.id, quantity: action.payload.quantity}),
+        }));
+        yield put(getBasketFetch());
     } catch(error) {
 
     }
 }
 function* BasketSaga() {
-    yield takeEvery('auth/loginFetch', WatchBasketSaga);
+    yield takeEvery('cardSlice/editBasketFetch', WatchEditCountBasketSaga);
+
+    yield takeEvery('cardSlice/getBasketFetch', WatchBasketSaga);
+    yield takeEvery('cardSlice/deleteBasket', WatchDeleteBasketSaga);
+
 }
 export default BasketSaga;

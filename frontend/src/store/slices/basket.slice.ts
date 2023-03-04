@@ -1,38 +1,65 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductModel} from "../../../interfaces/product.interfaces";
+import {ProductModel, Rating} from "../../../interfaces/product.interfaces";
 import {userSlice} from "./user.slice";
-export interface StateCard {
-    productId: string;
-    orderId: string;
-    userId: string;
-    boughtProductId?: string | null;
-    quantity: number;
-    createdAt: string;
-    isLoading: boolean;
+ export interface basketState {
+     basket: Basket[],
+     isLoading: boolean,
 }
-const initialState: StateCard = {
-    productId: '',
-    orderId: '',
-    userId: '',
-    boughtProductId: '',
-    quantity: 1,
-    createdAt: '',
-    isLoading: true,
+
+export interface Basket {
+    id: string;
+    buying: boolean;
+    productId: string;
+    userId: string;
+    boughtProductId?: any;
+    quantity: number;
+    createdAt: Date;
+    product: Product;
+
+}
+ interface Product {
+    id: string;
+    alias: string;
+    name: string;
+    price: number;
+    oldPrice: number;
+    TagId: string;
+    brandId: string;
+    Color: string;
+    ColorAlias: string;
+    Description: string;
+    image: string;
+    Memory: number;
+    Ram: number;
+    modelDeviceId: string;
+    quantity: number;
+ }
+const initialState: basketState = {
+    basket: [],
+    isLoading: false,
 };
 const cardSlice = createSlice({
     name: 'cardSlice',
     initialState,
     reducers: {
-        getPhonesFetch: (state) => {
+        getBasketFetch: (state) => {
             state.isLoading = true;
         },
-        getPhonesFailure: (state) => {
+        getBasketFailure: (state) => {
             state.isLoading = false;
         },
-        getPhonesSuccess: (state, action) => {
-            state = action.payload;
+        getBasketSuccess: (state, action) => {
+            state.basket = action.payload;
             state.isLoading = false;
         },
+        deleteBasket: (state, action) => {
+            state.basket = state.basket.filter( m => m.id !== action.payload);
+        },
+        editBasketFetch: (state, action) => {
+            console.log(1);
+            console.log(action);
+        }
     },
 });
+export const { getBasketFetch, getBasketFailure, getBasketSuccess, editBasketFetch, deleteBasket } = cardSlice.actions;
 export default cardSlice.reducer;

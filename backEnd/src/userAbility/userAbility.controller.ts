@@ -110,19 +110,19 @@ export class userAbility extends BaseController {
 		}
 	}
 	async editQuantityBasketProduct(
-		req: Request<{}, {}, { productId: string; quantity: number }>,
+		req: Request<{}, {}, { basketId: string; quantity: number }>,
 		res: Response,
 		next: NextFunction,
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
-		} else {
-			await this.userAbilityService.editQuantityBasketProduct(
-				writtenById.id,
-				req.body.quantity,
-			);
+			return next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
 		}
+		const edited = await this.userAbilityService.editQuantityBasketProduct(
+			req.body.basketId,
+			req.body.quantity,
+		);
+		this.ok(res, { edited });
 	}
 	async addProductToBasket(
 		req: Request<{}, {}, { productId: string; quantity: number }>,
@@ -131,14 +131,17 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
-		} else {
-			await this.userAbilityService.addBasket(
-				req.body.productId,
-				writtenById.id,
-				req.body.quantity,
-			);
+			return next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
 		}
+		const basket = await this.userAbilityService.addBasket(
+			req.body.productId,
+			writtenById.id,
+			req.body.quantity,
+		);
+		if (!basket) {
+			return next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
+		}
+		this.ok(res, { ...basket });
 	}
 	async deleteProductToBasket(
 		req: Request<{}, {}, { id: string }>,
@@ -147,7 +150,7 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
+			next(new HTTPError(422, 'Ошибка регистрации'));
 		} else {
 			await this.userAbilityService.deleteBasket(req.body.id);
 		}
@@ -241,7 +244,7 @@ export class userAbility extends BaseController {
 			next(new HTTPError(422, 'Ошибка получения корзины '));
 		} else {
 			const basket = await this.userAbilityService.getBasketUser(userId.id);
-			this.ok(res, { basket });
+			this.ok(res, basket);
 		}
 	}
 }

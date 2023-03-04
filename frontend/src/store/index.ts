@@ -4,7 +4,7 @@ import productSlice from "./product.slice";
 import firstCategorySlice from './firstCategory.slice';
 import secondCategorySlice from './SecondCategory.slice';
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-
+import cardSlice from './slices/basket.slice';
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 import createSagaMiddleware from 'redux-saga';
@@ -30,6 +30,7 @@ export const store = configureStore({
         register: RegisterSlice,
         auth: AuthSlice,
         user: userSlice,
+        basket: cardSlice,
     },
     middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware),
 });

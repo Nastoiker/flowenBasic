@@ -25,6 +25,8 @@ import {getUserFetch} from "./store/slices/user.slice";
 import {Slider} from "./components/Slider/slider";
 import apple from '/slider/sliderApple.png';
 import samsung from '/slider/sliderSamsung.webp';
+import BasketPage from "./pages/Basket/Basket.page";
+import {getBasketFetch} from "./store/slices/basket.slice";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,12 +36,13 @@ function App() {
     const Phones = lazy(() => import('./pages/Phones/Phones'));
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));
     const Profile = lazy(() => import('./pages/Admin/Admin'));
+    const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
         dispatch(getPhonesFetch());
         dispatch(getBrandsFetch());
-        { User &&  dispatch(getUserFetch())}
+        { User &&  dispatch(getUserFetch()); dispatch(getBasketFetch()); }
     }, [dispatch]);
     return (<>
         <div className="App max-w-screen-xl mx-auto" >
@@ -64,6 +67,7 @@ function App() {
                     <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
                     <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
                     <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
+                    <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>

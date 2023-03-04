@@ -9,6 +9,7 @@ export interface userState {
     avatar?: string,
     address?: Address,
     comment?: CommentUser[],
+    basket?: Basket[],
 }
 interface CommentUser {
     id: string;
@@ -18,6 +19,15 @@ interface CommentUser {
     comment: string;
     writtenById: string;
     modelDeviceId: string;
+}
+interface Basket {
+    id: string;
+    buying: boolean;
+    productId: string;
+    userId: string;
+    boughtProductId?: any;
+    quantity: number;
+    createdAt: Date;
 }
 interface State {
     user: userState;
