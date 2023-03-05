@@ -32,7 +32,7 @@ model FirstLevelCategory {
 model Address {
   id         String   @id @default(uuid())
   city       String
-  country    String
+  country    String @default("Russia")
   created_at DateTime @default(now())
   street     String
   updated_at DateTime @updatedAt

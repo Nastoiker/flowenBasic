@@ -26,7 +26,7 @@ export const DOMEN = {
         update: api_url +  '/product/update',
         getByCategory:api_url +   '/product/byCategory',
         getCategory: api_url + '/product/getCategory',
-        getById:  api_url + 'http://localhost:8000/product/getProductById:',
+        getById:  api_url + '/product/getProductById:',
         getFirstCategory:  api_url + '/product/getFirstCategory'
     },
     brand: {
@@ -37,6 +37,9 @@ export const DOMEN = {
         login:  api_url + '/users/login',
         register: api_url + '/users/register',
         getInfoAfterAuth: api_url + '/users/authorAuthorization',
+        createAddress: api_url + '/users/createAddress',
+        editAddress: api_url + '/users/editAddress',
+        editProfile: api_url + '/users/editProfileInfo'
     },
     comment: {
         createComment: '/'

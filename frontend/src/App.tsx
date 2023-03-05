@@ -37,6 +37,7 @@ function App() {
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));
     const Profile = lazy(() => import('./pages/Admin/Admin'));
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
+    const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
@@ -68,6 +69,8 @@ function App() {
                     <Route path="/AdminPage" element={<Suspense fallback={<h2>Загрузка...</h2>}> <AdminPage /> </Suspense>}></Route>
                     <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
+                    <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
+
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>

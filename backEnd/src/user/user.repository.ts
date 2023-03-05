@@ -2,8 +2,10 @@ import { IUserRepository } from './user.repository.interface';
 import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
-import { Basket, UserModel, Comment } from '@prisma/client';
+import {Basket, UserModel, Comment, Address} from '@prisma/client';
 import { User } from './user.entity';
+import {UserAdressDto} from "./dto/user-adress.dto";
+import {UserEditProfileDto} from "./dto/user-editProfile.dto";
 @injectable()
 export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
@@ -95,6 +97,32 @@ export class UserRepository implements IUserRepository {
 		return this.prismaService.client.comment.delete({
 			where: {
 				id: commentId,
+			},
+		});
+	}
+	async createAddress(address: UserAdressDto): Promise<Address | null> {
+		return this.prismaService.client.address.create({
+			data: { ...address },
+		});
+	}
+	async editAddress(address: UserAdressDto): Promise<Address | null> {
+		const { userId, ...addressUser } = address;
+		return this.prismaService.client.address.update({
+			where: {
+				userId,
+			},
+			data: {
+				...address,
+			},
+		});
+	}
+	async editProfileInfo(info: UserEditProfileDto, id: string): Promise<UserModel | null> {
+		return this.prismaService.client.userModel.update({
+			where: {
+				id,
+			},
+			data: {
+				...info,
 			},
 		});
 	}

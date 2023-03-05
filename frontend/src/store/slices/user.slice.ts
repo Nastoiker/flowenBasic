@@ -43,7 +43,8 @@ export interface Address {
 }
 
 export const initialState: State = {
-        user: {   email: '',
+        user: {
+            email: '',
             login: '',
             password: '',
         },
@@ -66,7 +67,15 @@ export const userSlice = createSlice({
             state.isLoading = true;
             state.user = action.payload;
         },
+        editAddress: (state, action) => {
+            state.user.address = action.payload;
+        },
+        createAddress: (state, action) => {
+            state.user.address = action.payload;
+        },
+        editProfile: (state, action) => {
+        }
     }
 });
-export const { getUserFetch, getUserFailed, getUserSuccess} = userSlice.actions;
+export const { getUserFetch, getUserFailed, getUserSuccess, editAddress, createAddress, editProfile} = userSlice.actions;
 export default userSlice.reducer;

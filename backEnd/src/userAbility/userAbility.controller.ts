@@ -150,10 +150,10 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			next(new HTTPError(422, 'Ошибка регистрации'));
-		} else {
-			await this.userAbilityService.deleteBasket(req.body.id);
+			return next(new HTTPError(422, 'Ошибка регистрации'));
 		}
+		await this.userAbilityService.deleteBasket(req.body.id);
+		this.ok(res, { message: 'deletedBasket' });
 	}
 	async setComment(
 		req: Request<

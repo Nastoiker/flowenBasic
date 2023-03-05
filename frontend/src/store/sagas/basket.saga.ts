@@ -27,7 +27,7 @@ function* WatchDeleteBasketSaga(action: any) {
                 'Authorization': 'Bearer ' + tokenUser
             },
             method: 'POST',
-            body: JSON.stringify({basketId: action.payload.id,}),
+            body: JSON.stringify({id: action.payload.id,}),
         }));
         yield put(getBasketFetch());
     } catch(error) {

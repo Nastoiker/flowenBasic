@@ -19,6 +19,8 @@ import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
 import { MailService } from '../Mail/Mail.service';
 import { UserModel } from '@prisma/client';
+import {UserAdressDto} from "./dto/user-adress.dto";
+import {UserEditProfileDto} from "./dto/user-editProfile.dto";
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -77,6 +79,24 @@ export class UserController extends BaseController implements IUserController {
 				path: '/authorAuthorization',
 				method: 'get',
 				func: this.authorAuthorization,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/editAddress',
+				method: 'post',
+				func: this.editAddress,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/createAddress',
+				method: 'post',
+				func: this.createAddress,
+				middlewares: [new AuthGuard()],
+			},
+			{
+				path: '/editProfileInfo',
+				method: 'post',
+				func: this.editProfileInfo,
 				middlewares: [new AuthGuard()],
 			},
 		]);
@@ -172,6 +192,32 @@ export class UserController extends BaseController implements IUserController {
 			);
 		});
 	}
+	public async editAddress(
+		request: Request<{}, {}, UserAdressDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const userId = await this.userService.getUserInfo(request.user);
+		if (!userId) {
+			return next(new HTTPError(401, 'Файл должен быть фотографией'));
+		}
+		request.body.userId = userId.id;
+		const address = await this.userService.editAddress(request.body);
+		this.ok(res, { address });
+	}
+	public async createAddress(
+		request: Request<{}, {}, UserAdressDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const userId = await this.userService.getUserInfo(request.user);
+		if (!userId) {
+			return next(new HTTPError(401, 'Файл должен быть фотографией'));
+		}
+		request.body.userId = userId.id;
+		const address = await this.userService.editAddress(request.body);
+		this.ok(res, { address });
+	}
 	public async updateAvatar(request: Request, res: Response, next: NextFunction): Promise<void> {
 		const writtenById = await this.userService.getUserInfo(request.user);
 		if (request.file) {
@@ -203,5 +249,17 @@ export class UserController extends BaseController implements IUserController {
 		}
 		const { hashpassword, ...user } = writtenById;
 		this.ok(res, { ...user });
+	}
+	public async editProfileInfo(
+		request: Request<{}, {}, UserEditProfileDto>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const writtenById = await this.userService.getUserInfo(request.user);
+		if (!writtenById) {
+			return next(new HTTPError(401, 'Ошибка входа'));
+		}
+		const result = await this.userService.editProfileInfo(request.body, writtenById.id);
+		this.ok(res, { ...result });
 	}
 }

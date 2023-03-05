@@ -34,8 +34,13 @@ const phonesSlice = createSlice({
                     state.currentModel = phone;
                 }
             }
-        }
+        },
+        // getPhonesByBrand: (state, {payload}) => {
+        //     console.log(payload);
+        //     const arr = state.phones.filter( p => p.brand.id === payload.id);
+        //     console.log(arr);
+        // }
     },
 });
-export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess, setCurrentModel } = phonesSlice.actions;
+export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess, setCurrentModel, getPhonesByBrand } = phonesSlice.actions;
 export default phonesSlice.reducer;
