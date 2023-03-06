@@ -46,7 +46,7 @@ export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
     }, [basket]);
     const img = phone.image?.split(',');
 //../../../../../backEnd/uploads
-//     const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
+//   const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
     const photo1 =  img &&  `${api_url}/product/${phone.brand.name}/${phone.modelDevice.name.replace(' ', '-')}/${phone.ColorAlias}/${img[0]}`;
     return <>
         <div className={"flex justify-around"}>

@@ -34,7 +34,7 @@ function App() {
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
-    const AdminPage = lazy(() => import('./pages/Admin/Admin'));
+    const AdminPage = lazy(() => import('./pages/Profile/Profile'));
     const Profile = lazy(() => import('./pages/Admin/Admin'));
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
