@@ -53,13 +53,16 @@ const cardSlice = createSlice({
             state.isLoading = false;
         },
         deleteBasket: (state, action) => {
+
             state.basket = state.basket.filter( m => m.id !== action.payload);
         },
         editBasketFetch: (state, action) => {
             console.log(1);
             console.log(action);
+        },
+        addBasketFetch: (state, action) => {
         }
     },
 });
-export const { getBasketFetch, getBasketFailure, getBasketSuccess, editBasketFetch, deleteBasket } = cardSlice.actions;
+export const { getBasketFetch, getBasketFailure, getBasketSuccess, editBasketFetch, deleteBasket, addBasketFetch } = cardSlice.actions;
 export default cardSlice.reducer;

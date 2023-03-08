@@ -27,6 +27,8 @@ import apple from '/slider/sliderApple.png';
 import samsung from '/slider/sliderSamsung.webp';
 import BasketPage from "./pages/Basket/Basket.page";
 import {getBasketFetch} from "./store/slices/basket.slice";
+import {RatingForm} from "./components/Rating/setRating.form.";
+import {UpdateAvatarProfile} from "./components/Profile/UpdateAvatar.profile";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -34,8 +36,8 @@ function App() {
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
-    const AdminPage = lazy(() => import('./pages/Profile/Profile'));
-    const Profile = lazy(() => import('./pages/Admin/Admin'));
+    const AdminPage = lazy(() => import('./pages/Admin/Admin'));
+    const Profile = lazy(() => import('./pages/Profile/Profile'));
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
     const dispatch = useAppDispatch();
@@ -48,10 +50,10 @@ function App() {
     return (<>
         <div className="App max-w-screen-xl mx-auto" >
 
-
             {/*<SliderDemo />*/}
             {/*<Alert />*/}
             {/*<Checkbox text={'ASDAD'}/>*/}
+            <UpdateAvatarProfile/>
             <Router>
                 <Header />
                 <Menu />

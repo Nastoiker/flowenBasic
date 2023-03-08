@@ -57,7 +57,7 @@ export class UserAbilityRepository {
 		quantity: number,
 		buying: boolean,
 	): Promise<Basket | null> {
-		return this.prismaService.client.basket.create({
+		return await this.prismaService.client.basket.create({
 			data: {
 				productId,
 				userId,

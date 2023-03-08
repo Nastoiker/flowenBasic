@@ -1,10 +1,11 @@
 import {useForm} from "react-hook-form";
 import {Input} from "../../ui/input";
 import {IEditProfile} from "./Profile.interface";
-import axios from "axios/index";
 import {DOMEN} from "../../../domen.api";
 import {useState} from "react";
 import {Htag} from "../Htag/Htag";
+import axios from "axios";
+import {Button} from "../../ui/button";
 
 export const EditProfile = (): JSX.Element => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<IEditProfile>();
@@ -21,9 +22,10 @@ export const EditProfile = (): JSX.Element => {
     return (
         <>
             <Htag type={"h1"}>Редактирование профиля</Htag>
-            <form action="">
+            <form action="" onSubmit={handleSubmit(Submit)}>
                 <Input {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} />
                 <Input {...register('login', {required: {value: true, message: 'Заполните login'}})} />
+                <Button>Изменить данные</Button>
             </form>
         </>
 

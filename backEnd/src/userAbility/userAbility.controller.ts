@@ -210,7 +210,7 @@ export class userAbility extends BaseController {
 		this.ok(res, { message: 'Коммент удален' });
 	}
 	async setRatingProduct(
-		req: Request<{}, {}, { productId: string; quanity: number }>,
+		req: Request<{}, {}, { productId: string; quantity: number }>,
 		res: Response,
 		next: NextFunction,
 	) {
@@ -218,12 +218,12 @@ export class userAbility extends BaseController {
 		if (!writtenById) {
 			return next(new HTTPError(422, 'Ошибка рейтинга '));
 		}
-		const basket = await this.userAbilityService.setRatingProduct({
+		const rating = await this.userAbilityService.setRatingProduct({
 			modelDeviceId: req.body.productId,
 			writtenById: writtenById.id,
-			number: req.body.quanity,
+			number: req.body.quantity,
 		});
-		this.ok(res, { basket });
+		this.ok(res, { rating });
 	}
 	async updateProductToBasket(
 		req: Request<{}, {}, updateProductToBasketDto>,

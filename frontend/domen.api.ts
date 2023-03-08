@@ -50,6 +50,9 @@ export const DOMEN = {
         addBasket: api_url + '/product/addBasket',
         deleteBasket: api_url + '/product/deleteBasket',
     },
+    rating: {
+        setRating: api_url + '/product/setRating',
+    },
     admin: {
         createProduct: api_url + '/product/create',
         createModel: api_url + '/product/createModel',

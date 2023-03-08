@@ -51,11 +51,30 @@ function* WatchEditCountBasketSaga(action: any) {
 
     }
 }
+function* WatchAddBasketSaga(action: any) {
+    const token = localStorage.getItem('token');
+    console.log(action.payload);
+    try {
+
+        const res: Promise<basketState> = yield call(() =>  fetch(DOMEN.basket.addBasket, {
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+        method: 'POST',
+        body: JSON.stringify({productId: action.payload.id, quantity: action.payload.quantity}),
+    }));
+        yield put(getBasketFetch());
+    } catch(error) {
+
+    }
+}
 function* BasketSaga() {
     yield takeEvery('cardSlice/editBasketFetch', WatchEditCountBasketSaga);
 
     yield takeEvery('cardSlice/getBasketFetch', WatchBasketSaga);
     yield takeEvery('cardSlice/deleteBasket', WatchDeleteBasketSaga);
+    yield takeEvery('cardSlice/addBasketFetch', WatchAddBasketSaga);
+
 
 }
 export default BasketSaga;
