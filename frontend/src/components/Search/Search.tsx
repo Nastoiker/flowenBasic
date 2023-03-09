@@ -11,8 +11,8 @@ export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
    const dispatch = useAppDispatch();
    const [search, setSearch] = useState<string>('');
    const goToSearch = () => {
-         redirect('/search');
-         dispatch();
+         dispatch()
+         redirect('/Search');
    };
    const handleKeyDown = (e: KeyboardEvent) => {
       if(e.key=='Enter') {

@@ -31,6 +31,7 @@ export const CreatePhone = () => {
     }, []);
     const onSubmit = async (formData: ICreatePhone) => {
         const files = formData.files;
+        //нужный кастыль
         delete formData.files;
         const price = Number(formData.price);
         const oldPrice = Number(formData.oldPrice);

@@ -53,7 +53,6 @@ function App() {
             {/*<SliderDemo />*/}
             {/*<Alert />*/}
             {/*<Checkbox text={'ASDAD'}/>*/}
-            <UpdateAvatarProfile/>
             <Router>
                 <Header />
                 <Menu />
@@ -73,11 +72,15 @@ function App() {
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
 
+                    <Route path="/Search" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
+            <UpdateAvatarProfile/>
+
             <Slider sliders={[{id: 1, text:"smile", image:apple}, {id: 2, text:"like", image:samsung}]}/>
             <PhoneModel />
+
         </div>
             {/*<Footer />*/}
         </>
