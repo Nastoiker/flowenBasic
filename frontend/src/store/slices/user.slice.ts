@@ -11,7 +11,7 @@ export interface userState {
     comment?: CommentUser[],
     basket?: Basket[],
 }
-interface CommentUser {
+export interface CommentUser {
     id: string;
     createdAt: Date;
     title: string;

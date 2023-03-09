@@ -13,6 +13,7 @@ export const EditProfile = (): JSX.Element => {
     const Submit = async (formData: IEditProfile) => {
         try {
             const {data} = await axios.post(DOMEN.user.editProfile, {...formData});
+            setErrorForm('');
         } catch(e) {
             if(e instanceof Error ) {
                 setErrorForm(e.message);
@@ -23,9 +24,31 @@ export const EditProfile = (): JSX.Element => {
         <>
             <Htag type={"h1"}>Редактирование профиля</Htag>
             <form action="" onSubmit={handleSubmit(Submit)}>
-                <Input {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} />
-                <Input {...register('login', {required: {value: true, message: 'Заполните login'}})} />
-                <Button>Изменить данные</Button>
+                <label htmlFor="phone">
+                    Заполните номер
+                </label>
+                <Input {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
+                <label htmlFor="login">
+                    Заполните никнейм
+                </label>
+                <Input {...register('login', {required: {value: true, message: 'Заполните login'}})} id={"login"} />
+                <label htmlFor="phone">
+                    Заполните номер
+                </label>
+                {/*<h1>Персональные данные</h1>*/}
+                {/*<Input {...register('name', {required: {value: true, message: 'Заполните Phone'}})} id={"name"} />*/}
+                {/*<label htmlFor="name">*/}
+                {/*    Заполните имя*/}
+                {/*</label>*/}
+                {/*<Input {...register('lastName', {required: {value: true, message: 'Заполните login'}})} id={"lastName"} />*/}
+                {/*<label htmlFor="lastName">*/}
+                {/*    Заполните фамиллию*/}
+                {/*</label>*/}
+                {
+                    error ?   <Button>Изменить данные</Button> :  <><Button>Ошибка редактирования данных</Button>
+                        <div className={"bg-red-500"}><p></p></div>
+                    </>
+                }
             </form>
         </>
 

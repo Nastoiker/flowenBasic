@@ -18,6 +18,7 @@ export const RatingForm = ({productId, ...props}: ReviewFormProps): JSX.Element 
     const [error, setErrorForm] = useState<string>();
     const [isOpened, setIsOpened] = useState<boolean>();
     const onSubmit = async (formData: IReviewForm) => {
+        console.log(formData);
         try {
             const {data} = await axios.post(DOMEN.rating.setRating, {...formData});
         } catch(e) {

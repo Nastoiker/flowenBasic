@@ -39,7 +39,8 @@ export const DOMEN = {
         getInfoAfterAuth: api_url + '/users/authorAuthorization',
         createAddress: api_url + '/users/createAddress',
         editAddress: api_url + '/users/editAddress',
-        editProfile: api_url + '/users/editProfileInfo'
+        editProfile: api_url + '/users/editProfileInfo',
+        updateAvatar: api_url + '/users/updateAvatar',
     },
     comment: {
         createComment: '/'
