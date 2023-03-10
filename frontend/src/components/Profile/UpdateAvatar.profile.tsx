@@ -6,11 +6,12 @@ import {DOMEN} from "../../../domen.api";
 import {useState} from "react";
 import {Button} from "../../ui/button";
 import {Htag} from "../Htag/Htag";
-
+import {ReactComponent as UploadedIcon} from './Uploaded.svg';
 export const UpdateAvatarProfile = () => {
     const user = useAppSelector<userState>(state => state.user.user);
     const [error, setError] = useState<string>();
     const [file, setFile] = useState<File>();
+    const [onDrag, setOnDrag] = useState<boolean>(false);
     const [selectedFile, setSelectedFile] = useState<any>();
     let image;
     if (user.avatar && user.avatar?.length> 0) {
@@ -40,6 +41,7 @@ export const UpdateAvatarProfile = () => {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
         uploadedFile(file);
+        setOnDrag(true);
     }
     const onSubmit = async () => {
         const formData = new FormData();
@@ -65,18 +67,22 @@ export const UpdateAvatarProfile = () => {
     };
     const handleDragOver = (e) => {
         e.preventDefault();
+        
+        setOnDrag(false);
     };
     return (<>
         <Htag type={"h1"}>Ваша аватарка </Htag>
-        <form action="" onSubmit={() => onSubmit()}>
-            <div onDrop={onDrop}   onDragOver={handleDragOver}>
-                <p>sadasdsadasd</p>
-                <p>
-                    asdasdasd
-                </p>
-                <p>asdasdasd</p>
-                <Button type='submit'>Изменить фото</Button>
+        <form action="" onSubmit={() => onSubmit()} className="text-center">
+            <div onDrop={onDrop} className="w-full mx-auto" onDragOver={handleDragOver}>
+            {
+              onDrag ?  <div className=" scale-75 bg-sky-700 shadow-xl  bg-blue transition-all duration-300 h-96">   <div className="mx-auto"> <UploadedIcon /></div>
+
+ </div> : <div className="h-96 "> <UploadedIcon />   </div>
+            }
+              
+                      
             </div>
+            <Button type='submit'>Изменить фото</Button>
         </form>
         {
             image ?   <div className={"bg-white"}>

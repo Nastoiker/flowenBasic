@@ -20,19 +20,20 @@ const searchSlice = createSlice({
         search: (state, { payload}) => {
           state.founded = payload.phones.name.includes(payload.name);
           if(state.search.)
-        },
+        };
         setSearch: (state, action) => {
             state.search = action.payload
         },
         getPhonesFetchBySearch: (state) => {
-            state.isLoading = false;
+            state.isFound = false;
         },
         getPhonesFailureBySearch: (state) => {
-            state.isLoading = false;
+            state.isFound = false;
         },
         getPhonesSuccessBySearch: (state, action) => {
-            state.isLoading = true;
+            state.isFound = true;
         },
     },
 });
+export const { setSearch, search, getPhonesFetchBySearch, getPhonesFailureBySearch, getPhonesSuccessBySearch} = searchSlice.actions;
 export default searchSlice.reducer;
