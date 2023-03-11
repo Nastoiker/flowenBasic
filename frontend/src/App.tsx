@@ -29,6 +29,7 @@ import BasketPage from "./pages/Basket/Basket.page";
 import {getBasketFetch} from "./store/slices/basket.slice";
 import {RatingForm} from "./components/Rating/setRating.form.";
 import {UpdateAvatarProfile} from "./components/Profile/UpdateAvatar.profile";
+import SearchPage from "./pages/Search/Search";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -40,6 +41,7 @@ function App() {
     const Profile = lazy(() => import('./pages/Profile/Profile'));
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
+    const SearchPage = lazy(() => import('./pages/Search/Search'));
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
@@ -72,7 +74,7 @@ function App() {
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
 
-                    <Route path="/Search" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
+                    <Route path="/Search/:SearchValue" element={<Suspense fallback={<h2>Загрузка...</h2>}> <SearchPage /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
@@ -88,4 +90,4 @@ function App() {
 );
 }
 
-export default App
+export default App;

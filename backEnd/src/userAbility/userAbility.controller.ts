@@ -173,12 +173,13 @@ export class userAbility extends BaseController {
 			return next(new HTTPError(422, 'Ошибка создания коммента '));
 		}
 		if (!req.file) {
-			return await this.userAbilityService.setComment({
+			await this.userAbilityService.setComment({
 				comment: req.body.comment,
 				modelDeviceId: req.body.modelDeviceId,
 				writtenById: writtenById.id,
 				title: req.body.title,
 			});
+			return this.ok(res, { message: 'Коммент оставлен' });
 		}
 		const savearray: MFile[] = [new MFile(req.file)];
 		const buffer = await this.fileService.convertToWebp(req.file.buffer);

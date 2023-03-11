@@ -5,7 +5,8 @@ export const PhoneCard = ({name, img, price, alias}: PhoneCardProps): JSX.Elemen
     const picture = img;
     const navigate = useNavigate();
     const redirectTo =  (to: string) => {
-          navigate(to);
+
+          navigate( '../../product/phone/'+to, { replace: true});
     };
     return <div  className={"text-center hover:scale-110 hover:shadow-xl pb-6 mx-auto  transition-all duration-300 inline-block mb-16 z space-y-2 w-72 justify-items-center"} onClick={() => redirectTo(alias)}>
         <img   className="rounded-3xl h-56 mx-auto" src={picture} alt="pictureCard"/>

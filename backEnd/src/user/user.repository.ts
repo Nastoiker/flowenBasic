@@ -37,6 +37,7 @@ export class UserRepository implements IUserRepository {
 			},
 			include: {
 				product: true,
+
 			},
 		});
 	}
@@ -48,6 +49,7 @@ export class UserRepository implements IUserRepository {
 			include: {
 				Comment: true,
 				basket: true,
+				rating: true,
 			},
 		});
 	}

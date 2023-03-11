@@ -6,6 +6,7 @@ export interface CommentFormProps extends DetailedHTMLProps<HTMLAttributes<HTMLD
 }
 export interface ICommentForm {
     title: string;
-    description: string;
+    comment: string;
     files: File;
+    modelDeviceId: string;
 }

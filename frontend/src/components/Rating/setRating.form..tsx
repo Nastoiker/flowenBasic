@@ -18,32 +18,36 @@ export const RatingForm = ({productId, ...props}: ReviewFormProps): JSX.Element 
     const [error, setErrorForm] = useState<string>();
     const [isOpened, setIsOpened] = useState<boolean>();
     const onSubmit = async (formData: IReviewForm) => {
-        console.log(formData);
+        formData.productId = productId;
         try {
-            const {data} = await axios.post(DOMEN.rating.setRating, {...formData});
+            const {data} = await axios.post(DOMEN.rating.setRating, {...formData}, {
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token'),
+                }
+            });
+            console.log(data);
         } catch(e) {
             if(e instanceof Error ) {
                 setErrorForm(e.message);
             }
         }
     };
-
-
     return(
         <form action="" onSubmit={handleSubmit(onSubmit)}>
-            <Controller control={control} name={'rating'} render={({field,}) => (
+            <Controller control={control} name={'quantity'} render={({field,}) => (
                 <Rating
                     isEditable
-                    {...register('rating', {required: {value: true, message: 'поставьте оценку'}})}
-                    rating={field.value}
-                    error={errors.rating}
+                    {...register('quantity', {required: {value: true, message: 'поставьте оценку'}})}
+                    rating={Number(field.value)}
+                    error={errors.quantity}
                     setRating={field.onChange}
                     ref={field.ref}
                     tabIndex={isOpened ? 0 : -1}
                 />
 
             )}/>
-
+            <Button type={'submit'}>оставить рейтинг</Button>
         </form>
     );
 };

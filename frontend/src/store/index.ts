@@ -16,6 +16,7 @@ import {rootSaga} from "./sagas/root.saga";
 import RegisterSlice from "./slices/register.slice";
 import AuthSlice from "./slices/auth.slice";
 import userSlice from "./slices/user.slice";
+import searchSlice from "./slices/search.slice";
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const sagaMiddleware = createSagaMiddleware();
@@ -31,6 +32,7 @@ export const store = configureStore({
         auth: AuthSlice,
         user: userSlice,
         basket: cardSlice,
+        search: searchSlice,
     },
     middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware),
 });

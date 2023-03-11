@@ -63,7 +63,6 @@ export const CreatePhone = () => {
         }
         await new Promise((resolve) => setTimeout(() => resolve(''), 1000));
         try {
-
             // @ts-ignore
             const imageData = { files: files[0], productId: idProduct, };
             console.log(imageData);
@@ -93,7 +92,6 @@ export const CreatePhone = () => {
             <Input error={errors.name} {...register('name', {required: true})} id={'name'}/>
             <Label htmlFor={'Description'}>Описание</Label>
             <Textarea  {...register('Description', {required: true})}  id={'Description'}/>
-
             <Label htmlFor={'alias'}>алиас</Label>
             <Input   {...register('alias', {required: true})} id={'alias'}/>
             <Label htmlFor={'memory'}>памяти</Label>

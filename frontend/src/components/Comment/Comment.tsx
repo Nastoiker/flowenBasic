@@ -7,10 +7,14 @@ import {Profile} from "../../../interfaces/product.interfaces";
 import { ru } from 'date-fns/locale';
 import { format, addMonths }  from 'date-fns';
 import {convertDate} from "../../helper/convertDate";
-export const Comment = ({userId, comment, title, images, date }: CommentProps) : JSX.Element => {
+import {CommentImage} from "../../helper/convertImagePath";
+export const Comment = ({userId, images ,comment, title, model, date }: CommentProps) : JSX.Element => {
     const [user, setUser] = useState<Profile>();
     const api_url = 'http://localhost:8000';
-
+    console.log(images);
+    if (images) {
+        const image = CommentImage(userId, images[0], model);
+    }
     const [loading, setIsLoading] = useState<boolean>(true);
     useEffect(() => {
         (async () => {
@@ -41,6 +45,6 @@ export const Comment = ({userId, comment, title, images, date }: CommentProps) :
             </Htag>
             <Paragraph type={"medium"}>{comment}</Paragraph>
         </div>
-        { images && images.map(image => <img src={`${image}`} className={"rounded-md"} alt="photoComments"/>)}
+        { images && images.map(i => { const image = CommentImage(userId, i, model);console.log(image); return <img key={image} src={`${image}`} className={"rounded-md"} alt="photoComments"/>})}
     </div>);
 }

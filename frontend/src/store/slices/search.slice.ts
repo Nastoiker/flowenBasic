@@ -1,10 +1,10 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {userSlice} from "./user.slice";
-import { SmartPhone } from "../../../interfaces/product.interfaces";
+import {ProductModel, SmartPhone} from "../../../interfaces/product.interfaces";
 interface SerchState {
     search: string;
     filters: string[];
-    founded: SmartPhone[];
+    founded: ProductModel[];
     currentBrand: string;
     currentSecondCategory: string;
     isFound: boolean;
@@ -17,13 +17,19 @@ const searchSlice = createSlice({
     name: 'phones',
     initialState,
     reducers: {
-        search: (state, { payload}) => {
-          state.founded = payload.phones.name.includes(payload.name);
-          if(state.search.)
-        };
-        setSearch: (state, action) => {
-            state.search = action.payload
+        getFounded: (state, { payload}) => {
+            console.log(payload);
+          state.founded = payload.filter((p: ProductModel) => p.name.includes(state.search)  );
+          console.log(state.founded);
+          // if(state.search.search) {
+          //
+          // };
         },
+        setSearch: (state, action) => {
+            state.search = action.payload;
+
+        },
+
         getPhonesFetchBySearch: (state) => {
             state.isFound = false;
         },
@@ -35,5 +41,5 @@ const searchSlice = createSlice({
         },
     },
 });
-export const { setSearch, search, getPhonesFetchBySearch, getPhonesFailureBySearch, getPhonesSuccessBySearch} = searchSlice.actions;
+export const { setSearch, getFounded, getPhonesFetchBySearch, getPhonesFailureBySearch, getPhonesSuccessBySearch} = searchSlice.actions;
 export default searchSlice.reducer;

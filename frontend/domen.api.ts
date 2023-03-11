@@ -43,7 +43,7 @@ export const DOMEN = {
         updateAvatar: api_url + '/users/updateAvatar',
     },
     comment: {
-        createComment: '/'
+        createComment: api_url + '/product/comment',
     },
     basket: {
         editCount: api_url + '/product/editQuantityBasketProduct',

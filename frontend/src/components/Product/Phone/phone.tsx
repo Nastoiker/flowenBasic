@@ -67,8 +67,8 @@ export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
         <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
         <div>
             <Htag type={"h1"}>Комментарии</Htag>
-            { currentModel.Comment ? currentModel.Comment.map( c => <Comment key={c.id} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
+            { currentModel.Comment ? currentModel.Comment.map( c => <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
         </div>
-        <RatingForm productId={phone.id} isOpened={isOpened}/>
+        <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
     </>;
 };

@@ -1,21 +1,42 @@
 import {useForm} from "react-hook-form";
 import {CommentFormProps, ICommentForm} from "./CommentForm.props";
 import {Textarea} from "../../ui/textarea";
-import {Input} from "../../ui/input";
 import {useState} from "react";
 import axios from "axios";
 import {DOMEN} from "../../../domen.api";
 import {Label} from "../../ui/label";
 import {Htag} from "../Htag/Htag";
 import {Button} from "../../ui/button";
+import {Input} from "../Input/Input";
 
 export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps): JSX.Element => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<ICommentForm>();
     const [succes, setSuccesForm] = useState<boolean>(false);
     const [error, setErrorForm] = useState<string>();
     const onSubmit = async (formData: ICommentForm) => {
+        const foms = new FormData();
+
+        formData.modelDeviceId = modelProductId;
+        const token = localStorage.getItem('token');
+        const file = formData.files;
+        console.log(file[0]);
+        const { files, ...Data } = formData;
+        const setData = {
+            ...formData,
+            // @ts-ignore
+            files: file[0]
+        };
+        foms.set('files', file[0]);
+        foms.set('modelDeviceId', formData.modelDeviceId);
+        foms.set('comment', formData.comment);
+        foms.set('titile', formData.title);
         try {
-            const {data} = await axios.post(DOMEN.comment.createComment, {...formData});
+            const {data} = await axios.post(DOMEN.comment.createComment, {...setData}, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Authorization': 'Bearer ' +token
+                }
+            });
         } catch(e) {
             if(e instanceof Error ) {
                 setErrorForm(e.message);
@@ -28,9 +49,9 @@ export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps
             <div>
                 <Label htmlFor="title">Заголовок</Label>
                 <Input {...register('title', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>
-                <Input {...register('files', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>
-                <Textarea {...register('description', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"text"} />
-                <Button> Оставить комментарий</Button>
+                <Input accept="image/png, image/jpeg" type={'file'} {...register('files')} placeholder={"title"} id={"title"}/>
+                <Textarea {...register('comment', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"text"} />
+                <Button type={'submit'}> Оставить комментарий</Button>
             </div>
         </form>
     )
