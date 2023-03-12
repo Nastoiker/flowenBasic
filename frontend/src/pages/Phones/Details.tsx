@@ -13,6 +13,7 @@ const Details =  (): JSX.Element => {
     const { id } = useParams();
     const [phone, setPhone] = useState<SmartPhone>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    // const [currentModel, setCurrentModel] = useState('string');
     const dispatch = useAppDispatch();
     // const user = useAppSelector(state => state.)
     useEffect(   () => {
@@ -31,7 +32,7 @@ const Details =  (): JSX.Element => {
     });
     const model = useAppSelector(state => state.phone.currentModel);
     return (<div>
-        {isLoading ? (phone && <Phone phone={ phone } currentModel={model!}/>): <Skeleton  width={300} height={700} borderRadius={'2rem'}/>}
+        {isLoading ? (phone && <Phone smartPhone={ phone } currentModel={model!}/>): <Skeleton  width={300} height={700} borderRadius={'2rem'}/>}
     </div>);
 };
 export default Details;

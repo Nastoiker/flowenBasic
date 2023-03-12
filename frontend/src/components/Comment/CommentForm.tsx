@@ -14,22 +14,16 @@ export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps
     const [succes, setSuccesForm] = useState<boolean>(false);
     const [error, setErrorForm] = useState<string>();
     const onSubmit = async (formData: ICommentForm) => {
-        const foms = new FormData();
 
         formData.modelDeviceId = modelProductId;
         const token = localStorage.getItem('token');
         const file = formData.files;
-        console.log(file[0]);
-        const { files, ...Data } = formData;
         const setData = {
             ...formData,
             // @ts-ignore
             files: file[0]
         };
-        foms.set('files', file[0]);
-        foms.set('modelDeviceId', formData.modelDeviceId);
-        foms.set('comment', formData.comment);
-        foms.set('titile', formData.title);
+
         try {
             const {data} = await axios.post(DOMEN.comment.createComment, {...setData}, {
                 headers: {

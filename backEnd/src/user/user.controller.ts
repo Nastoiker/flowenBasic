@@ -235,7 +235,7 @@ export class UserController extends BaseController implements IUserController {
 			}
 			this.ok(res, { mess: 'фото было обновлено с id', id: request.file.originalname });
 		} else {
-			return next(new HTTPError(401, 'Ошибка обновления аватара'));
+			return next(new HTTPError(401, 'Ошибка фото'));
 		}
 	}
 	public async authorAuthorization(

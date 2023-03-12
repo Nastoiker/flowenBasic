@@ -7,6 +7,7 @@ import {useState} from "react";
 import {Button} from "../../ui/button";
 import {Htag} from "../Htag/Htag";
 import {ReactComponent as UploadedIcon} from './Uploaded.svg';
+import axios from "axios";
 export const UpdateAvatarProfile = () => {
     const user = useAppSelector<userState>(state => state.user.user);
     const [error, setError] = useState<string>();
@@ -40,39 +41,40 @@ export const UpdateAvatarProfile = () => {
     const onDrop = (e: any) =>  {
         e.preventDefault();
         const file = e.dataTransfer.files[0];
+        setFile(file);
         uploadedFile(file);
         setOnDrag(true);
     }
-    const onSubmit = async () => {
+    const onSubmit = async (e: any) => {
+        e.preventDefault();
         const formData = new FormData();
-        if(!file) return;
-        formData.set('files', file);
+        if(!file)        { console.log(1);
+         return;}
+        // formData.set('files', file);
+        const formFile = { files: file};
         const token = localStorage.getItem('token');
         try {
-            const res = await fetch(DOMEN.user.updateAvatar, {
+            const res = await axios.post(DOMEN.user.updateAvatar, { ...formFile },
+                {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
+                'Content-Type': 'multipart/form-data',
                     'Authorization': 'Bearer ' + token
-                },
-                method: 'POST',
-                body: {
-                    ...formData,
                 },
             });
             await new Promise( (resolve) => setTimeout(() => resolve(''), 1000));
-            const data = await res.json();
+            const data = await res.data;
         } catch (e) {
             setError(e.message);
         }
     };
-    const handleDragOver = (e) => {
+    const handleDragOver = (e: any) => {
         e.preventDefault();
         
         setOnDrag(false);
     };
     return (<>
         <Htag type={"h1"}>Ваша аватарка </Htag>
-        <form action="" onSubmit={() => onSubmit()} className="text-center">
+        <form onSubmit={(e) => onSubmit(e)} className="text-center">
             <div onDrop={onDrop} className="w-full mx-auto" onDragOver={handleDragOver}>
             {
               onDrag ?  <div className=" scale-75 bg-sky-700 shadow-xl  bg-blue transition-all duration-300 h-96">   <div className="mx-auto"> <UploadedIcon /></div>

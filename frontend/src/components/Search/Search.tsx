@@ -14,6 +14,7 @@ export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
    const phones = useAppSelector(state => state.phone.phones);
    const [searchAlias, setSearchAlias] = useState<string>('');
    const navigate = useNavigate();
+   const founded = useAppSelector(state => state.search.founded);
     const redirectTo =  (to: string) => {
         navigate(to);
     };
@@ -40,5 +41,8 @@ export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
          </svg>
       </Button>
       <Input onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={"w-full rounded-l-xl"} value={searchAlias} type="text" />
+       {
+           founded && <div className={" bg-white absolute z-12 my-12 mx-12"}>{founded.map( p =><a className="hover:opacity-5 block" key={p.id} href={'/product/phone/' + p.product[0]?.alias}>{p.name}</a>)}</div>
+       }
    </form>);
 };

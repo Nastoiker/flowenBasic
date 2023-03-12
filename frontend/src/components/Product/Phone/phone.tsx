@@ -8,25 +8,46 @@ import {CommentForm} from "../../Comment/CommentForm";
 import {Htag} from "../../Htag/Htag";
 import {Comment} from "../../Comment/Comment";
 const api_url = 'http://localhost:8000';
+import cn from 'classnames';
 import './phone.css';
 import {setCurrentModel} from "../../../store/slices/phones.slices";
-import {ModelDevice} from "../../../../interfaces/product.interfaces";
+import {ModelDevice, SmartPhone} from "../../../../interfaces/product.interfaces";
 import {DOMEN} from "../../../../domen.api";
 import {deleteBasket, addBasketFetch} from "../../../store/slices/basket.slice";
 import {RatingForm} from "../../Rating/setRating.form.";
+import styles from './phoneOpen.module.css';
 // import photoSmartphone from '@product/3909225.webp';
-export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
-    console.log(phone);
+export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
+    const [phone, setPhone] = useState<SmartPhone>(smartPhone);
     console.log('info' + phone.modelDeviceId);
     console.log( currentModel + 'current');
+    const { product } = currentModel;
+    console.log(product);
     const token = localStorage.getItem('token');
     const dispatch = useAppDispatch();
     const [basket, setIsBasket] =  useState<boolean>();
     const [basketId, setIsBasketId] = useState<string>();
     console.log(phone.id);
+    const [Color, setColor] = useState<string>();
+    const [Memory, setMemory] = useState<number>();
+    const [currentImage, setCurrentImage] = useState<string>();
+    const setPhoneByColor = (color: string) => {
+        const phoneColor = currentModel.product.find( p => {if(p.ColorAlias===color) { return p;} });
+        if(!phoneColor) return;
+        setColor(color);
+        setMemory(phoneColor.Memory);
+
+        setPhone(phoneColor);
+    };
+    const setPhoneByMemory = (Memory: number) => {
+        const phoneMemory= currentModel.product.find( p => {if(p.Memory===Memory) { return p;} });
+        if(!phoneMemory) return;
+        setMemory(Memory);
+        setColor(phoneMemory.ColorAlias);
+        setPhone(phoneMemory);
+    };
+
     const [isOpened, setIsOpened] = useState<boolean>();
-
-
     useEffect(() => {(async () => {
         if(basket) {
             const res = await fetch(DOMEN.basket.addBasket, {
@@ -48,7 +69,7 @@ export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
     const img = phone.image?.split(',');
 //../../../../../backEnd/uploads
 //   const photo = img &&  `${photoSmartphone}/backEnd/uploads/product/${phone.brand.name}/${phone.modelDevice.name}/${phone.ColorAlias}/${img[0]}`;
-    const photo1 =  img &&  `${api_url}/product/${phone.brand.name}/${phone.modelDevice.name.replace(' ', '-')}/${phone.ColorAlias}/${img[0]}`;
+    const photo1 =  img &&  `${api_url}/product/${currentModel.brand.name}/${currentModel.name.replace(' ', '-')}/${phone.ColorAlias}/${img[0]}`;
     return <>
         <div className={"flex justify-around"}>
         {
@@ -60,7 +81,10 @@ export const Phone = ({phone, currentModel}: phoneProps): JSX.Element => {
             {basket ? <Button onClick={() => setIsBasket(false)}>Убрать из корзины</Button> : <Button onClick={() => setIsBasket(true)}>Добавить в корзину</Button> }
             <Paragraph type={'small'}>{phone.Description}</Paragraph>
             <h1>Цвета</h1>
+            {currentModel.product.map( p =>   <div key={p.ColorAlias} onClick={() => setPhoneByColor(p.ColorAlias)}   className={cn(styles[p.ColorAlias] + " rounded-3xl w-20 p-5 hover:opacity-5", { [styles.CurrentColor]: Color===p.ColorAlias})}>{p.ColorAlias}</div> )}
             <h1>Память</h1>
+            {currentModel.product.map( p =>   <div key={p.Memory} onClick={() => setPhoneByMemory(p.Memory)}   className={cn(styles[p.Memory] + " rounded-3xl w-20 p-5 hover:opacity-5", { [styles.CurrentColor]: Memory===p.Memory})}>{p.Memory}</div> )}
+
             <h1></h1>
         </div>
     </div>
