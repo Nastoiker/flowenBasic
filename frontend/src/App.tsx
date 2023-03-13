@@ -30,6 +30,7 @@ import {getBasketFetch} from "./store/slices/basket.slice";
 import {RatingForm} from "./components/Rating/setRating.form.";
 import {UpdateAvatarProfile} from "./components/Profile/UpdateAvatar.profile";
 import SearchPage from "./pages/Search/Search";
+import {FilterByPrice} from "./components/Filters/FilterByPrice";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -78,8 +79,9 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
+            {/*<Filters />*/}
             <UpdateAvatarProfile/>
-
+            <FilterByPrice />
             <Slider sliders={[{id: 1, text:"smile", image:apple}, {id: 2, text:"like", image:samsung}]}/>
             <PhoneModel />
 
