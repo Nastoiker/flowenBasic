@@ -13,6 +13,7 @@ const Details =  (): JSX.Element => {
     const { id } = useParams();
     const [phone, setPhone] = useState<SmartPhone>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [pictures, setPicture] = useState<string>();
     // const [currentModel, setCurrentModel] = useState('string');
     const dispatch = useAppDispatch();
     // const user = useAppSelector(state => state.)

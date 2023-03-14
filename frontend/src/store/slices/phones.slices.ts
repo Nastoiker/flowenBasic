@@ -1,15 +1,17 @@
 import {createSlice} from "@reduxjs/toolkit";
 import {ProductState} from "../product.slice";
-import {ModelDevice, ProductModel} from "../../../interfaces/product.interfaces";
+import {ModelDevice, ProductModel, SmartPhone} from "../../../interfaces/product.interfaces";
 import {WritableDraft} from "immer/src/types/types-external";
 
 interface StatePhones {
     phones: ProductModel[];
+    staticPhones: ProductModel[]
     currentModel?: ModelDevice;
+    filtered: ProductModel[];
     isLoading: boolean;
 }
 const initialState:StatePhones = {
-    phones: [],
+    phones: localStorage.getItem('phones'),
     isLoading: true,
 };
 const phonesSlice = createSlice({
@@ -23,17 +25,36 @@ const phonesSlice = createSlice({
             state.isLoading = false;
         },
         getPhonesSuccess: (state, action) => {
-            state.phones = action.payload;
+            if(!state.staticPhones)  state.staticPhones = action.payload;
+            state.filtered =  action.payload;
             state.isLoading = false;
         },
         setCurrentModel: (state, {payload}) => {
             let  model;
-            for(const phone of state.phones) {
+            for(const phone of state.staticPhones) {
                 if (phone.id === payload) {
                     console.log(phone + 'mmmm');
                     state.currentModel = phone;
                 }
             }
+        },
+        getByPrice: (state, {payload}) => {
+            // @ts-ignore
+            const models:ProductModel[] = [];
+            for( const model of state.staticPhones) {
+                const thisModel = model;
+                const phones: SmartPhone[] = [];
+                for(const phone of model.product) {
+                    if(phone.price > payload.minPrice && phone.price < payload.maxPrice ) {
+                        phones.push(phone);
+                    }
+                    console.log(phone);
+                }
+                thisModel.product = phones;
+                console.log(phones);
+                models.push(thisModel);
+            }
+            state.filtered = models;
         },
         // getPhonesByBrand: (state, {payload}) => {
         //     console.log(payload);
@@ -42,5 +63,5 @@ const phonesSlice = createSlice({
         // }
     },
 });
-export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess, setCurrentModel, getPhonesByBrand } = phonesSlice.actions;
+export const { getPhonesFetch, getPhonesFailure, getPhonesSuccess, setCurrentModel, getPhonesByBrand, getByPrice } = phonesSlice.actions;
 export default phonesSlice.reducer;
