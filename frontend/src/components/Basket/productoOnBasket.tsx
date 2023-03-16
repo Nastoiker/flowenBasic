@@ -5,7 +5,10 @@ import {productOnBasketProps} from "./productOnBasket.props";
 
 export const ProductoOnBasket = ({basket}: productOnBasketProps) => {
     return (
-        basket.map( b =>  <PhoneCardMini  key={b.id} basket={b}/>)
+        <div className={"bg-white absolute z-10 rounded-3xl space-y-6"}>
+            { basket.map( b =>  <PhoneCardMini  key={b.id} basket={b}/>)}
+
+        </div>
     );
 };
 {/*const*/}

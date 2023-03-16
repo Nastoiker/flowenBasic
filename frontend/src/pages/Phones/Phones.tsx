@@ -6,6 +6,7 @@ import {PhoneCard} from "../../components/Product/Card/phone.card";
 import {api_url} from "../../../domen.api";
 import {FilterByPrice} from "../../components/Filters/FilterByPrice";
 import { ProductModel, SmartPhone} from "../../../interfaces/product.interfaces";
+import {FilterContainer} from "../../components/Filters/Filter.container";
  interface byPrice {
     phones: ProductModel[],
      minPrice: number,
@@ -38,6 +39,7 @@ const Phones = ():JSX.Element => {
     console.log(phones);
     return (<div  className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-flow-col justify-items-stretch"}>
         <FilterByPrice  />
+        <FilterContainer />
         { phones.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) }
     </div>);
 };

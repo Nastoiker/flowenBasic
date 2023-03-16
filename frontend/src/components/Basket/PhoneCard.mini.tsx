@@ -15,7 +15,7 @@ export const PhoneCardMini = ({basket}: productMiniOnBasketProps) => {
        setCountProduct(c => c + value);
        dispatch(editBasketFetch({ id: basket.id, quantity: countProduct + value}));
     }
-    return (<div>
+    return (<div className={"m-5"}>
     <img src="" alt=""/>
        <Htag type={"h1"}>{basket.product.name}</Htag>
         <span>{convertDate(basket.createdAt)}</span>

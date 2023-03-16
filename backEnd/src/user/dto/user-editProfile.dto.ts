@@ -5,4 +5,9 @@ export class UserEditProfileDto {
 	phone!: string;
 	@IsString({ message: 'Неверный login' })
 	login: string;
+	@IsString({ message: 'неверный password' })
+
+	password: string;
+	@IsString({ message: 'неверный password' })
+	hashpassword: string;
 }

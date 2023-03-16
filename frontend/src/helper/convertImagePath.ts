@@ -2,8 +2,8 @@ import {ModelDevice, ProductModel, SmartPhone} from "../../interfaces/product.in
 import {api_url} from "../../domen.api";
 import {CommentUser, userState} from "../store/slices/user.slice";
 
-export const ProductImagePath = (phone: SmartPhone) => {
-    const photo =  `${api_url}/product/${phone.brand.name}/${phone.modelDevice.name.replace(' ', '-')}/${phone.ColorAlias}/${img[0]}`;
+export const ProductImagePath = (model: ProductModel, phone: SmartPhone, img: string) => {
+    const photo =  `${api_url}/product/${model.brand.name}/${model.name.replace(' ', '-')}/${phone.ColorAlias}/${img}`;
         return photo;
 };
 export const ProfileImage = (profile: userState) => {

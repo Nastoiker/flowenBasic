@@ -215,7 +215,7 @@ export class UserController extends BaseController implements IUserController {
 			return next(new HTTPError(401, 'Файл должен быть фотографией'));
 		}
 		request.body.userId = userId.id;
-		const address = await this.userService.editAddress(request.body);
+		const address = await this.userService.createAddress(request.body);
 		this.ok(res, { address });
 	}
 	public async updateAvatar(request: Request, res: Response, next: NextFunction): Promise<void> {
@@ -259,7 +259,12 @@ export class UserController extends BaseController implements IUserController {
 		if (!writtenById) {
 			return next(new HTTPError(401, 'Ошибка входа'));
 		}
-		const result = await this.userService.editProfileInfo(request.body, writtenById.id);
+		const result = await this.userService.editProfileInfo(
+			writtenById.email,
+			request.body,
+			writtenById.id,
+		);
+		if (!result) return next(new HTTPError(401, 'Ошибка редактирования'));
 		this.ok(res, { ...result });
 	}
 }

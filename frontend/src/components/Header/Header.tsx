@@ -15,6 +15,10 @@ import {userState} from "../../store/slices/user.slice";
 import {api_url} from "../../../domen.api";
 import {redirect, useNavigate} from "react-router-dom";
 import {logoutSuccess} from "../../store/slices/auth.slice";
+import {ReactComponent as Basket } from './Basket.svg';
+import {useMemo, useState} from "react";
+import {ProductoOnBasket} from "../Basket/productoOnBasket";
+import {getBasketFetch} from "../../store/slices/basket.slice";
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -24,9 +28,12 @@ export const Header = (): JSX.Element => {
         dispatch(logoutSuccess());
     }
     const navigate = useNavigate();
+
     const redirectTo =  (to: string) => {
-        navigate(to);
+        navigate('../../../' + to);
     };
+    const [openBasket, setOpenBasket] = useState<boolean>();
+    const basket = useAppSelector(state => state.basket.basket);
     return (<><Menubar  className={"flex border-none border-b-gray-200 bg-transparent justify-between"}>
             <MenubarMenu>
                 <MenubarTrigger>File</MenubarTrigger>
@@ -120,9 +127,15 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
         </Menubar>
+            <div onClick={() => {setOpenBasket((s) => !s) }}>
+                <div className={"rounded-3xl bg-white w-7 text-center"}>{user.basket?.length}</div>
+                <Basket />
+            </div>
+            { openBasket && <ProductoOnBasket basket={basket} />
+            }
             <div className={""}>
-                { user.id ?  ( <><Avatar onClick={() => redirect('profile')}>
-                    <AvatarImage src={api_url + '/user/avatar/' + user.id + '/' + 'user.avatar'} />
+                { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
+                    <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                     <Button onClick={logOut}>Выйти</Button>

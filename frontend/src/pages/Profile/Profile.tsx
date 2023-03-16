@@ -5,6 +5,8 @@ import {Comment} from "../../components/Comment/Comment";
 import {useForm} from "react-hook-form";
 import {ICommentForm} from "../../components/Comment/CommentForm.props";
 import {EditProfile} from "../../components/Profile/Edit.Profile";
+import BasketPage from "../Basket/Basket.page";
+import {EditAdress} from "../../components/Profile/Edit.Adress";
 
 function Profile() {
     const user = useAppSelector<userState>(state => state.user.user);
@@ -14,7 +16,10 @@ function Profile() {
     const {register, control, handleSubmit, formState: {errors}} = useForm<ICommentForm>();
     const [openComment, setOpenComment] = useState<boolean>(false);
     return (<>
+        <div></div>
         <EditProfile />
+        <BasketPage />
+        <EditAdress />
     </>);
 }
 export default Profile;

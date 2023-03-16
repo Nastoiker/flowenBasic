@@ -27,6 +27,7 @@ const phonesSlice = createSlice({
         getPhonesSuccess: (state, action) => {
             if(!state.staticPhones)  state.staticPhones = action.payload;
             state.filtered =  action.payload;
+            state.phones = action.payload;
             state.isLoading = false;
         },
         setCurrentModel: (state, {payload}) => {
@@ -37,6 +38,9 @@ const phonesSlice = createSlice({
                     state.currentModel = phone;
                 }
             }
+        },
+        getWithAction: (state, {payload}) => {
+            state.filtered = payload.filtered.map( p => p.price < p.oldPrice);
         },
         getByPrice: (state, {payload}) => {
             // @ts-ignore

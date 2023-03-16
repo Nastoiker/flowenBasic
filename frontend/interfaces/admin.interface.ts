@@ -29,3 +29,7 @@ export interface  ICreateBrandWithSecondCategory {
     categories: string[],
     name: string,
 }
+export interface addImageForProduct {
+    files: File,
+    productId: string,
+}

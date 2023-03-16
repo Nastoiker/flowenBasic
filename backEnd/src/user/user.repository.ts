@@ -50,6 +50,7 @@ export class UserRepository implements IUserRepository {
 				Comment: true,
 				basket: true,
 				rating: true,
+				address: true,
 			},
 		});
 	}
@@ -114,17 +115,18 @@ export class UserRepository implements IUserRepository {
 				userId,
 			},
 			data: {
-				...address,
+				...addressUser,
 			},
 		});
 	}
 	async editProfileInfo(info: UserEditProfileDto, id: string): Promise<UserModel | null> {
+		const { password, ...inf } = info;
 		return this.prismaService.client.userModel.update({
 			where: {
 				id,
 			},
 			data: {
-				...info,
+				...inf,
 			},
 		});
 	}
