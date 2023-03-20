@@ -31,9 +31,17 @@ import {RatingForm} from "./components/Rating/setRating.form.";
 import {UpdateAvatarProfile} from "./components/Profile/UpdateAvatar.profile";
 import SearchPage from "./pages/Search/Search";
 import {FilterByPrice} from "./components/Filters/FilterByPrice";
-
+import {StaticSlider} from "./components/Slider/StaticSlider";
+interface IItems {
+    subtitle: string;
+    title: string
+    picture: string;
+    id: string;
+}
 function App() {
-  const [count, setCount] = useState(0);
+    const StaticSliderArr:IItems[] = [{id: '1',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, { id: '2', subtitle: 'SSS', title: 'BBBB', picture: 'http://localhost:8000/slider1.png'}, {id: '3',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, {id: '4',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}];
+
+    const [count, setCount] = useState(0);
   const Auth = lazy(() => import('./pages/Authorization/Authorization'));
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
@@ -79,6 +87,8 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
+            <h1>a2222</h1>
+            <StaticSlider items={StaticSliderArr}/>
             {/*<Filters />*/}
             <UpdateAvatarProfile/>
             <FilterByPrice />
