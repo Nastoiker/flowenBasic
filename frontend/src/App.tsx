@@ -58,7 +58,10 @@ function App() {
         dispatch(getBrandsFetch());
         { User &&  dispatch(getUserFetch()); dispatch(getBasketFetch()); }
     }, [dispatch]);
-    return (<>
+    return (<div className={"relative"}>
+
+
+
         <div className="App max-w-screen-xl mx-auto" >
 
             {/*<SliderDemo />*/}
@@ -87,7 +90,6 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
-            <h1>a2222</h1>
             <StaticSlider items={StaticSliderArr}/>
             {/*<Filters />*/}
             <UpdateAvatarProfile/>
@@ -96,8 +98,8 @@ function App() {
             <PhoneModel />
 
         </div>
-            {/*<Footer />*/}
-        </>
+           <Footer />
+        </div>
 
 );
 }

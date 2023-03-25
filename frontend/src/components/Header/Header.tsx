@@ -19,10 +19,12 @@ import {ReactComponent as Basket } from './Basket.svg';
 import {useMemo, useState} from "react";
 import {ProductoOnBasket} from "../Basket/productoOnBasket";
 import {getBasketFetch} from "../../store/slices/basket.slice";
+import { ReactComponent as SearchIcon} from './search.svg';
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const user = useAppSelector<userState>(state => state.user.user);
+    const [searchIsActive, setIsActiveSearch] = useState<boolean>(false);
     const logOut = () => {
         console.log(1);
         dispatch(logoutSuccess());
@@ -36,7 +38,7 @@ export const Header = (): JSX.Element => {
     const basket = useAppSelector(state => state.basket.basket);
     return (<><Menubar  className={"flex border-none border-b-gray-200 bg-transparent justify-between"}>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>Ваш город</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -49,7 +51,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>Способ оплаты</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -62,7 +64,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>оплата и доставка</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -75,7 +77,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>поддержка</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -88,7 +90,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>контакты</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -101,7 +103,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>о компании</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -114,7 +116,7 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
             <MenubarMenu>
-                <MenubarTrigger>File</MenubarTrigger>
+                <MenubarTrigger>8 (800) 555 35 35</MenubarTrigger>
                 <MenubarContent>
                     <MenubarItem>
                         New Tab <MenubarShortcut>⌘T</MenubarShortcut>
@@ -127,23 +129,36 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
         </Menubar>
-            <div onClick={() => {setOpenBasket((s) => !s) }}>
-                <div className={"rounded-3xl bg-white w-7 text-center"}>{user.basket?.length}</div>
-                <Basket />
+            <div className={"flex  border-b-4 p-5 justify-between"}>
+                <div><img src="" alt=""/></div>
+                <div className={'flex items-center'}>
+                    <Search isActive={searchIsActive} />
+                    <SearchIcon className="z-50" onClick={() => setIsActiveSearch((s) => !s)}/>
+
+                    <div onClick={() => {setOpenBasket((s) => !s) }}>
+                    <div className={"rounded-3xl bg-white w-7 text-center"}>{user.basket?.length}</div>
+                        <div>
+                            <Basket />
+                            { openBasket && <ProductoOnBasket basket={basket} />
+                            }
+                        </div>
+
+                </div>
+
+
+
+                    { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
+                        <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                        <Button onClick={logOut}>Выйти</Button>
+                    </>) : <><Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
+                        <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
+                    </>}
+
+                </div>
             </div>
-            { openBasket && <ProductoOnBasket basket={basket} />
-            }
-            <div className={""}>
-                { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
-                    <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
-                    <AvatarFallback>CN</AvatarFallback>
-                </Avatar>
-                    <Button onClick={logOut}>Выйти</Button>
-                </>) : <><Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
-                    <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
-                </>}
-            </div>
-            <Search />
+
     </>
     );
 }

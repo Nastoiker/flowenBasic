@@ -9,7 +9,7 @@ import {Input} from "../Input/Input";
 import {useAppDispatch, useAppSelector} from "../../store";
 import { SmartPhone } from "../../../interfaces/product.interfaces";
 import {getFounded, setSearch} from "../../store/slices/search.slice";
-export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
+export const Search = ({ isActive, className, ...props }: SearchProps): JSX.Element => {
    const dispatch = useAppDispatch();
    const phones = useAppSelector(state => state.phone.phones);
    const [searchAlias, setSearchAlias] = useState<string>('');
@@ -32,17 +32,11 @@ export const Search = ({ className, ...props}: SearchProps): JSX.Element => {
        dispatch(setSearch(searchAlias));
        dispatch(getFounded(phones));
    }
-   return (<form  className={"flex w-full"} {...props} role={'search'}>
-     <Button appearance='green' className={"rounded-r-xl"}>
-         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
-              stroke="currentColor" className="w-8 h-6">
-            <path strokeLinecap="round" strokeLinejoin="round"
-                  d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"/>
-         </svg>
-      </Button>
-      <Input onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={"w-full rounded-l-xl"} value={searchAlias} type="text" />
+   if(isActive) {
+       return <form  className={"flex w-full "} {...props} role={'search'}>
+      <Input onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={"w-full indent-16 rounded-l-xl"} value={searchAlias} type="text" />
        {
            founded && <div className={" bg-white absolute z-12 my-12 mx-12"}>{founded.map( p =><a className="hover:opacity-5 block" key={p.id} href={'/product/phone/' + p.product[0]?.alias}>{p.name}</a>)}</div>
        }
-   </form>);
+   </form>;}
 };

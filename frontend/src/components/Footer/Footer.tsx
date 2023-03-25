@@ -4,8 +4,8 @@ import {Input} from "../../ui/input";
 import {Htag} from "../Htag/Htag";
 import {Button} from "../../ui/button";
 export const Footer = ({className, ...props}: FooterProps): JSX.Element => {
-    return (<footer className={"bg-zinc-800 absolute bottom-0 z-2 w-full"} >
-        <div className={"m-20 mt-20"}>
+    return (<footer className={"bg-zinc-800  text-white  bottom-0 z-50 p-20 w-full"} >
+        <div className={""}>
             <div className={"flex justify-between items-center"}>
                 <Htag type={"h2"}>
                     Хотите первым узнавать о скидках в FLOVEN?
