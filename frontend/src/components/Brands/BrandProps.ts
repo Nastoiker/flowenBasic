@@ -1,0 +1,11 @@
+import { DetailedHTMLProps, HTMLAttributes } from "react";
+
+export interface BrandProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+  brand: Brand;
+  isActive: boolean;
+}
+interface Brand {
+   name: string;
+  alias: string;
+  img: string
+}

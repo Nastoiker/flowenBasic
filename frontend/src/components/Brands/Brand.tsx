@@ -1,9 +1,14 @@
-interface Brand {
-    name: string;
-    img: string
-}
-export const Brand = ({ brand: Brand}) =>{
-    return <div className="">
-        <image src={brand.image} alt={'brand'}/>
-    </div>
+import  cn  from "classnames";
+import { BrandProps } from "./BrandProps"
+import { useNavigate } from "react-router-dom";
+
+export const Brand = ({ brand, isActive}: BrandProps) =>{
+    const navigate = useNavigate();
+    const redirectTo =  (to: string) => {
+        navigate('../../../' + to);
+    };
+    return <div className=""  onClick={() => redirectTo(brand.name)}>
+        <image src={brand.img} alt={'brand'} className={cn("rounded-3xl hover:border", { "border": isActive })}/>
+        <h1>{brand.name}</h1>
+    </div>;
 }

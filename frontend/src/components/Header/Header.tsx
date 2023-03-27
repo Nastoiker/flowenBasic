@@ -20,6 +20,7 @@ import {useMemo, useState} from "react";
 import {ProductoOnBasket} from "../Basket/productoOnBasket";
 import {getBasketFetch} from "../../store/slices/basket.slice";
 import { ReactComponent as SearchIcon} from './search.svg';
+import { ReactComponent as UserIcon} from './UserIcon.svg';
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -129,9 +130,9 @@ export const Header = (): JSX.Element => {
                 </MenubarContent>
             </MenubarMenu>
         </Menubar>
-            <div className={"flex  border-b-4 p-5 justify-between"}>
+            <div className={"flex border-b-4 p-5 justify-between"}>
                 <div><img src="" alt=""/></div>
-                <div className={'flex items-center'}>
+                <div className={'flex items-center space-x-6'}>
                     <Search isActive={searchIsActive} />
                     <SearchIcon className="z-50" onClick={() => setIsActiveSearch((s) => !s)}/>
 
@@ -152,8 +153,20 @@ export const Header = (): JSX.Element => {
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                         <Button onClick={logOut}>Выйти</Button>
-                    </>) : <><Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
+                    </>) : <>
+                     <Menubar>
+                     <MenubarMenu>
+                <MenubarTrigger><UserIcon /></MenubarTrigger>
+                <MenubarContent>
+                    <MenubarItem>
+                        <Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
+                    </MenubarItem>
+                    <MenubarItem>
                         <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
+                    </MenubarItem>
+                </MenubarContent>
+            </MenubarMenu>
+            </Menubar>
                     </>}
 
                 </div>
