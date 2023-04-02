@@ -17,7 +17,7 @@ import {Search} from "./components/Search/Search";
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {getPhonesFetch} from "./store/slices/phones.slices";
-import {useAppDispatch} from "./store";
+import {useAppDispatch, useAppSelector} from "./store";
 import {AdminPage} from "./pages/Admin/Admin";
 import {getBrandsFetch} from "./store/slices/brand.slice";
 import PhoneModel from "./sections/PhoneModel";
@@ -39,6 +39,7 @@ interface IItems {
     id: string;
 }
 function App() {
+
     const StaticSliderArr:IItems[] = [{id: '1',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, { id: '2', subtitle: 'SSS', title: 'BBBB', picture: 'http://localhost:8000/slider1.png'}, {id: '3',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, {id: '4',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}];
 
     const [count, setCount] = useState(0);
@@ -46,6 +47,7 @@ function App() {
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
+    const Home = lazy(() => import('./pages/Home/Home'));
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));
     const Profile = lazy(() => import('./pages/Profile/Profile'));
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
@@ -58,6 +60,8 @@ function App() {
         dispatch(getBrandsFetch());
         { User &&  dispatch(getUserFetch()); dispatch(getBasketFetch()); }
     }, [dispatch]);
+    const phones = useAppSelector(state => state.phone.filtered);
+    console.log(phones);
     return (<div className={"relative"}>
 
 
@@ -71,8 +75,8 @@ function App() {
                 <Header />
                 <Menu />
                 <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/home" element={<Home />}/>
+                    <Route path="/" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
+                    <Route path="/home" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
                     <Route path="/login" element={<Suspense fallback={<h2>Загрузка...</h2>}><Auth /></Suspense>} />
                     <Route path="/register" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /></Suspense>} />
                     <Route path="/join" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /> </Suspense>} />
@@ -90,7 +94,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
-            <StaticSlider items={StaticSliderArr}/>
+            {/*<StaticSlider items={StaticSliderArr}/>*/}
             {/*<Filters />*/}
             <UpdateAvatarProfile/>
             <FilterByPrice />
