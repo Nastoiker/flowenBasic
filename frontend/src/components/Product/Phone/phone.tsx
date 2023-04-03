@@ -17,6 +17,7 @@ import {deleteBasket, addBasketFetch} from "../../../store/slices/basket.slice";
 import {RatingForm} from "../../Rating/setRating.form.";
 import styles from './phoneOpen.module.css';
 import {ProductImagePath} from "../../../helper/convertImagePath";
+import { SwiperSlide, Swiper } from "swiper/react";
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>(smartPhone);
@@ -100,7 +101,17 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
         <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
         <div>
             <Htag type={"h1"}>Комментарии</Htag>
-            { currentModel.Comment ? currentModel.Comment.map( c => <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />) : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
+        {currentModel.Comment ?  <Swiper
+        className={"my-20 "}
+        spaceBetween={10}
+        slidesPerView={3}
+        autoplay={{
+         delay: 2500,
+         disableOnInteraction: false,
+        }}
+        onSlideChange={() => console.log('slide change')}
+        onSwiper={(swiper) => console.log(swiper)}
+    >{currentModel.Comment.map(c => <SwiperSlide key={c.id}><Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} /></SwiperSlide>) }</Swiper>: <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
         </div>
         <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
     </>;

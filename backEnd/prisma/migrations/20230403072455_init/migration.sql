@@ -20,7 +20,7 @@ CREATE TABLE "FirstLevelCategory" (
 CREATE TABLE "Address" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "city" TEXT NOT NULL,
-    "country" TEXT NOT NULL,
+    "country" TEXT NOT NULL DEFAULT 'Russia',
     "created_at" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "street" TEXT NOT NULL,
     "updated_at" DATETIME NOT NULL,
@@ -103,7 +103,8 @@ CREATE TABLE "Product" (
 -- CreateTable
 CREATE TABLE "Brand" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "name" TEXT NOT NULL
+    "name" TEXT NOT NULL,
+    "img" TEXT
 );
 
 -- CreateTable

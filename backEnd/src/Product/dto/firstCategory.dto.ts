@@ -13,7 +13,9 @@ export class setSecondCategoryOnBrand {
 
 export class setBrandsOnCategory {
 	@IsString()
-	name: string;
+  name: string;
+   @IsString()
+  img: string;
 	@IsArray()
 	@IsString()
 	categories: string[];

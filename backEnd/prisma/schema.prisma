@@ -112,6 +112,7 @@ model Product {
 model Brand {
   id      String       @id @default(uuid())
   name    String @unique
+  img String?
   Product Product[] @relation("BrandDevices")
   secondLevelCategory BrandOnSecondCategory[]
   model ModelDevice[] @relation("BrandByModel")

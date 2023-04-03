@@ -1,6 +1,7 @@
 export interface Brand {
     id: string;
-    name: string;
+  name: string;
+  img: string;
 }
 
 export interface Comment {

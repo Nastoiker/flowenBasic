@@ -33,7 +33,7 @@ export const Comment = ({userId, images ,comment, title, model, date }: CommentP
     if(!user) return <div></div>;
     const avatar = api_url + '/user/avatar/' + user.id + '/';
     const dateformat = convertDate(date);
-    return (<div className={"flex"}>
+    return (<div className={"flex rounded-3xl"}>
             {  user.avatar ?         <img src={avatar + user.avatar } className="rounded-full w-24 h-24" alt="avatar"/> : <img src={'icon'} className="rounded-full" alt="avatar"/>}
         <div>
             <span>{dateformat}</span>

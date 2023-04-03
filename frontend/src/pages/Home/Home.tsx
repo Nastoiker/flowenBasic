@@ -20,7 +20,8 @@ const Home = (): JSX.Element => {
   dispatch(getPhonesFetch());
  }, [dispatch]);
  const swiper = useSwiper();
- const products = useAppSelector(state => state.phone.filtered);
+  const products = useAppSelector(state => state.phone.filtered);
+  const BestProducts = products.sort( (a, b) => a.rating - b.rating )
  return (<>
   <div className={"flex justify-around items-center"}>
    <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === 'СМАРТФОНЫ'})}><button onClick={() => setCurrentCategory('СМАРТФОНЫ')}> СМАРТФОНЫ</button></div>
@@ -41,7 +42,7 @@ const Home = (): JSX.Element => {
         onSwiper={(swiper) => console.log(swiper)}
     >
      {
-      sliders.map( s =>  <SwiperSlide key={p.id}>
+      sliders.map( s =>  <SwiperSlide key={s.id}>
        <img src={s.img} alt=""/>
       </SwiperSlide>)
      }
@@ -60,7 +61,8 @@ const Home = (): JSX.Element => {
         navigation={true}
         onSlideChange={() => console.log('slide change')}
         onSwiper={(swiper) => console.log(swiper)}
-    >
+       >
+         
      {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
          <SwiperSlide key={p.id}>
           <PhoneCard price={p.price} name={p.name} alias={p.alias} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />

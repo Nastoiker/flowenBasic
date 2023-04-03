@@ -121,7 +121,7 @@ export class ProductController extends BaseController {
 				path: '/createBrand',
 				method: 'post',
 				func: this.createBrand,
-				middlewares: [new AdminGuard(), new ValidateMiddleware(ProductCreate)],
+				middlewares: [new AdminGuard(), new MulterMiddleware(), new ValidateMiddleware(ProductCreate)],
 			},
 			//создание категории к брендам
 			{
@@ -211,16 +211,29 @@ export class ProductController extends BaseController {
 		this.ok(res, { ...newProduct });
 	}
 	async createBrand(
-		{ body }: Request<{}, {}, ProductCreate>,
+		request: Request<{}, {}, ProductCreate>,
 		res: Response,
 		next: NextFunction,
-	): Promise<void> {
-		const newProduct = await this.productService.createBrand(body);
-		if (!newProduct) {
-			return next(new HTTPError(401, 'Ошибка создания модел'));
-		}
-		this.ok(res, { ...newProduct });
-	}
+  ): Promise<void> {
+    if (request.file) {
+      const savearray: MFile[] = [new MFile(request.file)];
+      if (request.file.mimetype.includes('image')) {
+        const buffer = await this.fileService.convertToWebp(request.file.buffer);
+        savearray.push(
+          new MFile({
+            originalname: `${request.file.originalname.split('.')[0]}.webp`,
+            buffer,
+          }),
+        );
+      }
+      const newBrand = await this.productService.createBrand(request.body);
+    } 
+      const newProduct = await this.productService.createBrand(request.body);
+      if (!newProduct) {
+        return next(new HTTPError(401, 'Ошибка создания модел'));
+      }
+      this.ok(res, { ...newProduct });
+    }
 	async uploadImage(
 		request: Request<{}, {}, { productId: string }>,
 		res: Response,

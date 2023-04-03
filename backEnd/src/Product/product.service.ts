@@ -44,10 +44,14 @@ export class ProductService implements IProductService {
 		// const checkProduct = await this.getModelBrandId(model);
 		return this.productRepository.createModel(model);
 	}
-	async createBrand(brand: BrandDevice): Promise<Brand | null> {
+	async createBrand(file: MFile, brand: BrandDevice): Promise<Brand | null> {
 		if (await this.productRepository.findBrand(brand.name)) {
 			return null;
-		}
+    }
+    const extension = file.originalname.split('.');
+    await writeFile(`${path}/uploads/brands/${brand.name}.${extension[extension.length-1]}`,
+      file.buffer,);
+    brand.img = `/uploads/brands/${brand.name}.${extension[extension.length-1]}`
 		// const checkProduct = await this.getModelBrandId(brand);
 		return this.productRepository.createBrand(brand);
 	}

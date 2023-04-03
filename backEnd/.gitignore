@@ -1,6 +1,6 @@
 /node_modules
 /Dist
 /.clinic
-/.env
+# /.env
 /.idea
-/uploads/
+# /uploads/
