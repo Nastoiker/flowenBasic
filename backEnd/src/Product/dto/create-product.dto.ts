@@ -136,7 +136,7 @@ export class BrandDevice {
 	@IsString()
   name: string;
   @IsString()
-  img: string;
+  img?: string;
 }
 export class ModelDeviceDto {
 	@IsString()

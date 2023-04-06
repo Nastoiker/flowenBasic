@@ -46,7 +46,7 @@ const appContainerBinding = new ContainerModule((bind: interfaces.Bind) => {
 	bind<IUserRepository>(TYPES.UserRepository).to(UserRepository).inSingletonScope();
 	bind<IProductRepository>(TYPES.ProductRepository).to(ProductRepository).inSingletonScope();
 	bind<IProductController>(TYPES.ProductController).to(ProductController).inSingletonScope();
-	bind<IProductService>(TYPES.ProductService).to(ProductService).inSingletonScope();
+	bind<ProductService>(TYPES.ProductService).to(ProductService).inSingletonScope();
 	bind<userAbility>(TYPES.userAbility).to(userAbility).inSingletonScope();
 	bind<UserAbilityService>(TYPES.UserAbilityService).to(UserAbilityService).inSingletonScope();
 	bind<UserAbilityRepository>(TYPES.UserAbilityRepository)

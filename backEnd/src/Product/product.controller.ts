@@ -17,6 +17,7 @@ import { MulterMiddleware } from '../common/Multer.middleware';
 import multer from 'multer';
 import { setBrandsOnCategory, setSecondCategoryOnBrand } from './dto/firstCategory.dto';
 import { FileService } from '../files/file.service';
+import {CreateBrandDto} from "./dto/Create-Brand.dto";
 @injectable()
 export class ProductController extends BaseController {
 	constructor(
@@ -121,7 +122,11 @@ export class ProductController extends BaseController {
 				path: '/createBrand',
 				method: 'post',
 				func: this.createBrand,
-				middlewares: [new AdminGuard(), new MulterMiddleware(), new ValidateMiddleware(ProductCreate)],
+				middlewares: [
+					new AdminGuard(),
+					new MulterMiddleware(),
+					new ValidateMiddleware(ProductCreate),
+				],
 			},
 			//создание категории к брендам
 			{
@@ -211,29 +216,26 @@ export class ProductController extends BaseController {
 		this.ok(res, { ...newProduct });
 	}
 	async createBrand(
-		request: Request<{}, {}, ProductCreate>,
+		request: Request<{}, {}, CreateBrandDto>,
 		res: Response,
 		next: NextFunction,
-  ): Promise<void> {
-    if (request.file) {
-      const savearray: MFile[] = [new MFile(request.file)];
-      if (request.file.mimetype.includes('image')) {
-        const buffer = await this.fileService.convertToWebp(request.file.buffer);
-        savearray.push(
-          new MFile({
-            originalname: `${request.file.originalname.split('.')[0]}.webp`,
-            buffer,
-          }),
-        );
-      }
-      const newBrand = await this.productService.createBrand(request.body);
-    } 
-      const newProduct = await this.productService.createBrand(request.body);
-      if (!newProduct) {
-        return next(new HTTPError(401, 'Ошибка создания модел'));
-      }
-      this.ok(res, { ...newProduct });
-    }
+	): Promise<void> {
+		if (request.file) {
+			const savearray: MFile[] = [new MFile(request.file)];
+			if (request.file.mimetype.includes('image')) {
+				const buffer = await this.fileService.convertToWebp(request.file.buffer);
+				savearray.push(
+					new MFile({
+						originalname: `${request.file.originalname.split('.')[0]}.webp`,
+						buffer,
+					}),
+				);
+			}
+			const newBrand = await this.productService.createBrand(request.file, request.body);
+			this.ok(res, { ...newBrand });
+		}
+		return next(new HTTPError(401, 'Ошибка создания модел'));
+	}
 	async uploadImage(
 		request: Request<{}, {}, { productId: string }>,
 		res: Response,
@@ -384,11 +386,12 @@ export class ProductController extends BaseController {
 	}
 	//создание брендов к категории
 	async setCategoryOnBrand(
-		{ body }: Request<{}, {}, setBrandsOnCategory>,
+		req: Request<{}, {}, setBrandsOnCategory>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void | OutInterface> {
-		const brands = await this.productService.setCategoryOnBrand(body);
+		if (!req.file) return next(new HTTPError(400, 'Ошибка добавление под категории'));
+		const brands = await this.productService.setCategoryOnBrand(req.file, req.body);
 		if (!brands) {
 			return next(new HTTPError(400, 'Ошибка добавление под категории'));
 		}

@@ -20,7 +20,7 @@ import { MFile } from '../files/mfile.class';
 export interface IProductService {
 	create: (product: ProductCreate) => Promise<Product | null>;
 	createModel: (model: ModelDeviceDto) => Promise<ModelDevice | null>;
-	createBrand: (brand: BrandDevice) => Promise<Brand | null>;
+	createBrand: (file: MFile, brand: BrandDevice) => Promise<Brand | null>;
 	findLikeSqlModelBrand: (searchByWorld: string) => Promise<Product[] | null>;
 
 	find: (name: string) => Promise<Product | null>;
@@ -38,7 +38,10 @@ export interface IProductService {
 		TagId: string | undefined;
 	}>;
 	setBrandOnSecondCategory: (setBrands: setSecondCategoryOnBrand) => Promise<SecondLevelCategory>;
-	setCategoryOnBrand: (setCategoryOnBrand: setBrandsOnCategory) => Promise<Brand>;
+	setCategoryOnBrand: (
+		file: Express.Multer.File,
+		setCategoryOnBrand: setBrandsOnCategory,
+	) => Promise<Brand | null>;
 	getByFirstCategory: (firstCategory: string) => Promise<SecondLevelCategory[] | null>;
 	setSecondCategory: (
 		name: string,

@@ -5,7 +5,8 @@ import {
 	SecondLevelCategory,
 	FirstLevelCategory,
 	Comment,
-	ModelDevice, Tag,
+	ModelDevice,
+	Tag,
 } from '@prisma/client';
 import {
 	BrandDevice,
@@ -41,18 +42,18 @@ export class ProductService implements IProductService {
 		if (await this.productRepository.findProduct(model.name)) {
 			return null;
 		}
-		// const checkProduct = await this.getModelBrandId(model);
 		return this.productRepository.createModel(model);
 	}
 	async createBrand(file: MFile, brand: BrandDevice): Promise<Brand | null> {
 		if (await this.productRepository.findBrand(brand.name)) {
 			return null;
-    }
-    const extension = file.originalname.split('.');
-    await writeFile(`${path}/uploads/brands/${brand.name}.${extension[extension.length-1]}`,
-      file.buffer,);
-    brand.img = `/uploads/brands/${brand.name}.${extension[extension.length-1]}`
-		// const checkProduct = await this.getModelBrandId(brand);
+		}
+		const extension = file.originalname.split('.');
+		await writeFile(
+			`${path}/uploads/brands/${brand.name}.${extension[extension.length - 1]}`,
+			file.buffer,
+		);
+		brand.img = `/uploads/brands/${brand.name}.${extension[extension.length - 1]}`;
 		return this.productRepository.createBrand(brand);
 	}
 	async delete(id: string): Promise<Product | null> {
@@ -170,7 +171,21 @@ export class ProductService implements IProductService {
 		return this.productRepository.setBrandOnSecondCategory(setBrandsOnCategory);
 	}
 	//создание брендов к категории
-	async setCategoryOnBrand(setBrandsOnCategory: setBrandsOnCategory): Promise<Brand> {
+	async setCategoryOnBrand(
+		file: Express.Multer.File,
+		setBrandsOnCategory: setBrandsOnCategory,
+	): Promise<Brand | null> {
+		if (await this.productRepository.findBrand(setBrandsOnCategory.name)) {
+			return null;
+		}
+		const extension = file.originalname.split('.');
+		await writeFile(
+			`${path}/uploads/brands/${setBrandsOnCategory.name}.${extension[extension.length - 1]}`,
+			file.buffer,
+		);
+		setBrandsOnCategory.img = `/uploads/brands/${setBrandsOnCategory.name}.${
+			extension[extension.length - 1]
+		}`;
 		return this.productRepository.setCategoryOnBrand(setBrandsOnCategory);
 	}
 	async getProductByBrandSecondCategory(

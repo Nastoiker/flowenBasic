@@ -15,7 +15,7 @@ export class setBrandsOnCategory {
 	@IsString()
   name: string;
    @IsString()
-  img: string;
+  img?: string;
 	@IsArray()
 	@IsString()
 	categories: string[];
