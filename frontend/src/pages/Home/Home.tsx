@@ -11,10 +11,12 @@ import {SwiperSlide, Swiper, useSwiper} from "swiper/react";
 import 'swiper/css';
 import SlideNextButton from "../../components/SliderPhone/SliderButton";
 import {PhoneCard} from "../../components/Product/Card/phone.card";
+import {useLocation} from "react-router-dom";
 const sliders = [{ img: '', id: '1'}, { img: '', id: '2'}, { img: '', id: '3'}];
 const Home = (): JSX.Element => {
 
  const [currentCategory, setCurrentCategory] = useState<string>('');
+ const location = useLocation();
  const dispatch = useAppDispatch();
  useEffect(() => {
   dispatch(getPhonesFetch());
@@ -24,8 +26,8 @@ const Home = (): JSX.Element => {
   const BestProducts = products.sort( (a, b) => a.rating - b.rating )
  return (<>
   <div className={"flex justify-around items-center"}>
-   <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === 'СМАРТФОНЫ'})}><button onClick={() => setCurrentCategory('СМАРТФОНЫ')}> СМАРТФОНЫ</button></div>
-   <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === 'АКСЕССУАРЫ'})}><button onClick={() => setCurrentCategory('АКСЕССУАРЫ')}>АКСЕССУАРЫ</button></div>
+   <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: location.pathname === '/'})}><button onClick={() => setCurrentCategory('СМАРТФОНЫ')}> СМАРТФОНЫ</button></div>
+   <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === '/'})}><button onClick={() => setCurrentCategory('АКСЕССУАРЫ')}>АКСЕССУАРЫ</button></div>
    <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === 'БРЕНДЫ'})}><button onClick={() => setCurrentCategory('БРЕНДЫ')}>БРЕНДЫ</button></div>
   </div>
   <div>

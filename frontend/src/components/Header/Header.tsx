@@ -37,7 +37,7 @@ export const Header = (): JSX.Element => {
     };
     const [openBasket, setOpenBasket] = useState<boolean>();
     const basket = useAppSelector(state => state.basket.basket);
-    return (<><Menubar  className={"flex border-none border-b-gray-200 bg-transparent justify-between"}>
+    return (<div className={""}><Menubar  className={"hidden sm:flex border-none border-b-gray-200 bg-transparent justify-between"}>
             <MenubarMenu>
                 <MenubarTrigger>Ваш город</MenubarTrigger>
                 <MenubarContent>
@@ -172,6 +172,6 @@ export const Header = (): JSX.Element => {
                 </div>
             </div>
 
-    </>
+    </div>
     );
 }

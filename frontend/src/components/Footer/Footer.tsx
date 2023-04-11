@@ -4,9 +4,9 @@ import {Input} from "../../ui/input";
 import {Htag} from "../Htag/Htag";
 import {Button} from "../../ui/button";
 export const Footer = ({className, ...props}: FooterProps): JSX.Element => {
-    return (<footer className={"bg-zinc-800  text-white  bottom-0 z-50 p-20 w-full"} >
-        <div className={""}>
-            <div className={"flex justify-between items-center"}>
+    return (<footer className={"bg-zinc-800  text-white  bottom-0 z-50 py-20 px-2 sm:px-20 w-full"} >
+        <div className={"space-y-5"}>
+            <div className={"space-y-5 sm:flex sm:space-y-0 justify-between items-center"}>
                 <Htag type={"h2"}>
                     Хотите первым узнавать о скидках в FLOVEN?
                 </Htag>
@@ -26,7 +26,7 @@ export const Footer = ({className, ...props}: FooterProps): JSX.Element => {
                 </div>
             </div>
             <hr className={"my-5 green"}/>
-            <div className={"flex  justify-between items-center"}>
+            <div className={"sm:flex  justify-between items-center"}>
                 <a href="frontend/src/components/Footer#" target ="_blank">
                     Правовые условия пользования сайтом
                 </a>
