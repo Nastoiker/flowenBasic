@@ -68,14 +68,13 @@ function App() {
 
 
 
-        <div className="App max-w-screen-xl mx-auto" >
+        <div className="App h-fit max-w-screen-xl mx-auto" >
 
             {/*<SliderDemo />*/}
             {/*<Alert />*/}
             {/*<Checkbox text={'ASDAD'}/>*/}
             <Router>
                 <Header />
-                <Menu />
                 <Routes>
                     <Route path="/" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
                     <Route path="/home" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
@@ -98,10 +97,12 @@ function App() {
             </Router>
             {/*<StaticSlider items={StaticSliderArr}/>*/}
             {/*<Filters />*/}
-            <UpdateAvatarProfile/>
-            <FilterByPrice />
-            <Slider sliders={[{id: 1, text:"smile", image:apple}, {id: 2, text:"like", image:samsung}]}/>
-            <PhoneModel />
+            {/*<Menu />*/}
+
+            {/*<UpdateAvatarProfile/>*/}
+            {/*<FilterByPrice />*/}
+            {/*<Slider sliders={[{id: 1, text:"smile", image:apple}, {id: 2, text:"like", image:samsung}]}/>*/}
+            {/*<PhoneModel />*/}
 
         </div>
            <Footer />

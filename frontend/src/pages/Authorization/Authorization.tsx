@@ -28,12 +28,12 @@ const Authorization = (): JSX.Element => {
             }
         }
     }
-    return (<div className={"bg"}>
+    return (<div className={"bg-white max-w-2xl space-y-6 m-auto rounded-3xl text-center sm:p-10"}>
         <h1>Авторизация</h1>
 
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
-            <Input {...register('email', { required: true })} placeholder={"email"} />
-            <Input  {...register('password', { required: true })} placeholder={"password"} />
+        <form action=""  className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+            <Input {...register('email', { required: {value: true, message: 'Заполните email'} })} placeholder={"email"} />
+            <Input  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
             {
                 isCorrect ? <Button>d</Button> : <Button>Авторизироваться</Button>
             }

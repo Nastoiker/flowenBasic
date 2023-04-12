@@ -4,8 +4,8 @@ import {Input} from "../../ui/input";
 import {Htag} from "../Htag/Htag";
 import {Button} from "../../ui/button";
 export const Footer = ({className, ...props}: FooterProps): JSX.Element => {
-    return (<footer className={"bg-zinc-800  text-white  bottom-0 z-50 py-20 px-2 sm:px-20 w-full"} >
-        <div className={"space-y-5"}>
+    return (<footer className={"bg-zinc-800 w-full  text-white  bottom-0 z-50 py-20 px-2 sm:px-20 "} >
+        <div className={"space-y-5 w-full mx-auto max-w-screen-xl "}>
             <div className={"space-y-5 sm:flex sm:space-y-0 justify-between items-center"}>
                 <Htag type={"h2"}>
                     Хотите первым узнавать о скидках в FLOVEN?

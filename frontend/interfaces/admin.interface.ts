@@ -27,6 +27,8 @@ export interface ICreateSecondCategoryWithBrand {
 }
 export interface  ICreateBrandWithSecondCategory {
     categories: string[],
+    img: string;
+    files: File;
     name: string,
 }
 export interface addImageForProduct {

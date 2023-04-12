@@ -5,7 +5,7 @@ import {CreateBrandsWIthSecond} from "../../components/Admin/createBrandsWIthSec
 import {AddImageProduct} from "../../components/Admin/addImage.product";
 
  const AdminPage = () => {
-    return <div>
+    return <div className={"h-full"}>
         <AddImageProduct />
         <CreatePhone />
         <CreateModel />

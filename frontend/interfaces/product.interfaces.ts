@@ -64,6 +64,7 @@ export interface ProductModel {
 export interface  secondLevelCategory {
     id: string,
     name: string,
+
     firstLevelId: string
 }
 export interface  Category {

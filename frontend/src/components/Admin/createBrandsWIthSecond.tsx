@@ -14,6 +14,7 @@ export const CreateBrandsWIthSecond = (): JSX.Element => {
     const [secondCategory, setSecondCategory] = useState<secondLevelCategory[]>();
     const {register, control, handleSubmit, formState: {errors}, reset} = useForm<ICreateBrandWithSecondCategory>();
     useEffect(() => {
+
         (async () => {
             const res  = await fetch('http://localhost:8000/product/byCategory', {
                 method: 'post'
@@ -24,6 +25,11 @@ export const CreateBrandsWIthSecond = (): JSX.Element => {
         })();
     }, []);
     const onSubmit = async (formData: ICreateBrandWithSecondCategory) => {
+        const files = formData.files;
+        //нужный кастыль
+        delete formData.files;
+        // @ts-ignore
+        formData.files = files[0];
         const form = { categories: formData.categories, name: formData.name };
         console.log(form);
         try {
@@ -46,6 +52,7 @@ export const CreateBrandsWIthSecond = (): JSX.Element => {
             <form action="" className="bg-white space-y-8 rounded-3xl text-center w-full" onSubmit={handleSubmit(onSubmit)}>
                 <Label htmlFor={'name'}>name brand</Label>
                 <Input {...register('name', {required: true})} id={'name'}/>
+                <Input accept="image/png, image/jpeg" type={"file"} {...register('files')} id={'image'}/>
                 <Label htmlFor={'categories'}>secondCategories</Label>
                 <select  id="categories" multiple className="mx-auto text-center block"  {...register('categories', {required: true})} >
                     {secondCategory?.map( s => {
