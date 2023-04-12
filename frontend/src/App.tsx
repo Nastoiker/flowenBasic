@@ -46,6 +46,8 @@ function App() {
   const Auth = lazy(() => import('./pages/Authorization/Authorization'));
   const Registration = lazy(() => import('./pages/Register/Register'));
     const DetalisPhone = lazy(() => import('./pages/Phones/Details'));
+    const  Accessories = lazy(() => import('./pages/Accessories/Accessories'));
+    const Brands = lazy(() => import('./pages/brands/Brands'));
     const Phones = lazy(() => import('./pages/Phones/Phones'));
     const Home = lazy(() => import('./pages/Home/Home'));
     const AdminPage = lazy(() => import('./pages/Admin/Admin'));

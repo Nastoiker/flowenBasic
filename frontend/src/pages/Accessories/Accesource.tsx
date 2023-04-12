@@ -13,7 +13,7 @@ import SlideNextButton from "../../components/SliderPhone/SliderButton";
 import {PhoneCard} from "../../components/Product/Card/phone.card";
 import {useLocation, useNavigate} from "react-router-dom";
 const sliders = [{ img: '', id: '1'}, { img: '', id: '2'}, { img: '', id: '3'}];
-const Brands = (): JSX.Element => {
+const Accessories = (): JSX.Element => {
 
     const [currentCategory, setCurrentCategory] = useState<string>('');
     const location = useLocation();
@@ -87,5 +87,5 @@ const Brands = (): JSX.Element => {
 
 
 
-export default Brands;
+export default Accessories;
 
