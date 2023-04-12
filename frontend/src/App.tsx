@@ -8,30 +8,22 @@ import Registration from './pages/Register/Register';
 import Auth from './pages/Authorization/Authorization';
 import Phones from './pages/Phones/Phones';
 import DetalisPhone from './pages/Phones/Details';
-import {Checkbox} from "./components/checkbox/Checkbox";
-import {Filters} from "./components/Filters/Filter";
-import {Menu} from "./components/Menu/Menu";
-import Alert from "./ui/alert/alert";
-import SliderDemo from "./ui/slider/slider";
-import {Search} from "./components/Search/Search";
+
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {getPhonesFetch} from "./store/slices/phones.slices";
 import {useAppDispatch, useAppSelector} from "./store";
 import {AdminPage} from "./pages/Admin/Admin";
 import {getBrandsFetch} from "./store/slices/brand.slice";
-import PhoneModel from "./sections/PhoneModel";
 import {getUserFetch} from "./store/slices/user.slice";
-import {Slider} from "./components/Slider/slider";
-import apple from '/slider/sliderApple.png';
-import samsung from '/slider/sliderSamsung.webp';
+
 import BasketPage from "./pages/Basket/Basket.page";
 import {getBasketFetch} from "./store/slices/basket.slice";
-import {RatingForm} from "./components/Rating/setRating.form.";
-import {UpdateAvatarProfile} from "./components/Profile/UpdateAvatar.profile";
+
 import SearchPage from "./pages/Search/Search";
-import {FilterByPrice} from "./components/Filters/FilterByPrice";
 import {StaticSlider} from "./components/Slider/StaticSlider";
+import SliderDemo from "./ui/slider/slider";
+
 interface IItems {
     subtitle: string;
     title: string
@@ -68,7 +60,7 @@ function App() {
 
 
 
-        <div className="App h-fit max-w-screen-xl mx-auto" >
+        <div className="App h-fit min-h-screen max-w-screen-xl mx-auto" >
 
             {/*<SliderDemo />*/}
             {/*<Alert />*/}
@@ -78,6 +70,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
                     <Route path="/home" element={<Suspense fallback={<h2>Загрузка...</h2>}><Home /></Suspense>}/>
+                    <Route path="/accessories" element={<Suspense fallback={<h2>Загрузка...</h2>}><Accessories /></Suspense>}/>
+                    <Route path="/brands" element={<Suspense fallback={<h2>Загрузка...</h2>}><Brands /></Suspense>}/>
                     <Route path="/login" element={<Suspense fallback={<h2>Загрузка...</h2>}><Auth /></Suspense>} />
                     <Route path="/register" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /></Suspense>} />
                     <Route path="/join" element={<Suspense fallback={<h2>Загрузка...</h2>}><Registration /> </Suspense>} />

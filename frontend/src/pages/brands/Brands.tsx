@@ -31,8 +31,8 @@ const Brands = (): JSX.Element => {
     return (<>
         <div className={"flex justify-around items-center"}>
             <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: location.pathname === '/'})}><button onClick={() => redirectTo('/')}> СМАРТФОНЫ</button></div>
-            <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === '/'})}><button onClick={() => redirectTo('/accessourse')}>АКСЕССУАРЫ</button></div>
-            <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === 'БРЕНДЫ'})}><button onClick={() => redirectTo('/brands')}>БРЕНДЫ</button></div>
+            <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: location.pathname === '/accessories'})}><button onClick={() => redirectTo('/accessories')}>АКСЕССУАРЫ</button></div>
+            <div className={cn("p-3 px-7 rounded-3xl", { [styles.buttonCategory]: location.pathname === '/brands'})}><button onClick={() => redirectTo('/brands')}>БРЕНДЫ</button></div>
         </div>
         <div>
             <div>

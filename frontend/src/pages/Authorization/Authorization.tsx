@@ -28,7 +28,7 @@ const Authorization = (): JSX.Element => {
             }
         }
     }
-    return (<div className={"bg-white max-w-2xl space-y-6 m-auto rounded-3xl text-center sm:p-10"}>
+    return (<div className={"bg-white  m-10 max-w-2xl space-y-6 md:mx-auto rounded-3xl text-center p-10"}>
         <h1>Авторизация</h1>
 
         <form action=""  className="space-y-5" onSubmit={handleSubmit(onSubmit)}>

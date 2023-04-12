@@ -37,99 +37,100 @@ export const Header = (): JSX.Element => {
     };
     const [openBasket, setOpenBasket] = useState<boolean>();
     const basket = useAppSelector(state => state.basket.basket);
-    return (<div className={""}><Menubar  className={"hidden sm:flex border-none border-b-gray-200 bg-transparent justify-between"}>
-            <MenubarMenu>
-                <MenubarTrigger>Ваш город</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>Способ оплаты</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>оплата и доставка</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>поддержка</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>контакты</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>о компании</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            <MenubarMenu>
-                <MenubarTrigger>8 (800) 555 35 35</MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        New Tab <MenubarShortcut>⌘T</MenubarShortcut>
-                    </MenubarItem>
-                    <MenubarItem>New Window</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Share</MenubarItem>
-                    <MenubarSeparator />
-                    <MenubarItem>Print</MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-        </Menubar>
+    return (<div className={"mb-10"}>
+        {/*    <Menubar  className={"hidden sm:flex border-none border-b-gray-200 bg-transparent justify-between"}>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>Ваш город</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>Способ оплаты</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>оплата и доставка</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>поддержка</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>контакты</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>о компании</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*    <MenubarMenu>*/}
+        {/*        <MenubarTrigger>8 (800) 555 35 35</MenubarTrigger>*/}
+        {/*        <MenubarContent>*/}
+        {/*            <MenubarItem>*/}
+        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+        {/*            </MenubarItem>*/}
+        {/*            <MenubarItem>New Window</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Share</MenubarItem>*/}
+        {/*            <MenubarSeparator />*/}
+        {/*            <MenubarItem>Print</MenubarItem>*/}
+        {/*        </MenubarContent>*/}
+        {/*    </MenubarMenu>*/}
+        {/*</Menubar>*/}
             <div className={"flex border-b-4 p-5 justify-between"}>
                 <div><img src="" alt=""/></div>
                 <div className={'flex items-center space-x-6'}>
