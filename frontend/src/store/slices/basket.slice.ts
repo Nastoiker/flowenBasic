@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {ProductModel, Rating} from "../../../interfaces/product.interfaces";
+import {ProductModel, Rating, SmartPhone} from "../../../interfaces/product.interfaces";
 import {userSlice} from "./user.slice";
  export interface basketState {
      basket: Basket[],
@@ -14,7 +14,7 @@ export interface Basket {
     boughtProductId?: any;
     quantity: number;
     createdAt: Date;
-    product: Product;
+    product: SmartPhone;
 
 }
  interface Product {

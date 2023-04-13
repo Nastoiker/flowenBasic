@@ -1,4 +1,4 @@
-import {useParams} from "react-router-dom";
+import {useLocation, useParams} from "react-router-dom";
 import NotFound from "../NotFound";
 import {useEffect, useState} from "react";
 import {ModelDevice, SmartPhone} from "../../../interfaces/product.interfaces";
@@ -8,12 +8,14 @@ import {Phone} from "../../components/Product/Phone/phone";
 import {setCurrentModel} from "../../store/slices/phones.slices";
 import {useAppDispatch, useAppSelector} from "../../store";
 
-
 const Details =  (): JSX.Element => {
     const { id } = useParams();
     const [phone, setPhone] = useState<SmartPhone>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [pictures, setPicture] = useState<string>();
+    function handleClick() {
+        history.back(); // переход на предыдущую страницу
+    }
     // const [currentModel, setCurrentModel] = useState('string');
     const dispatch = useAppDispatch();
     // const user = useAppSelector(state => state.)
@@ -33,6 +35,7 @@ const Details =  (): JSX.Element => {
     });
     const model = useAppSelector(state => state.phone.currentModel);
     return (<div>
+        <button onClick={handleClick}>Назад</button>
         {isLoading ? (phone && <Phone smartPhone={ phone } currentModel={model!}/>): <Skeleton  width={300} height={700} borderRadius={'2rem'}/>}
     </div>);
 };

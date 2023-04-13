@@ -6,7 +6,7 @@ import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { TYPES } from './types';
 import { UserController } from './user/user.controller';
-import { json } from 'body-parser';
+import {json, urlencoded} from 'body-parser';
 import { PrismaService } from './database/prisma.service';
 import { IConfigService } from './config/config.service.interface';
 import { IUserRepository } from './user/user.repository.interface';
@@ -60,6 +60,7 @@ export class App {
 		// const upload = new multer({ dest: './uploads/' });
 		this.app.use(json());
 		this.app.use(cors());
+		this.app.use(urlencoded({ extended: true }));
 		this.app.use(express.static('uploads'));
 		this.app.use(express.static(__dirname));
 		const authMiddleWare = new AuthMiddleware(this.configService.get('SECRET'));

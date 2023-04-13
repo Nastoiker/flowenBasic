@@ -13,6 +13,11 @@ export const ProfileImage = (profile: userState) => {
     const photo =  `${api_url}/user/avatar/${profile.id}/${profile.avatar}`;
     return photo;
 }
+export const ProductConvertImageNotModel = (phone: SmartPhone) => {
+    const image = phone.image.split(',');
+    const photo =  `${api_url}/product/${phone.brand.name}/${phone.modelDevice.name.replace(' ', '-')}/${phone.ColorAlias}/${image[0]}`;
+    return photo;
+}
 export const CommentImage = (id: string, img: string,  phone: ProductModel) => {
     const photo =  `${api_url}/comment/${phone.brand.name}/${phone.name.replace(' ', '-')}/${id}/${img}`;
     return photo;

@@ -140,9 +140,10 @@ export const Header = (): JSX.Element => {
                     <div onClick={() => {setOpenBasket((s) => !s) }}>
                     <div className={"rounded-3xl bg-white w-7 text-center"}>{user.basket?.length}</div>
                         <div>
-                            <Basket />
-                            { openBasket && <ProductoOnBasket basket={basket} />
-                            }
+                            {/*ProductoOnBasket*/}
+                            {/*<Basket />*/}
+                          <ProductoOnBasket basket={basket} />
+
                         </div>
 
                 </div>

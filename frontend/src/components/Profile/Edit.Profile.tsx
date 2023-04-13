@@ -7,11 +7,13 @@ import {useState} from "react";
 import {Htag} from "../Htag/Htag";
 import axios from "axios";
 import {Button} from "../../ui/button";
+import {useAppSelector} from "../../store";
 
 export const EditProfile = (): JSX.Element => {
     const {register, control, handleSubmit, formState: {errors}} = useForm<IEditProfile>();
     const [error, setErrorForm] = useState<string>('');
     const token = localStorage.getItem('token');
+    const { login, email, phone} = useAppSelector(state => state.user.user);
     const Submit = async (formData: IEditProfile) => {
         try {
             const {data} = await axios.post(DOMEN.user.editProfile, {...formData}, {
@@ -28,25 +30,28 @@ export const EditProfile = (): JSX.Element => {
         }
     };
     return (
-        <>
-            <Htag type={"h1"}>Редактирование профиля</Htag>
+        <div className={"bg-white p-10 rounded-3xl space-y-5"}>
+            <div  className={"text-center"}>
+                <Htag type={"h1"}>Редактирование профиля</Htag>
+
+            </div>
             <form action="" onSubmit={handleSubmit(Submit)}>
                 <label htmlFor="phone">
                     Заполните номер
                 </label>
-                <Input {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
+                <Input placeholder={phone} {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
                 <label htmlFor="login">
                     Заполните никнейм
                 </label>
-                <Input {...register('login', {required: {value: true, message: 'Заполните login'}})} id={"login"} />
+                <Input error={errors.login} placeholder={login} {...register('login', {required: {value: true, message: 'Заполните login'}})} id={"login"} />
                 <label htmlFor="login">
                     Заполните старый пароль
                 </label>
-                <Input {...register('password', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
+                <Input error={errors.password} {...register('password', {required: {value: true, message: 'Заполните старый пароль'}})} id={"phone"} />
                 <label htmlFor="login">
                     Заполните новый пароль
                 </label>
-                <Input {...register('hashpassword', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
+                <Input error={errors.hashpassword} {...register('hashpassword', {required: {value: true, message: 'Заполните новый пароль'}})} id={"phone"} />
 
                 {/*<h1>Персональные данные</h1>*/}
                 {/*<Input {...register('name', {required: {value: true, message: 'Заполните Phone'}})} id={"name"} />*/}
@@ -63,7 +68,7 @@ export const EditProfile = (): JSX.Element => {
                     </>
                 }
             </form>
-        </>
+        </div>
 
     )
 }

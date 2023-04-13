@@ -1,11 +1,14 @@
-import {ChangeEvent, useEffect, useMemo, useState} from "react";
+import {ChangeEvent, DetailedHTMLProps, HTMLAttributes, useEffect, useMemo, useState} from "react";
 import {Input} from "../Input/Input";
 import Slider from "rc-slider";
 import 'rc-slider/assets/index.css'
 import {useAppDispatch, useAppSelector} from "../../store";
 import {getByPrice} from "../../store/slices/phones.slices";
 import {Button} from "../../ui/button";
-export const FilterByPrice = () => {
+import {Basket} from "../../store/slices/basket.slice";
+interface FilterByPriceProps extends DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement> {
+}
+export const FilterByPrice = ({className}: FilterByPriceProps): JSX.Element => {
     const [valueMax, setValueMax] = useState<number>(200000);
     const [valueMin, setValueMin] = useState<number>(10000);
     const dispatch = useAppDispatch();
@@ -36,7 +39,8 @@ export const FilterByPrice = () => {
             return console.log('please pass onChange method to LogarithmicRange')
         }
     }
-    return <div >
+    return <div className={className}>
+        <h1>Цена</h1>
         <Slider
             range
             // reverse={true}
@@ -45,7 +49,7 @@ export const FilterByPrice = () => {
                  value={[valueMin, valueMax]} step={1000} min={10000} max={200000} onChange={handleChange}/>
 
         {/*<Input type="range" min={'10000'} max={'200000'} step={'500'} value={value} onChange={(e) => setValue(e.target.value)}/>*/}
-        <div><Input onChange={(e) => {setValueMin(e.target.value)}} value={valueMin}/><Input onChange={(e) => {setValueMax(e.target.value)}} value={valueMax}/></div>
+        <div className={"space-y-5 py-5"}><Input onChange={(e) => {setValueMin(e.target.value)}} value={valueMin}/><Input onChange={(e) => {setValueMax(e.target.value)}} value={valueMax}/></div>
         <Button onClick={ () => {dispatch(getByPrice({minPrice: valueMin, maxPrice:valueMax}))}}>Сохранить</Button>
     </div>;
 }

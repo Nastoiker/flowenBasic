@@ -69,10 +69,9 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             }})();
     }, [basket]);
     img.pop();
-    console.log(img);
     img = img.map(p => ProductImagePath(currentModel, phone, p));
     return <>
-        <div className={"flex justify-around"}>
+        <div className={" sm:flex space-x-5 justify-between"}>
             <div className={" rounded-3xl bg-blue-300 p-10"}>
                 {
                     img.map(i => <img className={cn("my-10 rounded-3xl object-cover w-16 h-16", {
@@ -80,25 +79,38 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                     } )} key={i} src={i} onClick={() => setCurrentImage(i)}/>)
                 }
             </div>
+        <div className={"mx-auto"}>
+            {
+                img && <img src={currentImage} width={300} className={"text-center h-fit mx-auto object-contain rounded-3xl"}   alt={"Phone"}/>
+            },
+        </div>
 
-        {
-            img && <img src={currentImage} className={"PhoneSize rounded-3xl object-cover"}   alt={"Phone"}/>
-        },
 
-        <div className={"space-y-8 w-96"}>
+        <div className={"mx-auto text-center md:text-start space-y-8 w-96"}>
             <h1>{phone.name}</h1>
             <h2>{phone.price}</h2>
+            <Paragraph type={'small'} className={"break-words"}>{phone.Description}</Paragraph>
+            <div className={"flex justify-around w-full"}>
+                <div className={"content-center"}>
+                    <h1>Цвета</h1>
+                    {currentModel.product.map( p =>   <div key={p.ColorAlias} onClick={() => setPhoneByColor(p.ColorAlias)}   className={cn(styles[p.ColorAlias] + " mx-auto rounded-full w-10 h-10 p-5 hover:opacity-5", { [styles.CurrentColor]: Color===p.ColorAlias})}></div> )}
+                </div>
+                <div>
+                    <h1>Память</h1>
+                    {currentModel.product.map( p =>   <div key={p.Memory} onClick={() => setPhoneByMemory(p.Memory)}   className={cn(styles[p.Memory] + "mx-auto rounded-full w-14 h-14 p-3 hover:opacity-5", { [styles.CurrentColor]: Memory===p.Memory})}>{p.Memory}</div> )}
+                </div>
+            </div>
+
+
             {basket ? <Button onClick={() => setIsBasket(false)}>Убрать из корзины</Button> : <Button onClick={() => setIsBasket(true)}>Добавить в корзину</Button> }
-            <Paragraph type={'small'}>{phone.Description}</Paragraph>
-            <h1>Цвета</h1>
-            {currentModel.product.map( p =>   <div key={p.ColorAlias} onClick={() => setPhoneByColor(p.ColorAlias)}   className={cn(styles[p.ColorAlias] + " rounded-3xl w-20 p-5 hover:opacity-5", { [styles.CurrentColor]: Color===p.ColorAlias})}>{p.ColorAlias}</div> )}
-            <h1>Память</h1>
-            {currentModel.product.map( p =>   <div key={p.Memory} onClick={() => setPhoneByMemory(p.Memory)}   className={cn(styles[p.Memory] + " rounded-3xl w-20 p-5 hover:opacity-5", { [styles.CurrentColor]: Memory===p.Memory})}>{p.Memory}</div> )}
 
             <h1></h1>
         </div>
     </div>
-        <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
+        <div className={"sm:flex bg-white rounded-3xl p-10 my-5  justify-between"}>
+            <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
+            <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
+        </div>
         <div>
             <Htag type={"h1"}>Комментарии</Htag>
         {currentModel.Comment ?  <Swiper
@@ -113,6 +125,6 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
         onSwiper={(swiper) => console.log(swiper)}
     >{currentModel.Comment.map(c => <SwiperSlide key={c.id}><Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} /></SwiperSlide>) }</Swiper>: <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
         </div>
-        <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
+
     </>;
 };

@@ -2,10 +2,10 @@ import { IUserRepository } from './user.repository.interface';
 import { PrismaService } from '../database/prisma.service';
 import { inject, injectable } from 'inversify';
 import { TYPES } from '../types';
-import {Basket, UserModel, Comment, Address} from '@prisma/client';
+import { Basket, UserModel, Comment, Address } from '@prisma/client';
 import { User } from './user.entity';
-import {UserAdressDto} from "./dto/user-adress.dto";
-import {UserEditProfileDto} from "./dto/user-editProfile.dto";
+import { UserAdressDto } from './dto/user-adress.dto';
+import { UserEditProfileDto } from './dto/user-editProfile.dto';
 @injectable()
 export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
@@ -36,8 +36,12 @@ export class UserRepository implements IUserRepository {
 				userId,
 			},
 			include: {
-				product: true,
-
+				product: {
+					include: {
+						brand: true,
+						modelDevice: true,
+					},
+				},
 			},
 		});
 	}

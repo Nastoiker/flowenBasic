@@ -33,7 +33,7 @@ const Authorization = (): JSX.Element => {
 
         <form action=""  className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <Input {...register('email', { required: {value: true, message: 'Заполните email'} })} placeholder={"email"} />
-            <Input  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
+            <Input type={"password"}  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
             {
                 isCorrect ? <Button>d</Button> : <Button>Авторизироваться</Button>
             }

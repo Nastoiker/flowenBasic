@@ -54,29 +54,7 @@ const Home = (): JSX.Element => {
   {/*<Slider sliders={Sliders}/>*/}
   <SliderBySwiper sliders={Sliders}/>
   <div>
-   <div>
-    <Swiper
-        className={"my-20 "}
-        spaceBetween={10}
-        slidesPerView={3}
-        autoplay={{
-         delay: 2500,
-         disableOnInteraction: false,
-        }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-    >
-     {
-      sliders.map( s =>  <SwiperSlide key={s.id}>
-       <img src={s.img} alt=""/>
-      </SwiperSlide>)
-     }
 
-     <SlideNextButton />
-
-    </Swiper>
-
-   </div>
 
    <h1>ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</h1>
    <a href={'/product/phone'}>Посмотреть все смартфоны</a>
@@ -92,7 +70,7 @@ const Home = (): JSX.Element => {
        >
          
      {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
-         <SwiperSlide key={p.id}>
+         <SwiperSlide className={"w-42"} key={p.id}>
           <PhoneCard price={p.price} name={p.name} alias={p.alias} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
          </SwiperSlide>
      )})})}

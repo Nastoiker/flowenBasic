@@ -125,7 +125,6 @@ export class ProductController extends BaseController {
 				middlewares: [
 					new AdminGuard(),
 					new MulterMiddleware(),
-					new ValidateMiddleware(ProductCreate),
 				],
 			},
 			//создание категории к брендам
@@ -221,6 +220,7 @@ export class ProductController extends BaseController {
 		next: NextFunction,
 	): Promise<void> {
 		if (request.file) {
+			console.log(request.body.name);
 			const savearray: MFile[] = [new MFile(request.file)];
 			if (request.file.mimetype.includes('image')) {
 				const buffer = await this.fileService.convertToWebp(request.file.buffer);
@@ -231,7 +231,7 @@ export class ProductController extends BaseController {
 					}),
 				);
 			}
-			const newBrand = await this.productService.createBrand(request.file, request.body);
+			const newBrand = await this.productService.createBrand(savearray[0], request.body);
 			this.ok(res, { ...newBrand });
 		}
 		return next(new HTTPError(401, 'Ошибка создания модел'));

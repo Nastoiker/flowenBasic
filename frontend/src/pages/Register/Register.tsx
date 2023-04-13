@@ -37,7 +37,7 @@ import {Button} from "../../ui/button";
             <Label htmlFor={"password"}>
                 Подтвердите пароль
             </Label>
-            <Input  type={"confirmpassword"} { ...register('confirmpassword', { required: {value: true, message: 'Заполните confirmpassword'} })} id={"confirmpassword"}/>
+            <Input  type={"password"} { ...register('confirmpassword', { required: {value: true, message: 'Заполните confirmpassword'} })} id={"confirmpassword"}/>
             {passwordMismatch && (
                 <p style={{ color: 'red' }}>Пароли не совпадают</p>
             )}
