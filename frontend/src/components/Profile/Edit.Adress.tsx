@@ -12,6 +12,7 @@ import {Button} from "../../ui/button";
 import cn from "classnames";
 import {inspect} from "util";
 import styles  from './profile.module.css';
+import {Htag} from "../Htag/Htag";
 
 export const EditAdress = () => {
     const user = useAppSelector(state => state.user.user).address;
@@ -42,12 +43,13 @@ export const EditAdress = () => {
         }
 
     };
-    return <div>
-        <form action="" onSubmit={handleSubmit(onSubmit)}>
+    return <div className="bg-white px-2 py-4 my-10 rounded-xl ">
+        <Htag type={'h1'} className={"text-center"}>Редактирование профиля</Htag>
+        <form action=""  onSubmit={handleSubmit(onSubmit)}>
             <Label htmlFor={'city'}>Город</Label>
-            <Input {...register('city', { required: true})} name={"city"} id={'city'}/>
+            <Input error={errors.city} {...register('city', { required: true})} name={"city"} id={'city'}/>
             <Label htmlFor={'country'}>Улица</Label>
-            <Input {...register('street', { required: true})} name="street" id={'street'}/>
+            <Input  error={errors.street}  {...register('street', { required: true})} name="street" id={'street'}/>
             <Label htmlFor={'country'}>Страна</Label>
             <Input value={'Russia'} {...register('country', { required: true})} id={'country'}/>
             <Button  className={cn({[styles.error]: error})} type={'submit'} > Сохранить</Button>

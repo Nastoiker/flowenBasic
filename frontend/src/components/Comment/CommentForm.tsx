@@ -47,7 +47,7 @@ export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps
                         <Input {...register('title', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>
                     </div>
                     <div>
-                        <Label htmlFor="title">Фотография опционально</Label>
+                        <Label htmlFor="title">Фотография(опционально)</Label>
                         <Input accept="image/png, image/jpeg" type={'file'} {...register('files')} placeholder={"title"} id={"title"}/>
                     </div>
 

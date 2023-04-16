@@ -21,6 +21,7 @@ import {ProductoOnBasket} from "../Basket/productoOnBasket";
 import {getBasketFetch} from "../../store/slices/basket.slice";
 import { ReactComponent as SearchIcon} from './search.svg';
 import { ReactComponent as UserIcon} from './UserIcon.svg';
+import SearchBar from "../Search/SearchAnimate";
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
     const dispatch = useAppDispatch();
@@ -131,45 +132,37 @@ export const Header = (): JSX.Element => {
         {/*        </MenubarContent>*/}
         {/*    </MenubarMenu>*/}
         {/*</Menubar>*/}
-            <div className={"flex border-b-4 p-5 justify-between"}>
-                <div><img src="" alt=""/></div>
-                <div className={'flex items-center space-x-6'}>
-                    <Search isActive={searchIsActive} />
-                    <SearchIcon className="z-50" onClick={() => setIsActiveSearch((s) => !s)}/>
-
-                    <div onClick={() => {setOpenBasket((s) => !s) }}>
-                    <div className={"rounded-3xl bg-white w-7 text-center"}>{user.basket?.length}</div>
-                        <div>
-                            {/*ProductoOnBasket*/}
-                            {/*<Basket />*/}
-                          <ProductoOnBasket basket={basket} />
-
+            <div className={"flex items-center border-b-4 p-5 justify-between"}>
+                <img src="" alt=""/>
+                <div className={'sm:flex items-center  space-x-6'}>
+                    <Search />
+                    <div className={"flex items-center"}>
+                        <div onClick={() => {setOpenBasket((s) => !s) }}>
+                            <div className={"rounded-3xl absolute bg-white w-7 text-center"}>{user.basket?.length}</div>
+                            <ProductoOnBasket basket={basket} />
                         </div>
+                        { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
+                            <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
+                            <AvatarFallback>CN</AvatarFallback>
+                        </Avatar>
+                            <Button onClick={logOut}>Выйти</Button>
+                        </>) : <>
+                            <Menubar>
+                                <MenubarMenu>
+                                    <MenubarTrigger><UserIcon /></MenubarTrigger>
+                                    <MenubarContent>
+                                        <MenubarItem>
+                                            <Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
+                                        </MenubarItem>
+                                        <MenubarItem>
+                                            <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
+                                        </MenubarItem>
+                                    </MenubarContent>
+                                </MenubarMenu>
+                            </Menubar>
+                        </>}
+                    </div>
 
-                </div>
-
-
-
-                    { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
-                        <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
-                        <AvatarFallback>CN</AvatarFallback>
-                    </Avatar>
-                        <Button onClick={logOut}>Выйти</Button>
-                    </>) : <>
-                     <Menubar>
-                     <MenubarMenu>
-                <MenubarTrigger><UserIcon /></MenubarTrigger>
-                <MenubarContent>
-                    <MenubarItem>
-                        <Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
-                    </MenubarItem>
-                    <MenubarItem>
-                        <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
-                    </MenubarItem>
-                </MenubarContent>
-            </MenubarMenu>
-            </Menubar>
-                    </>}
 
                 </div>
             </div>

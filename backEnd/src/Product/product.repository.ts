@@ -195,7 +195,12 @@ export class ProductRepository implements IProductRepository {
 				name,
 			},
 			include: {
-				product: true,
+				product: {
+					include: {
+						brand: true,
+						modelDevice: true,
+					},
+				},
 			},
 		});
 	}
@@ -215,7 +220,12 @@ export class ProductRepository implements IProductRepository {
 				name,
 			},
 			include: {
-				product: true,
+				product: {
+					include: {
+						brand: true,
+						modelDevice: true,
+					},
+				},
 			},
 		});
 	}
@@ -227,7 +237,12 @@ export class ProductRepository implements IProductRepository {
 			include: {
 				brand: true,
 				Comment: true,
-				product: true,
+				product: {
+					include: {
+						brand: true,
+						modelDevice: true,
+					},
+				},
 			},
 		});
 	}

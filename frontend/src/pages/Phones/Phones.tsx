@@ -7,6 +7,7 @@ import {api_url} from "../../../domen.api";
 import {FilterByPrice} from "../../components/Filters/FilterByPrice";
 import { ProductModel, SmartPhone} from "../../../interfaces/product.interfaces";
 import {FilterContainer} from "../../components/Filters/Filter.container";
+import {FilterLayoutPhone} from "../../page-component/FilterLayoutPhone";
  interface byPrice {
     phones: ProductModel[],
      minPrice: number,
@@ -37,12 +38,8 @@ const Phones = ():JSX.Element => {
     const phones = useAppSelector(state => state.phone.filtered);
     // const models = useMemo(() => { dispatch(getPhonesFetch());}, [filter, dispatch]);
     console.log(phones);
-    return (<div  className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-cols-2 justify-items-stretch"}>
-        <div className={" absolute"}>
-            <FilterContainer />
-        </div>
-
-        { phones.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) }
+    return (<div>
+        <FilterLayoutPhone phones={phones.map( m => m.product.map( p => p )).flat()} text={'Телефоны'}/>
     </div>);
 };
 export default Phones;

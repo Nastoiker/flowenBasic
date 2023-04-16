@@ -8,7 +8,6 @@ import Registration from './pages/Register/Register';
 import Auth from './pages/Authorization/Authorization';
 import Phones from './pages/Phones/Phones';
 import DetalisPhone from './pages/Phones/Details';
-
 import {Header} from "./components/Header/Header";
 import {Footer} from "./components/Footer/Footer";
 import {getPhonesFetch} from "./store/slices/phones.slices";
@@ -47,6 +46,7 @@ function App() {
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
     const SearchPage = lazy(() => import('./pages/Search/Search'));
+    const EditProfile = lazy(() =>import('./pages/EditProfile/EditProfilePage') )
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
@@ -84,6 +84,7 @@ function App() {
                     <Route path="/Profile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <Profile /> </Suspense>}></Route>
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
+                    <Route path="/EditProfile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <EditProfile /> </Suspense>}></Route>
 
                     <Route path="/Search/:SearchValue" element={<Suspense fallback={<h2>Загрузка...</h2>}> <SearchPage /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />

@@ -24,9 +24,7 @@ export const Basket = (phone: SmartPhone): JSX.Element => {
                 <h3>Дата </h3>
                 <h3>Оплата</h3>
                 <Button>Оплатить заказ</Button>
-                <label htmlFor="Confirm">Согласен с условиями  Правил пользования торговой площадкой
-                    и правилами возврата</label>
-                <Checkbox id={"Confirm"}/>
+
             </form>
 
         </div>

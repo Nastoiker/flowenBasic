@@ -13,13 +13,19 @@ import {
 } from "../../ui/sheet";
 import {Button} from "../../ui/button";
 import {ReactComponent as Basket } from './Basket.svg';
+import {useNavigate} from "react-router-dom";
 export const ProductoOnBasket = ({basket}: productOnBasketProps) => {
+        const navigate = useNavigate();
+
+    const redirectTo =  (to: string) => {
+        navigate( to, { replace: true});
+    };
     return (
             <Sheet>
                 <SheetTrigger asChild>
                     <Button variant="ghost"> <Basket /></Button>
                 </SheetTrigger>
-                <SheetContent position="right" size="sm">
+                <SheetContent position="right" size="content">
                     <SheetHeader>
                         <SheetTitle>Ваша корзина</SheetTitle>
                         <SheetDescription>
@@ -30,7 +36,7 @@ export const ProductoOnBasket = ({basket}: productOnBasketProps) => {
                         { basket.length>0 ? basket.map( b =>  <PhoneCardMini  key={b.id} basket={b}/>) : <div>Ваша корзина пуста</div>}
                     </div>
                     <SheetFooter>
-                        <Button type="submit">Открыть корзину</Button>
+                        <Button  type='button' onClick={() => redirectTo('Basket')}>Открыть корзину</Button>
                     </SheetFooter>
                 </SheetContent>
             </Sheet>

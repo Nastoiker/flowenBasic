@@ -16,8 +16,17 @@ import {Slider} from "../../components/Slider/slider";
 const sliders = [{ img: '', id: '1'}, { img: '', id: '2'}, { img: '', id: '3'}];
 import SliderSamsung from '/slider/sliderSamsung.webp'
 import SliderApple from '/slider/sliderApple.png'
+import '../../App.css';
 import {SliderBySwiper} from "../../components/Slider/SliderSwiper";
+import {getBrandsFetch} from "../../store/slices/brand.slice";
+import {BrandsContainer} from "../../components/Brands/Brands.container";
+import {MainPagesLayout} from "../../page-component/MainPageslayout";
+interface  Brand {
+ name: string;
+ alias: string;
+ img: string
 
+}
 const Home = (): JSX.Element => {
 
  const [currentCategory, setCurrentCategory] = useState<string>('');
@@ -25,6 +34,7 @@ const Home = (): JSX.Element => {
  const dispatch = useAppDispatch();
  useEffect(() => {
   dispatch(getPhonesFetch());
+  dispatch(getBrandsFetch());
  }, [dispatch]);
  const swiper = useSwiper();
  const navigate = useNavigate();
@@ -44,43 +54,54 @@ const Home = (): JSX.Element => {
    image: SliderSamsung,
   }];
   const products = useAppSelector(state => state.phone.filtered);
-  const BestProducts = products.sort( (a, b) => a.rating - b.rating )
- return (<>
-  <div className={"flex justify-around items-center"}>
-   <div className={cn("p-3 w-fit sm:px-7 rounded-3xl", { [styles.buttonCategory]: location.pathname === '/'})}><button onClick={() => redirectTo('/')}> СМАРТФОНЫ</button></div>
-   <div className={cn("p-3 w-fit  sm:px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === '/accessories'})}><button onClick={() => redirectTo('/accessories')}>АКСЕССУАРЫ</button></div>
-   <div className={cn("p-3  w-fit  sm:px-7 rounded-3xl", { [styles.buttonCategory]: currentCategory === '/brands'})}><button onClick={() => redirectTo('/brands')}>БРЕНДЫ</button></div>
-  </div>
-  {/*<Slider sliders={Sliders}/>*/}
-  <SliderBySwiper sliders={Sliders}/>
-  <div>
+ const brands = useAppSelector<Brand[]>(state => state.brands.brands);
 
+ const BestProducts = products.sort( (a, b) => a.rating - b.rating );
+ return (<MainPagesLayout>
 
-   <h1>ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</h1>
-   <a href={'/product/phone'}>Посмотреть все смартфоны</a>
+      <div className={"mx-auto   "}>
+       <Swiper
+           className={"my-20 mx-20 w-full"}
+           slidesPerView={3}
+           centeredSlides={false}
 
-   <div className={"flex justify-around"}>
-    <Swiper
-        className={"my-20 "}
-        spaceBetween={10}
-        slidesPerView={3}
-        navigation={true}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
+           // centeredSlidesBounds={true}
+           breakpoints={{
+            // ширина экрана >= 640 пикселей
+            340: {
+             slidesPerView: 1,
+            },
+            // ширина экрана >= 1040 пикселей
+            400: {
+             slidesPerView: 2,
+            },
+            600: {
+             slidesPerView: 3,
+            },
+           }}
+           navigation={true}
+           onSlideChange={() => console.log('slide change')}
+           onSwiper={(swiper) => console.log(swiper)}
        >
-         
-     {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
-         <SwiperSlide className={"w-42"} key={p.id}>
-          <PhoneCard price={p.price} name={p.name} alias={p.alias} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
-         </SwiperSlide>
-     )})})}
 
-     <SlideNextButton />
-    </Swiper>
-   </div>
-  </div>
+        {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
+            <SwiperSlide className={"w-42 h-52"} key={p.id}>
+             <PhoneCard price={p.price} name={p.name} alias={p.alias} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
+            </SwiperSlide>
+        )})})}
 
- </> );
+        <SlideNextButton />
+       </Swiper>
+          <div className={"block my-10"}>
+              <a  href={'/product/phone'}>Посмотреть все смартфоны</a>
+          </div>
+
+
+      </div>
+     </MainPagesLayout>
+
+
+);
 };
 
 

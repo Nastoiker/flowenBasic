@@ -18,6 +18,8 @@ import {RatingForm} from "../../Rating/setRating.form.";
 import styles from './phoneOpen.module.css';
 import {ProductImagePath} from "../../../helper/convertImagePath";
 import { SwiperSlide, Swiper } from "swiper/react";
+import 'swiper/css';
+import {Autoplay, Pagination} from "swiper";
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>(smartPhone);
@@ -72,14 +74,14 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     img = img.map(p => ProductImagePath(currentModel, phone, p));
     return <>
         <div className={" sm:flex space-x-5 justify-between"}>
-            <div className={" rounded-3xl bg-blue-300 p-10"}>
+            <div className={" rounded-3xl bg-blue-300 p-2 mx-12 sm:p-10 "}>
                 {
-                    img.map(i => <img className={cn("my-10 rounded-3xl object-cover w-16 h-16", {
+                    img.map(i => <img className={cn(" rounded-3xl object-contain w-16 h-16", {
                         [styles.CurrentPicture]: i===currentImage,
                     } )} key={i} src={i} onClick={() => setCurrentImage(i)}/>)
                 }
             </div>
-        <div className={"mx-auto"}>
+        <div className={"m-auto"}>
             {
                 img && <img src={currentImage} width={300} className={"text-center h-fit mx-auto object-contain rounded-3xl"}   alt={"Phone"}/>
             },
@@ -87,16 +89,17 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
 
 
         <div className={"mx-auto text-center md:text-start space-y-8 w-96"}>
-            <h1>{phone.name}</h1>
-            <h2>{phone.price}</h2>
+            <h1 className={"text-3xl font-bold"}>{phone.name}</h1>
+            <h2 className={"text-lg"}>{phone.price}</h2>
+            <h2 className={"text-lg font-bold"}>Описание</h2>
             <Paragraph type={'small'} className={"break-words"}>{phone.Description}</Paragraph>
             <div className={"flex justify-around w-full"}>
                 <div className={"content-center"}>
-                    <h1>Цвета</h1>
+                    <h1 className={"font-bold"}>Цвета</h1>
                     {currentModel.product.map( p =>   <div key={p.ColorAlias} onClick={() => setPhoneByColor(p.ColorAlias)}   className={cn(styles[p.ColorAlias] + " mx-auto rounded-full w-10 h-10 p-5 hover:opacity-5", { [styles.CurrentColor]: Color===p.ColorAlias})}></div> )}
                 </div>
                 <div>
-                    <h1>Память</h1>
+                    <h1 className={"font-bold"}>Память</h1>
                     {currentModel.product.map( p =>   <div key={p.Memory} onClick={() => setPhoneByMemory(p.Memory)}   className={cn(styles[p.Memory] + "mx-auto rounded-full w-14 h-14 p-3 hover:opacity-5", { [styles.CurrentColor]: Memory===p.Memory})}>{p.Memory}</div> )}
                 </div>
             </div>
@@ -112,18 +115,31 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
         </div>
         <div>
-            <Htag type={"h1"}>Комментарии</Htag>
-        {currentModel.Comment ?  <Swiper
-        className={"my-20 "}
-        spaceBetween={10}
-        slidesPerView={3}
-        autoplay={{
-         delay: 2500,
-         disableOnInteraction: false,
-        }}
-        onSlideChange={() => console.log('slide change')}
-        onSwiper={(swiper) => console.log(swiper)}
-    >{currentModel.Comment.map(c => <SwiperSlide key={c.id}><Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} /></SwiperSlide>) }</Swiper>: <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
+            <Htag type={"h1"} >Комментарии</Htag>
+        {currentModel.Comment ?
+            <div  className={"my-20 flex  justify-around w-full overflow-hidden"}>
+                <Swiper
+                    className={"flex"}
+                    spaceBetween={10}
+                    slidesPerView={3}
+                    direction="horizontal"
+                    // autoplay={{
+                    //  delay: 2500,
+                    //  disableOnInteraction: false,
+                    // }}s
+                    centeredSlides={false}
+
+                    onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)}
+                >
+                    {currentModel.Comment.map(c =>
+                        <SwiperSlide className={"w-42 mx-10 h-52"} key={c.id}>
+                            <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />
+                        </SwiperSlide>) }
+                </Swiper>
+            </div>
+
+            : <Htag type={"h2"}>Оставьте свой первый комментарий</Htag> }
         </div>
 
     </>;

@@ -7,6 +7,7 @@ import Skeleton from "react-loading-skeleton";
 import {Phone} from "../../components/Product/Phone/phone";
 import {setCurrentModel} from "../../store/slices/phones.slices";
 import {useAppDispatch, useAppSelector} from "../../store";
+import {DetailsSkeleton} from "./Details.skeleton";
 
 const Details =  (): JSX.Element => {
     const { id } = useParams();
@@ -36,7 +37,7 @@ const Details =  (): JSX.Element => {
     const model = useAppSelector(state => state.phone.currentModel);
     return (<div>
         <button onClick={handleClick}>Назад</button>
-        {isLoading ? (phone && <Phone smartPhone={ phone } currentModel={model!}/>): <Skeleton  width={300} height={700} borderRadius={'2rem'}/>}
+        {isLoading ? (phone && <Phone smartPhone={ phone } currentModel={model!}/>): <DetailsSkeleton  />}
     </div>);
 };
 export default Details;
