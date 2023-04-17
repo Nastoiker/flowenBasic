@@ -22,3 +22,6 @@ export const CommentImage = (id: string, img: string,  phone: ProductModel) => {
     const photo =  `${api_url}/comment/${phone.brand.name}/${phone.name.replace(' ', '-')}/${id}/${img}`;
     return photo;
 }
+export const BrandPath = (brand: string) => {
+  return  `${api_url}/uploads/brands/${brand}.png`;
+}

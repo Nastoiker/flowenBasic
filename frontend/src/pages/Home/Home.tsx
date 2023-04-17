@@ -17,10 +17,12 @@ const sliders = [{ img: '', id: '1'}, { img: '', id: '2'}, { img: '', id: '3'}];
 import SliderSamsung from '/slider/sliderSamsung.webp'
 import SliderApple from '/slider/sliderApple.png'
 import '../../App.css';
+
 import {SliderBySwiper} from "../../components/Slider/SliderSwiper";
 import {getBrandsFetch} from "../../store/slices/brand.slice";
 import {BrandsContainer} from "../../components/Brands/Brands.container";
 import {MainPagesLayout} from "../../page-component/MainPageslayout";
+import { Htag } from '../../components';
 interface  Brand {
  name: string;
  alias: string;
@@ -60,7 +62,8 @@ const Home = (): JSX.Element => {
  return (<MainPagesLayout>
 
       <div className={"mx-auto   "}>
-       <Swiper
+     <Swiper
+      
            className={"my-20 mx-20 w-full"}
            slidesPerView={3}
            centeredSlides={false}
@@ -92,8 +95,9 @@ const Home = (): JSX.Element => {
 
         <SlideNextButton />
        </Swiper>
-          <div className={"block my-10"}>
-              <a  href={'/product/phone'}>Посмотреть все смартфоны</a>
+          <div className={"block my-10 flex items-center hover:opacity-70"}>
+       <Htag type='h1'><a href={'/product/phone'}>Посмотреть все смартфоны</a></Htag>
+      <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" ><path d="M16 12L10 18V6L16 12Z"></path></svg>
           </div>
 
 

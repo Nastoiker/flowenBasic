@@ -29,6 +29,10 @@ const phonesSlice = createSlice({
             state.filtered =  action.payload;
             state.phones = action.payload;
             state.isLoading = false;
+      },
+      getPhonesByBrand: (state, { payload }) => {
+        state.filtered = state.staticPhones.filter(p => p.brand.name === payload);
+        console.log(state.staticPhones);
         },
         setCurrentModel: (state, {payload}) => {
             let  model;

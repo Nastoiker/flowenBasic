@@ -9,34 +9,22 @@ import {Htag} from "../../components";
 import {Button} from "../../ui/button";
 import {FilterContainer} from "../../components/Filters/Filter.container";
 import {FilterLayoutPhone} from "../../page-component/FilterLayoutPhone";
+import { getPhonesByBrand, getPhonesFetch } from "../../store/slices/phones.slices";
+import { BrandPath } from "../../helper/convertImagePath";
 
-const SearchPage = () => {
+const BrandPage = () => {
     const dispatch = useAppDispatch();
-    const { SearchValue } = useParams();
-    const value = SearchValue?.split(':')[1];
-    const phones = useAppSelector(  state => state.phone.phones);
-    useEffect(() => {
-        // setTimeout(() => {}, 1000);
-        dispatch(setSearch(value));
-        dispatch(getFounded(phones));
-    }, [dispatch]);
-    const founded = useAppSelector<ProductModel[]>(state => state.search.founded);
-    console.log(founded);
-    if(!founded) return  <div className={" text-center my-20 m-auto"}>        <Htag type={'h1'}>К сожалению ничего не найдено</Htag><Button>Вернуться на главную</Button></div>;
-    return <div >
-        <FilterLayoutPhone phones={founded.map( m => m.product.map( p => p )).flat()} text={'Результат поиска'}/>
-        {/*<div className={"absolute my-24"}>*/}
-        {/*    <FilterContainer />*/}
-        {/*</div>*/}
-        {/*<Htag type={'h1'}>Результат поиска</Htag>*/}
-        {/*<div className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-cols-2 justify-items-stretch"}>*/}
-        {/*    {*/}
-        {/*        founded && founded.length>0 ? founded.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) :*/}
-        {/*            <div className={" text-center my-20 m-auto"}>        <Htag type={'h1'}>К сожалению ничего не найдено</Htag><Button>Вернуться на главную</Button></div>*/}
-
-        {/*    }*/}
-        {/*</div>*/}
-
+    const { brand } = useParams();
+    const value = brand?.split(':')[1];
+  useEffect(() => {
+    dispatch(getPhonesByBrand(value));
+   }, [dispatch]);
+  const phones = useAppSelector(state => state.phone.filtered);
+  console.log(phones);
+  const imgBrand = BrandPath(value);
+    if(!phones) return  <div className={" text-center my-20 m-auto"}>        <Htag type={'h1'}>К сожалению ничего не найдено</Htag><Button>Вернуться на главную</Button></div>;
+    return <div>
+      <FilterLayoutPhone phones={phones.map(m => m.product.map(p => p)).flat()} text={value} img={imgBrand} />
     </div>;
 };
-export default  SearchPage;
+export default  BrandPage;

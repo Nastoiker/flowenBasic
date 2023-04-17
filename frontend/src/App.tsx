@@ -46,7 +46,8 @@ function App() {
     const BasketPage = lazy(() => import('./pages/Basket/Basket.page'));
     const PhonesByBrand = lazy(() => import('./pages/Phones/PhonesByBrand'));
     const SearchPage = lazy(() => import('./pages/Search/Search'));
-    const EditProfile = lazy(() =>import('./pages/EditProfile/EditProfilePage') )
+  const EditProfile = lazy(() => import('./pages/EditProfile/EditProfilePage'));
+  const BrandPage = lazy(() => import('./pages/Brand/Brand.page'));
     const dispatch = useAppDispatch();
     const User = localStorage.getItem('token');
     useEffect(() => {
@@ -55,7 +56,7 @@ function App() {
         { User &&  dispatch(getUserFetch()); dispatch(getBasketFetch()); }
     }, [dispatch]);
     const phones = useAppSelector(state => state.phone.filtered);
-    console.log(phones);
+  console.log(phones);
     return (<div className={"relative"}>
 
 
@@ -85,6 +86,7 @@ function App() {
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
                     <Route path="/EditProfile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <EditProfile /> </Suspense>}></Route>
+                                        <Route path="/Brand/:brand" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BrandPage /> </Suspense>}></Route>
 
                     <Route path="/Search/:SearchValue" element={<Suspense fallback={<h2>Загрузка...</h2>}> <SearchPage /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />

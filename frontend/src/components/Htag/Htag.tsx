@@ -5,7 +5,7 @@ import {cn} from "../../lib/utils";
 export const Htag: FC<htagProps> = ({className,type, children}) => {
     switch(type) {
         case 'h1':
-            return  <h1 className={cn(" text-3xl font-bold ", className)}>{ children}</h1>;
+            return  <h1 className={cn(" text-4xl font-bold ", className)}>{ children}</h1>;
         case 'h2':
             return  <h2 className={cn(" sm:text-xl font-bold ", className)}>{ children}</h2>;
         case 'h3':

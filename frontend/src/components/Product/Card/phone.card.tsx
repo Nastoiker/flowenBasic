@@ -10,10 +10,10 @@ export const PhoneCard = ({name, img, price, alias}: PhoneCardProps): JSX.Elemen
     };
     return <div  className={"text-center hover:scale-110 hover:shadow-xl pb-6 mx-auto  transition-all duration-300 inline-block z py-10 space-y-2 w-72 justify-items-center"} onClick={() => redirectTo(alias)}>
         <img   className="rounded-3xl h-56 mx-auto" src={picture} alt="pictureCard"/>
-        <h1>
+        <h1 className="font-bold">
             {name}
         </h1>
-        <h1> {price} </h1>
+      <h1> {price} ₽</h1>
         <Button>Добавить в корзину </Button>
     </div>;
 }

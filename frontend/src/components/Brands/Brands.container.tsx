@@ -20,7 +20,8 @@ export const BrandsContainer = ({ brands } : BrandsContainerProps) => {
     };
     console.log(brands);
     return <div className="">
-        <Swiper
+      <Swiper
+        
             className={"my-20 mx-20 w-full"}
             slidesPerView={3}
 
@@ -30,7 +31,7 @@ export const BrandsContainer = ({ brands } : BrandsContainerProps) => {
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
         >{
-                brands.map( b =>  <SwiperSlide className={"w-42 h-52"} key={b.id}><Brand brand={b} isActive={currentBrand}/> </SwiperSlide> )
+          brands.map(b => <SwiperSlide onClick={() => { redirectTo('/Brand/:' + b.name)}} className={"w-42 h-52"} key={b.id}><Brand brand={b} isActive={currentBrand}/> </SwiperSlide> )
             }
             <SlideNextButton />
         </Swiper>
