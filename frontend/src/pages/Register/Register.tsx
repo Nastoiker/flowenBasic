@@ -25,11 +25,11 @@ import {Button} from "../../ui/button";
             <Label htmlFor={"login"}>
                 Логин
             </Label>
-            <Input { ...register('login', { required: {value: true, message: 'Заполните login'} })} id={"login"}/>
+            <Input error={errors.login} { ...register('login', { required: {value: true, message: 'Заполните login'} })} id={"login"}/>
             <Label htmlFor={"email"}>
                 email
             </Label>
-            <Input { ...register('email', { required: {value: true, message: 'Заполните email'} })} id={"email"}/>
+            <Input error={errors.email} { ...register('email', { required: {value: true, message: 'Заполните email'} })} id={"email"}/>
             <Label htmlFor={"password"}>
                 password
             </Label>
@@ -37,7 +37,7 @@ import {Button} from "../../ui/button";
             <Label htmlFor={"password"}>
                 Подтвердите пароль
             </Label>
-            <Input  type={"password"} { ...register('confirmpassword', { required: {value: true, message: 'Заполните confirmpassword'} })} id={"confirmpassword"}/>
+            <Input error={errors.confirmpassword} type={"password"} { ...register('confirmpassword', { required: {value: true, message: 'Заполните confirmpassword'} })} id={"confirmpassword"}/>
             {passwordMismatch && (
                 <p style={{ color: 'red' }}>Пароли не совпадают</p>
             )}
