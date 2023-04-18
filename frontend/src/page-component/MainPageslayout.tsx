@@ -49,8 +49,6 @@ interface  Brand {
             {/*<Slider sliders={Sliders}/>*/}
             <SliderBySwiper sliders={Sliders}/>
             <div className={"my-10"}>
-
-
                 <Htag type={'h2'}>ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</Htag>
             </div>
             {

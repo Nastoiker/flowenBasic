@@ -5,4 +5,5 @@ export interface PhoneCardProps extends DetailedHTMLProps<HTMLAttributes<HTMLDiv
     img: string,
     price: number,
     alias: string,
+    oldPrice?: number,
 }

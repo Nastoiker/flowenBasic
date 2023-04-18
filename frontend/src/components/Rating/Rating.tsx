@@ -1,5 +1,4 @@
 import {RatingProps} from "./Rating.props";
-import {ReactComponent as Star} from './star.svg';
 import styles from './Rating.module.css';
 import cn from "classnames";
 import {useEffect, useState, KeyboardEvent, ForwardedRef, forwardRef, useRef} from "react";

@@ -75,9 +75,9 @@ export const FilterLayoutPhone = ({phones, text, img}: { phones: SmartPhone[], t
                 <img src={img} alt="" />
         <Htag type={'h1'}>{text}</Htag>
       </div>
-        <div className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-cols-2 justify-items-stretch"}>
+        <div className={"max-[574px]:text-center min-[720px]:grid gap-40px gap-y-6 grid-cols-2 justify-items-stretch"}>
             {
-                (filteredPhones) ? filteredPhones.map(p =><PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={ProductConvertImageNotModel(p)} price={p.price} /> ) :
+                (filteredPhones) ? filteredPhones.map(p =><PhoneCard alias={p.alias} key={p.name} oldPrice={p.oldPrice} name={p.name + `\r${p.ColorAlias}`} img={ProductConvertImageNotModel(p)} price={p.price} /> ) :
                     <div className={" text-center my-20 m-auto"}>        <Htag type={'h1'}>К сожалению ничего не найдено</Htag><Button>Вернуться на главную</Button></div>
             }
 

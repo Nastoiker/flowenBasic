@@ -35,7 +35,7 @@ const Phones = ():JSX.Element => {
     useEffect(() => {
         dispatch(getPhonesFetch());
     }, []);
-    const phones = useAppSelector(state => state.phone.filtered);
+    const phones = useAppSelector(state => state.phone.phones);
     // const models = useMemo(() => { dispatch(getPhonesFetch());}, [filter, dispatch]);
     console.log(phones);
     return (<div>

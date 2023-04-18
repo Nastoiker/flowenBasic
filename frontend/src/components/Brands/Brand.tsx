@@ -9,8 +9,8 @@ export const Brand = ({ brand, isActive}: BrandProps) =>{
         navigate('../../../' + to);
     };
     const img = (api_url + brand.img).replace('/uploads', '');
-  return <div className="bg-white rounded-3xl w-fit px-5 py-2"  onClick={() => redirectTo(brand.name)}>
-        <img src={img} alt={'brand'} className={cn("rounded-3xl", { "border border-black": isActive })}/>
+  return <div className="bg-white rounded-3xl w-32 mx-auto text-center px-5 py-2"  onClick={() => redirectTo(brand.name)}>
+        <img src={img} alt={'brand'} className={cn("rounded-3xl mx-auto", { "border border-black": isActive })}/>
         <h1>{brand.name}</h1>
     </div>;
 }

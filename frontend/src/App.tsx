@@ -86,8 +86,7 @@ function App() {
                     <Route path="/Basket" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BasketPage /> </Suspense>}></Route>
                     <Route path="/PhonesByBrand/:id" element={<Suspense fallback={<h2>Загрузка...</h2>}> <PhonesByBrand /> </Suspense>}></Route>
                     <Route path="/EditProfile" element={<Suspense fallback={<h2>Загрузка...</h2>}> <EditProfile /> </Suspense>}></Route>
-                                        <Route path="/Brand/:brand" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BrandPage /> </Suspense>}></Route>
-
+                    <Route path="/Brand/:brand" element={<Suspense fallback={<h2>Загрузка...</h2>}> <BrandPage /> </Suspense>}></Route>
                     <Route path="/Search/:SearchValue" element={<Suspense fallback={<h2>Загрузка...</h2>}> <SearchPage /> </Suspense>}></Route>
                     <Route path="*" element={<NotFound />} />
                 </Routes>

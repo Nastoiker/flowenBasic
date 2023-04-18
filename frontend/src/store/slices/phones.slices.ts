@@ -26,7 +26,6 @@ const phonesSlice = createSlice({
         },
         getPhonesSuccess: (state, action) => {
             if(!state.staticPhones)  state.staticPhones = action.payload;
-            state.filtered =  action.payload;
             state.phones = action.payload;
             state.isLoading = false;
       },

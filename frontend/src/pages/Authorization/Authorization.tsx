@@ -22,6 +22,7 @@ const Authorization = (): JSX.Element => {
             if(localStorage.getItem('token')) {
                 navigate('/');
             }
+            reset();
         } catch(e) {
             if(e instanceof Error ) {
                 console.log(e.message);
@@ -33,10 +34,8 @@ const Authorization = (): JSX.Element => {
 
         <form action=""  className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <Input error={errors.email} {...register('email', { required: {value: true, message: 'Заполните email'} })} placeholder={"email"} />
-            <Input error={errors.email} type={"password"}  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
-            {
-                isCorrect ? <Button>d</Button> : <Button>Авторизироваться</Button>
-            }
+            <Input error={errors.password} type={"password"}  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
+           <Button>Авторизироваться</Button>
         </form>
  </div>)};
 export default Authorization;

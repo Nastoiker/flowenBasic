@@ -237,6 +237,7 @@ export class ProductRepository implements IProductRepository {
 			include: {
 				brand: true,
 				Comment: true,
+				rating: true,
 				product: {
 					include: {
 						brand: true,
@@ -290,6 +291,14 @@ export class ProductRepository implements IProductRepository {
 		return this.prismaService.client.brand.findMany();
 	}
 	async setRating(rating: Rating): Promise<Rating> {
+		const checkExistUserRating = await this.prismaService.client.rating.findMany({
+			where: { writtenById: rating.writtenById, modelDeviceId: rating.modelDeviceId },
+		});
+		if (checkExistUserRating) {
+			await this.prismaService.client.rating.deleteMany({
+				where: { writtenById: rating.writtenById, modelDeviceId: rating.modelDeviceId },
+			});
+		}
 		return this.prismaService.client.rating.create({
 			data: rating,
 		});

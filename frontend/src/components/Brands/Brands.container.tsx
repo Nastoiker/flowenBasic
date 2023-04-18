@@ -19,19 +19,28 @@ export const BrandsContainer = ({ brands } : BrandsContainerProps) => {
         navigate('../../../' + to);
     };
     console.log(brands);
-    return <div className="">
+    return <div className="mx-auto">
       <Swiper
-        
-            className={"my-20 mx-20 w-full"}
+
+          // centeredSlidesBounds={true}
+          breakpoints={{
+            // ширина экрана >= 640 пикселей
+            // ширина экрана >= 1040 пикселей
+            200: {
+              slidesPerView: 2,
+            },
+            600: {
+              slidesPerView: 3,
+            },}}
+            className={"my-20"}
             slidesPerView={3}
-
-            // centeredSlidesBounds={true}
-
-            navigation={true}
+            centeredSlidesBounds={true}
+            // navigation={true}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
-        >{
-          brands.map(b => <SwiperSlide onClick={() => { redirectTo('/Brand/:' + b.name)}} className={"w-42 h-52"} key={b.id}><Brand brand={b} isActive={currentBrand}/> </SwiperSlide> )
+        >
+        {
+          brands.map(b => <SwiperSlide onClick={() => { redirectTo('/Brand/:' + b.name)}} className={"w-42 flex h-52"} key={b.id}><Brand brand={b} isActive={currentBrand}/> </SwiperSlide> )
             }
             <SlideNextButton />
         </Swiper>

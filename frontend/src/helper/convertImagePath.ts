@@ -23,5 +23,5 @@ export const CommentImage = (id: string, img: string,  phone: ProductModel) => {
     return photo;
 }
 export const BrandPath = (brand: string) => {
-  return  `${api_url}/uploads/brands/${brand}.png`;
+  return  `${api_url}/brands/${brand}.png`;
 }

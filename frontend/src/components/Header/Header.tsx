@@ -132,21 +132,21 @@ export const Header = (): JSX.Element => {
         {/*        </MenubarContent>*/}
         {/*    </MenubarMenu>*/}
         {/*</Menubar>*/}
-            <div className={"flex items-center border-b-4 p-5 justify-between"}>
+            <div className={"sm:flex items-center border-b-4 p-5 justify-between"}>
                 <img src="" alt=""/>
-                <div className={'sm:flex items-center  space-x-6'}>
+                <div className={'sm:flex sm:items-center  sm:space-x-6'}>
                     <Search />
                     <div className={"flex items-center"}>
                         <div onClick={() => {setOpenBasket((s) => !s) }}>
                             <div className={"rounded-3xl absolute bg-white w-7 text-center"}>{user.basket?.length}</div>
                             <ProductoOnBasket basket={basket} />
                         </div>
-                        { user.id ?  ( <><Avatar onClick={() => redirectTo('/profile')}>
+                        { user.id ?  ( <div className={"flex space-x-3"}><Avatar onClick={() => redirectTo('/profile')}>
                             <AvatarImage className={"hover:opacity-5"} src={api_url + '/user/avatar/' + user.id + '/' + user.avatar} />
                             <AvatarFallback>CN</AvatarFallback>
                         </Avatar>
                             <Button onClick={logOut}>Выйти</Button>
-                        </>) : <>
+                        </div>) : <>
                             <Menubar>
                                 <MenubarMenu>
                                     <MenubarTrigger><UserIcon /></MenubarTrigger>

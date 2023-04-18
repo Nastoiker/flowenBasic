@@ -10,7 +10,7 @@ import {Button} from "../../ui/button";
 import {Input} from "../../ui/input";
 
 export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps): JSX.Element => {
-    const {register, control, handleSubmit, formState: {errors}} = useForm<ICommentForm>();
+    const {register, control, handleSubmit, formState: {errors}, reset} = useForm<ICommentForm>();
     const [succes, setSuccesForm] = useState<boolean>(false);
     const [error, setErrorForm] = useState<string>();
     const onSubmit = async (formData: ICommentForm) => {
@@ -36,12 +36,13 @@ export const CommentForm = ({modelProductId, userId, ...props}: CommentFormProps
                 setErrorForm(e.message);
             }
         }
+        reset();
     }
     return(
         <form action="" className="space-y-5"  onSubmit={handleSubmit(onSubmit)}>
             <Htag type={"h1"}>Оставьте отзыв</Htag>
             <div >
-                <div className={"flex space-x-5"}>
+                <div className={"sm:flex sm:space-x-5"}>
                     <div>
                         <Label htmlFor="title">Заголовок</Label>
                         <Input {...register('title', {required: {value: true, message: 'Заполните заголовок'}}) } placeholder={"title"} id={"title"}/>

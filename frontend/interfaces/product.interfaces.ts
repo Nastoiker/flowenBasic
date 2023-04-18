@@ -31,12 +31,11 @@ export interface SmartPhone {
     Ram: number,
     modelDeviceId: string,
     quantity: string,
-    rating?: Rating,
 }
 export interface Rating {
     id: string,
     createdAt: string,
-    number: string,
+    number: number,
     writtenById: string,
     modelDeviceId: string,
 }
@@ -49,6 +48,8 @@ export interface ModelDevice {
     rating?: Rating[],
 }
 export interface ProductModel {
+    rating: Rating[],
+
     id: string;
     name: string;
     secondCategoryId: string;

@@ -9,6 +9,7 @@ import { format, addMonths }  from 'date-fns';
 import {convertDate} from "../../helper/convertDate";
 import {CommentImage, ProfileImage} from "../../helper/convertImagePath";
 import {ImageModal} from "../ImageModal/ImageModal";
+import {Stars} from "../Product/Phone/Stars";
 export const Comment = ({userId, images ,comment, title, model, date }: CommentProps) : JSX.Element => {
     const [user, setUser] = useState<Profile>();
     const api_url = 'http://localhost:8000';
@@ -30,7 +31,9 @@ export const Comment = ({userId, images ,comment, title, model, date }: CommentP
             }
         })();
     }, []);
-
+    const res = model.rating.find( r => r.writtenById === userId);
+    console.log(res);
+    const rating = res?.number;
     if(!user) return <div></div>;
     const avatar = ProfileImage(user as any);
     const dateformat = convertDate(date);
@@ -40,10 +43,22 @@ export const Comment = ({userId, images ,comment, title, model, date }: CommentP
                 <div className={"flex justify-between"}>
                     <div className={"flex space-x-2"}>
                         {  user.avatar ?         <img src={avatar } height={30} className="rounded-full object-contain w-16 h-16" alt="avatar"/> : <img src={'icon'} className="rounded-full" alt="avatar"/>}
-                        <Htag type={"h3"}>
-                            {user.login}
-                        </Htag>
+
+                        <div>
+                            <Htag type={"h3"}>
+                                {user.login}
+                            </Htag>
+                            <div className={"flex space-x-2 my-2s"}>
+                                { rating &&  <Stars rating={rating}/>}
+                                <Htag type={"h3"}>
+                                    {rating}
+                                </Htag>
+                            </div>
+
+                        </div>
                     </div>
+
+
                     <span className={"text-gray-200"}>{dateformat}</span>
                 </div>
 

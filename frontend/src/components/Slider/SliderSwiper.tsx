@@ -18,7 +18,7 @@ import {Autoplay, Pagination} from "swiper";
             }}
         >
             {
-                sliders.map( s =>  <SwiperSlide><img className={"h-full min-h-[250px]  w-full"} src={s.image} alt=""/></SwiperSlide>)
+                sliders.map( s =>  <SwiperSlide><img className={" min-h-[300px]  w-full"} src={s.image} alt=""/></SwiperSlide>)
             }
         </Swiper>
     );

@@ -50,13 +50,13 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
        return <div className={"flex-none md:flex-1"}>
         <div className={"flex md:flex-1 justify-between self-end"}>
             <div>
-                <form  className={cn(className, "w-full ", { "hidden": !isSearchVisible})} {...props} role={'search'}>
+                <form  className={cn(className, "w-fit ", { "hidden": !isSearchVisible})} {...props} role={'search'}>
                     <motion.div
-                        initial={{ opacity: 0, x: '100%' }}
-                        animate={{  opacity: isSearchVisible ? 1 : 0,   x: isSearchVisible ? '-30%' : '100%', transition: {
+                        initial={{ opacity: 0, x: '0%' }}
+                        animate={{  opacity: isSearchVisible ? 1 : 0,   x: isSearchVisible ? '-30%' : '0%', transition: {
                                 stiffness: 100
                             } }}>
-                        <Input   onBlur={() => setIsFocus(false)} onFocus={() => setIsFocus(true)}  onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={"w-full indent-16 rounded-l-xl"} value={searchAlias} type="text" />
+                        <Input   onBlur={() => setIsFocus(false)} onFocus={() => setIsFocus(true)}  onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={" w-fit indent-16 rounded-l-xl"} value={searchAlias} type="text" />
 
                     </motion.div>
                     {

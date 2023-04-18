@@ -20,6 +20,8 @@ import {ProductImagePath} from "../../../helper/convertImagePath";
 import { SwiperSlide, Swiper } from "swiper/react";
 import 'swiper/css';
 import {Autoplay, Pagination} from "swiper";
+import {ReactComponent as StarIcon} from './phoneStar.svg';
+import Star from "./Star";
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>(smartPhone);
@@ -50,7 +52,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
         setColor(phoneMemory.ColorAlias);
         setPhone(phoneMemory);
     };
-
+    const ratingAvg = Math.floor(  currentModel.rating.map( r => r.number).reduce( (sum, b)  => sum + Number(b), 0 )/currentModel.rating.length);
     const [isOpened, setIsOpened] = useState<boolean>();
     useEffect(() => {(async () => {
         if(basket) {
@@ -73,8 +75,8 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     img.pop();
     img = img.map(p => ProductImagePath(currentModel, phone, p));
     return <>
-        <div className={" sm:flex space-x-5 justify-between"}>
-            <div className={" rounded-3xl bg-blue-300 p-2 mx-12 sm:p-10 "}>
+        <div className={"mx-auto lg:flex lg:space-x-5 justify-between"}>
+            <div className={"my-4 lg:my-0 rounded-3xl bg-blue-300 p-2 mx-12 sm:p-10 "}>
                 {
                     img.map(i => <img className={cn(" rounded-3xl object-contain w-16 h-16", {
                         [styles.CurrentPicture]: i===currentImage,
@@ -83,18 +85,26 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             </div>
         <div className={"m-auto"}>
             {
-                img && <img src={currentImage} width={300} className={"text-center h-fit mx-auto object-contain rounded-3xl"}   alt={"Phone"}/>
+                img && <img src={currentImage} width={300} className={"text-center h-auto sm:h-fit w-38 sm:w-42 mx-auto object-contain rounded-3xl"}   alt={"Phone"}/>
             },
         </div>
 
 
-        <div className={"mx-auto text-center md:text-start space-y-8 w-96"}>
-            <h1 className={"text-3xl font-bold"}>{phone.name}</h1>
-            <h2 className={"text-lg"}>{phone.price}</h2>
+        <div className={" mx-12 lg:mx-auto lg:w-1/3  md:text-start space-y-8"}>
+                <div className={"mx-auto flex justify-between"}>
+                    <h1 className={"text-4xl font-bold"}>{phone.name}</h1>
+                    <div className={"flex space-x-2s items-center"}>
+                        <Htag type={'h1'}>{ratingAvg} </Htag>
+                        <Star rating={ratingAvg} />
+                    </div>
+            </div>
+
+            <h2 className={"text-lg font-bold"}>{phone.price}₽</h2>
+            <h2 className={"text-lg line-through"}>{phone.oldPrice}₽</h2>
             <h2 className={"text-lg font-bold"}>Описание</h2>
-            <Paragraph type={'small'} className={"break-words"}>{phone.Description}</Paragraph>
-            <div className={"flex justify-around w-full"}>
-                <div className={"content-center"}>
+            <Paragraph type={'small'} className={"break-words sm:mx-0  sm:w-full "}>{phone.Description}</Paragraph>
+            <div className={"flex border rounded-3xl p-5 justify-around sm:space-x-24 w-full"}>
+                <div className={"content-center "}>
                     <h1 className={"font-bold"}>Цвета</h1>
                     {currentModel.product.map( p =>   <div key={p.ColorAlias} onClick={() => setPhoneByColor(p.ColorAlias)}   className={cn(styles[p.ColorAlias] + " mx-auto rounded-full w-10 h-10 p-5 hover:opacity-5", { [styles.CurrentColor]: Color===p.ColorAlias})}></div> )}
                 </div>
@@ -110,12 +120,15 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             <h1></h1>
         </div>
     </div>
-        <div className={"sm:flex bg-white rounded-3xl p-10 my-5  justify-between"}>
+        <div className={"sm:flex space-y-5 bg-white rounded-3xl p-10 my-5  justify-between"}>
             <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
             <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
         </div>
         <div>
-            <Htag type={"h1"} >Комментарии</Htag>
+            <div className={"flex items-center space-x-2"}>
+                <Htag type={"h1"} >Комментарии: </Htag>
+                <span className={"accent-gray-500 text-2xl font-bold mt-2"}>{currentModel.Comment.length}</span>
+            </div>
         {currentModel.Comment ?
             <div  className={"my-20 flex  justify-around w-full overflow-hidden"}>
                 <Swiper
@@ -127,6 +140,19 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                     //  delay: 2500,
                     //  disableOnInteraction: false,
                     // }}s
+                    breakpoints={{
+                        // ширина экрана >= 640 пикселей
+                        340: {
+                            slidesPerView: 1,
+                        },
+                        // ширина экрана >= 1040 пикселей
+                        738: {
+                            slidesPerView: 2,
+                        },
+                        1092: {
+                            slidesPerView: 3,
+                        },
+                    }}
                     centeredSlides={false}
 
                     onSlideChange={() => console.log('slide change')}
@@ -134,7 +160,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                 >
                     {currentModel.Comment.map(c =>
                         <SwiperSlide className={"w-42 mx-10 h-52"} key={c.id}>
-                            <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')} title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />
+                            <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')}  title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />
                         </SwiperSlide>) }
                 </Swiper>
             </div>

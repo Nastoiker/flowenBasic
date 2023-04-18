@@ -34,7 +34,7 @@ export const RatingForm = ({productId, ...props}: ReviewFormProps): JSX.Element 
         }
     };
     return(
-        <form action="" className={"sm:flex "} onSubmit={handleSubmit(onSubmit)}>
+        <form action="" className={"sm:flex items-center h-fit"} onSubmit={handleSubmit(onSubmit)}>
             <Controller control={control} name={'quantity'} render={({field,}) => (
                 <Rating
                     isEditable

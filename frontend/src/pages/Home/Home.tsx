@@ -16,7 +16,6 @@ import {Slider} from "../../components/Slider/slider";
 const sliders = [{ img: '', id: '1'}, { img: '', id: '2'}, { img: '', id: '3'}];
 import SliderSamsung from '/slider/sliderSamsung.webp'
 import SliderApple from '/slider/sliderApple.png'
-import '../../App.css';
 
 import {SliderBySwiper} from "../../components/Slider/SliderSwiper";
 import {getBrandsFetch} from "../../store/slices/brand.slice";
@@ -55,10 +54,10 @@ const Home = (): JSX.Element => {
    text: '',
    image: SliderSamsung,
   }];
-  const products = useAppSelector(state => state.phone.filtered);
+  const products = useAppSelector(state => state.phone.staticPhones);
  const brands = useAppSelector<Brand[]>(state => state.brands.brands);
 
- const BestProducts = products.sort( (a, b) => a.rating - b.rating );
+ // const BestProducts = products.sort( (a, b) => a.rating - b.rating );
  return (<MainPagesLayout>
 
       <div className={"mx-auto   "}>
@@ -66,7 +65,6 @@ const Home = (): JSX.Element => {
       
            className={"my-20 mx-20 w-full"}
            slidesPerView={3}
-           centeredSlides={false}
 
            // centeredSlidesBounds={true}
            breakpoints={{
@@ -85,11 +83,12 @@ const Home = (): JSX.Element => {
            navigation={true}
            onSlideChange={() => console.log('slide change')}
            onSwiper={(swiper) => console.log(swiper)}
+           centeredSlidesBounds={true}
        >
 
         {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
-            <SwiperSlide className={"w-42 h-52"} key={p.id}>
-             <PhoneCard price={p.price} name={p.name} alias={p.alias} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
+            <SwiperSlide className={"w-42 h-52 mx-auto"} key={p.id}>
+             <PhoneCard className={"mx-auto w-full"} price={p.price} name={p.name} alias={p.alias} oldPrice={p.oldPrice} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
             </SwiperSlide>
         )})})}
 
