@@ -13,13 +13,13 @@ import {Button} from "../../ui/button";
     const dispatch = useAppDispatch();
      const password = watch('password', '');
      const confirmPassword = watch('confirmpassword', '');
-     const passwordMismatch = password !== confirmPassword;
+   const passwordMismatch = password !== confirmPassword;
     const onSubmit = async (formData: IRegister) => {
         console.log(formData);
         if(formData.password !== formData.confirmpassword) throw new Error('failed password')
         dispatch(registerFetch(formData));
         reset();
-    };
+   };
     return <div className={"bg-white max-w-2xl space-y-6 my-20 m-auto rounded-3xl sm:p-10"}>
         <h1 className={"text-center"}>Регистрация</h1>
         <form action="" className={"space-b-4"}  onSubmit={handleSubmit(onSubmit)}>

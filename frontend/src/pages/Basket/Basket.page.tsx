@@ -7,9 +7,23 @@ import {Htag} from "../../components";
 import {Button} from "../../ui/button";
 import {Checkbox} from "../../ui/checkbox";
 import {ProfileLayout} from "../../page-component/Profile.layot";
-
+import { useNavigate } from "react-router-dom";
 const BasketPage = () => {
-    const basket = useAppSelector<Basket[]>(state => state.basket.basket);
+  const user = useAppSelector(state => state.user.user);
+  if (!user) {
+    return <div><Button onClick={() => redirectTo('/authorization')}>Авторизируйтесь</Button></div>;
+  }
+  const basket = useAppSelector<Basket[]>(state => state.basket.basket);
+   const navigate = useNavigate();
+    const redirectTo =  (to: string) => {
+        navigate( to, { replace: true});
+    };
+  if (!basket || basket.length === undefined) {
+    return <div className="text-center space-y-5">
+      <Htag type="h1">Авторизируйтесь</Htag>
+      <Button onClick={() => redirectTo('/authorization')}>Авторизация</Button>
+    </div>;
+  }
     return (
         <ProfileLayout>
         <div className={"sm:flex  mx-5 sm:space-x-10 space-y-5 justify-between "} >

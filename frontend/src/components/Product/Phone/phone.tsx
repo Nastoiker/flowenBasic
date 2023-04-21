@@ -25,7 +25,8 @@ import Star from "./Star";
 // import photoSmartphone from '@product/3909225.webp';
 export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>(smartPhone);
-    const { product } = currentModel;
+  const { product } = currentModel;
+  const user = useAppSelector(state => state.user.user);
     let img = phone.image?.split(',');
     useEffect(() => {
         setCurrentImage(img[0]);
@@ -120,9 +121,13 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             <h1></h1>
         </div>
     </div>
-        <div className={"sm:flex space-y-5 bg-white rounded-3xl p-10 my-5  justify-between"}>
+      <div className={"sm:flex space-y-5 bg-white rounded-3xl p-10 my-5  justify-between"}>
+        {
+          token === null && <>
             <CommentForm modelProductId={phone.modelDeviceId} userId={'123123'}  />
             <RatingForm productId={phone.modelDeviceId} isOpened={isOpened}/>
+          </>
+        }
         </div>
         <div>
             <div className={"flex items-center space-x-2"}>

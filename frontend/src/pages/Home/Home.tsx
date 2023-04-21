@@ -86,7 +86,7 @@ const Home = (): JSX.Element => {
            centeredSlidesBounds={true}
        >
 
-        {products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
+        { products && products.map((m) => { return m.product.map( p =>  { const pict = p.image.split(',');  return (
             <SwiperSlide className={"w-42 h-52 mx-auto"} key={p.id}>
              <PhoneCard className={"mx-auto w-full"} price={p.price} name={p.name} alias={p.alias} oldPrice={p.oldPrice} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} />
             </SwiperSlide>

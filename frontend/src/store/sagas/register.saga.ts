@@ -15,7 +15,8 @@ function* WatchregusterSaga(action: any) {
             },
             body: JSON.stringify(action.payload),
         }));
-        const token = response.data.token;
+      const token = response;
+      console.log(token);
         yield put(registerSuccess(token));
     } catch(error) {
 
