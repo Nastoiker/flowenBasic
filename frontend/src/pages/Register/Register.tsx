@@ -6,22 +6,66 @@ import {Input} from "../../ui/input";
 import {IRegister} from "../../../interfaces/register.interface";
 import {Label} from "../../ui/label";
 import {useAppDispatch} from "../../store";
-import {registerFetch} from "../../store/slices/register.slice";
+import {registerFetch, RegState} from "../../store/slices/register.slice";
 import {Button} from "../../ui/button";
+import {useEffect, useState} from "react";
+import {Htag} from "../../components";
+import {call} from "redux-saga/effects";
+import {useNavigate} from "react-router-dom";
  const Register = () => {
-    const {register, control, handleSubmit, formState: {errors}, reset, watch} = useForm<IRegister>();
+    const {register, control, handleSubmit, formState: {errors}, watch} = useForm<IRegister>();
     const dispatch = useAppDispatch();
+     const navigate = useNavigate();
+
+     const redirectTo =  (to: string) => {
+         navigate( to, { replace: true});
+     };
      const password = watch('password', '');
      const confirmPassword = watch('confirmpassword', '');
    const passwordMismatch = password !== confirmPassword;
+     const [showVerificationInput, setShowVerificationInput] = useState(false);
+     useEffect(() => {
+         if (showVerificationInput) {
+             // добавление дополнительного инпута
+             // например, можно использовать модальное окно
+             // или просто добавить инпут в DOM
+         }
+     }, [showVerificationInput]);
     const onSubmit = async (formData: IRegister) => {
+
         console.log(formData);
         if(formData.password !== formData.confirmpassword) throw new Error('failed password')
-        dispatch(registerFetch(formData));
-        reset();
+        if(!showVerificationInput) {
+            const response = await fetch( DOMEN.user.register, { method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+            if (data) {
+                setShowVerificationInput(true);
+            }
+        }
+        const { email, code } = formData;
+        const response = await fetch( DOMEN.user.verify, { method: 'post',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(
+                {
+                    email,
+                    confirm: code,
+                }
+            ),
+        });
+        const data = await response.json();
+        if(data) {
+            return redirectTo('/');
+        }
    };
     return <div className={"bg-white max-w-2xl space-y-6 my-20 m-auto rounded-3xl sm:p-10"}>
-        <h1 className={"text-center"}>Регистрация</h1>
+        <Htag type={'h2'} className={"text-center"}>Регистрация</Htag>
         <form action="" className={"space-b-4"}  onSubmit={handleSubmit(onSubmit)}>
             <Label htmlFor={"login"}>
                 Логин
@@ -43,6 +87,13 @@ import {Button} from "../../ui/button";
                 <p style={{ color: 'red' }}>Пароли не совпадают</p>
             )}
             <Button type={"submit"}>Регистрация</Button>
+            {showVerificationInput && (<div className={"block"}>
+                    <Label htmlFor={"code"}>
+                        Код для верификации аккаунта
+                    </Label>
+                    <Input  className={""} {...register( "code", { required: true })} />
+                </div>
+            )}
         </form>
     </div>
 }

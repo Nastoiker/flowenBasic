@@ -40,10 +40,7 @@ export const FilterLayoutPhone = ({ phones, text, img }: { phones: SmartPhone[],
     setFilteredPhones(filteredPhones.filter( f => f.oldPrice > f.price));
  }
     const handleChange = ([low, high]: number[]) => {
-        if(low > valueMax) return;
-        if(low === valueMax) return;
-        if(high === valueMin) return;
-        if(high < valueMin) return;
+        if(low > valueMax || low === valueMax || high === valueMin || high < valueMin ) return;
         setValueMin(low);
         setValueMax(high);
         if (!onchange) {

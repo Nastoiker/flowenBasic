@@ -13,14 +13,13 @@ const Authorization = (): JSX.Element => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
     const redirectTo =  (to: string) => {
-        navigate(to);
-    };
+        navigate( to, { replace: true});    };
     const {register, control, handleSubmit, formState: {errors}, reset} = useForm<IRegister>();
     const onSubmit = async (formData: ILogin) => {
         try {
             dispatch(loginFetch(formData));
             if(localStorage.getItem('token')) {
-                navigate('/');
+                redirectTo('/');
             }
             reset();
         } catch(e) {

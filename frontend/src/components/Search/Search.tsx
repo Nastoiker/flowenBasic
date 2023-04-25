@@ -18,6 +18,7 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
     const handleSearchClick = () => {
         setIsSearchVisible(!isSearchVisible);
     };
+
     const [isFocus, setIsFocus] = useState<boolean>(false);
     const inputRef = useRef(null)
     const phones = useAppSelector(state => state.phone.phones);
@@ -47,25 +48,23 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
        dispatch(setSearch(searchAlias));
        dispatch(getFounded(phones));
    };
-       return <div className={"flex-none md:flex-1"}>
-        <div className={"flex md:flex-1 justify-between self-end"}>
+       return <div className={"flex justify-between"}>
             <div>
                 <form  className={cn(className, "w-fit ", { "hidden": !isSearchVisible})} {...props} role={'search'}>
                     <motion.div
                         initial={{ opacity: 0, x: '0%' }}
-                        animate={{  opacity: isSearchVisible ? 1 : 0,   x: isSearchVisible ? '-30%' : '0%', transition: {
+                        animate={{  opacity: isSearchVisible ? 1 : 0,   x: isSearchVisible ? '-10%' : '0%', transition: {
                                 stiffness: 100
                             } }}>
-                        <Input   onBlur={() => setIsFocus(false)} onFocus={() => setIsFocus(true)}  onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={" w-fit indent-16 rounded-l-xl"} value={searchAlias} type="text" />
+                        <Input    onFocus={() => setIsFocus(true)}  onChange={(e) =>  handleChange(e)} onKeyDown={handleKeyDown} className={"max-w-2xl md:w-96 rounded-l-xl"} value={searchAlias} type="text" />
 
                     </motion.div>
                     {
-                        ( isFocus && founded && founded.length>0)  && <div className={" bg-white p-5 mx-auto rounded-2xl w-72 absolute z-12 my-12"}>{founded.map( p =><a className="hover:opacity-5 block" key={p.id} href={'/product/phone/' + p.product[0]?.alias}>{p.name}</a>)}</div>
+                        ( isFocus && founded && founded.length>0)  && <div onFocus={() => setIsFocus(true)} onClick={() => setIsFocus(true)} className={" bg-white p-5 mx-auto rounded-2xl w-72 absolute z-12 my-12"}>{founded.map( p =><a className="hover:opacity-5 block" key={p.id} href={'/product/phone/' + p.product[0]?.alias}>{p.name}</a>)}</div>
                     }
                 </form>
             </div>
-            <button className="z-50" onClick={() => {setIsSearchVisible(s => !s)}}><SearchSvg /></button>
-        </div>
-    </div>
+           <button className="z-50" onClick={() => {setIsSearchVisible(s => !s)}}><SearchSvg /></button>
 
+       </div>
 };

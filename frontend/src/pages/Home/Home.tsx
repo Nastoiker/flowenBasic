@@ -22,15 +22,23 @@ import {getBrandsFetch} from "../../store/slices/brand.slice";
 import {BrandsContainer} from "../../components/Brands/Brands.container";
 import {MainPagesLayout} from "../../page-component/MainPageslayout";
 import { Htag } from '../../components';
+import {StaticSlider} from "../../components/Slider/StaticSlider";
 interface  Brand {
  name: string;
  alias: string;
  img: string
 
 }
+interface IItems {
+    subtitle: string;
+    title: string
+    picture: string;
+    id: string;
+}
 const Home = (): JSX.Element => {
+    const StaticSliderArr:IItems[] = [{id: '1',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, { id: '2', subtitle: 'SSS', title: 'BBBB', picture: 'http://localhost:8000/slider1.png'}, {id: '3',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, {id: '4',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}];
 
- const [currentCategory, setCurrentCategory] = useState<string>('');
+    const [currentCategory, setCurrentCategory] = useState<string>('');
  const location = useLocation();
  const dispatch = useAppDispatch();
  useEffect(() => {
@@ -63,7 +71,7 @@ const Home = (): JSX.Element => {
       <div className={"mx-auto   "}>
      <Swiper
       
-           className={"my-20 mx-20 w-full"}
+           className={"mt-20 mx-20 w-full"}
            slidesPerView={3}
 
            // centeredSlidesBounds={true}
@@ -95,12 +103,13 @@ const Home = (): JSX.Element => {
         <SlideNextButton />
        </Swiper>
           <div className={"block my-10 flex items-center hover:opacity-70"}>
-       <Htag type='h1'><a href={'/product/phone'}>Посмотреть все смартфоны</a></Htag>
+       <Htag type='h2'><a href={'/product/phone'}>Посмотреть все смартфоны</a></Htag>
       <svg xmlns="http://www.w3.org/2000/svg" width="46" height="46" viewBox="0 0 24 24" ><path d="M16 12L10 18V6L16 12Z"></path></svg>
           </div>
 
 
       </div>
+         <StaticSlider title={"НОВИНКИ"} items={StaticSliderArr}/>
      </MainPagesLayout>
 
 

@@ -41,6 +41,7 @@ export const DOMEN = {
         editAddress: api_url + '/users/editAddress',
         editProfile: api_url + '/users/editProfileInfo',
         updateAvatar: api_url + '/users/updateAvatar',
+        verify: api_url + '/users/verify',
     },
     comment: {
         createComment: api_url + '/product/comment',

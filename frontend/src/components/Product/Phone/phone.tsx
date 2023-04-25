@@ -77,7 +77,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     img = img.map(p => ProductImagePath(currentModel, phone, p));
     return <>
         <div className={"mx-auto lg:flex lg:space-x-5 justify-between"}>
-            <div className={"my-4 lg:my-0 rounded-3xl bg-blue-300 p-2 mx-12 sm:p-10 "}>
+            <div className={"my-4 lg:my-0 rounded-3xl bg-zinc-800 p-2 mx-12 sm:p-10 "}>
                 {
                     img.map(i => <img className={cn(" rounded-3xl object-contain w-16 h-16", {
                         [styles.CurrentPicture]: i===currentImage,
@@ -135,7 +135,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                 <span className={"accent-gray-500 text-2xl font-bold mt-2"}>{currentModel.Comment.length}</span>
             </div>
         {currentModel.Comment ?
-            <div  className={"my-20 flex  justify-around w-full overflow-hidden"}>
+            <div  className={"my-10 flex  justify-around w-full overflow-hidden"}>
                 <Swiper
                     className={"flex"}
                     spaceBetween={10}

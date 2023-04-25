@@ -21,7 +21,7 @@ const BasketPage = () => {
   if (!basket || basket.length === undefined) {
     return <div className="text-center space-y-5">
       <Htag type="h1">Авторизируйтесь</Htag>
-      <Button onClick={() => redirectTo('/authorization')}>Авторизация</Button>
+      <Button onClick={() => redirectTo('/login')}>Авторизация</Button>
     </div>;
   }
     return (

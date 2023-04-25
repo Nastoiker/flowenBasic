@@ -35,3 +35,6 @@ export interface addImageForProduct {
     files: File,
     productId: string,
 }
+export interface DeleteProductId {
+    id: string;
+}

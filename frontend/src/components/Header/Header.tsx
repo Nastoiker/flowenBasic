@@ -39,104 +39,17 @@ export const Header = (): JSX.Element => {
     const [openBasket, setOpenBasket] = useState<boolean>();
     const basket = useAppSelector(state => state.basket.basket);
     return (<div className={"mb-10"}>
-        {/*    <Menubar  className={"hidden sm:flex border-none border-b-gray-200 bg-transparent justify-between"}>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>Ваш город</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>Способ оплаты</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>оплата и доставка</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>поддержка</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>контакты</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>о компании</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*    <MenubarMenu>*/}
-        {/*        <MenubarTrigger>8 (800) 555 35 35</MenubarTrigger>*/}
-        {/*        <MenubarContent>*/}
-        {/*            <MenubarItem>*/}
-        {/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
-        {/*            </MenubarItem>*/}
-        {/*            <MenubarItem>New Window</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Share</MenubarItem>*/}
-        {/*            <MenubarSeparator />*/}
-        {/*            <MenubarItem>Print</MenubarItem>*/}
-        {/*        </MenubarContent>*/}
-        {/*    </MenubarMenu>*/}
-        {/*</Menubar>*/}
-            <div className={"sm:flex items-center border-b-4 p-5 justify-between"}>
+
+
+
+            <div className={"flex items-center border-b-4 p-5 justify-between"}>
+
                 <img src="" alt=""/>
+
                 <div className={'sm:flex sm:items-center  sm:space-x-6'}>
                     <Search />
-                    <div className={"flex items-center"}>
+
+                    <div className={"flex items-center justify-end"}>
                         <div onClick={() => {setOpenBasket((s) => !s) }}>
                             <div className={"rounded-3xl absolute bg-white w-7 text-center"}>{user.basket?.length}</div>
                             <ProductoOnBasket basket={basket} />
@@ -149,7 +62,7 @@ export const Header = (): JSX.Element => {
                         </div>) : <>
                             <Menubar>
                                 <MenubarMenu>
-                                    <MenubarTrigger><UserIcon /></MenubarTrigger>
+                                    <MenubarTrigger className={"bg-transparent"}><UserIcon /></MenubarTrigger>
                                     <MenubarContent>
                                         <MenubarItem>
                                             <Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
@@ -166,7 +79,129 @@ export const Header = (): JSX.Element => {
 
                 </div>
             </div>
-
     </div>
     );
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/*    <Menubar  className={"hidden sm:flex border-none border-b-gray-200 bg-transparent justify-between"}>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>Ваш город</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>Способ оплаты</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>оплата и доставка</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>поддержка</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>контакты</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>о компании</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*    <MenubarMenu>*/}
+{/*        <MenubarTrigger>8 (800) 555 35 35</MenubarTrigger>*/}
+{/*        <MenubarContent>*/}
+{/*            <MenubarItem>*/}
+{/*                New Tab <MenubarShortcut>⌘T</MenubarShortcut>*/}
+{/*            </MenubarItem>*/}
+{/*            <MenubarItem>New Window</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Share</MenubarItem>*/}
+{/*            <MenubarSeparator />*/}
+{/*            <MenubarItem>Print</MenubarItem>*/}
+{/*        </MenubarContent>*/}
+{/*    </MenubarMenu>*/}
+{/*</Menubar>*/}

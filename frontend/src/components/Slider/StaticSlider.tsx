@@ -1,26 +1,28 @@
-import { motion, AnimatePresence } from 'framer-motion';
 import {IItemsSlider, StaticSliderProps} from "./StaticSliderProps";
 import {useState} from "react";
-export const StaticSlider = ({items}: StaticSliderProps) : JSX.Element=> {
+import {Htag} from "../Htag/Htag";
+export const StaticSlider = ({items, title}: StaticSliderProps) : JSX.Element=> {
     const [selected, setSelected] = useState<IItemsSlider>();
-    return <>
-            <div className={'flex items-center'}>
-                <motion.div  whileHover={{ scale: 1.1} } key={items[0].title} className="bg-gray-800 w-fit p-5 m-5 rounded-3xl text-center " layoutId={items[0].title}>
-                    <motion.img src={items[0].picture} />
-                    <motion.h2>{items[0].title}</motion.h2>
-                    <motion.h5>{items[0].subtitle}</motion.h5>
-                </motion.div>
-                <div className={" grid  grid-cols-2 gap-5 "}>
-                    {items.map((item, index ) => { if(index===1) { return; } return (
-                        <motion.div whileHover={{ scale: 1.1} } key={item.title} className="   bg-gray-800 w-fit  h-fit  p-5 rounded-3xl text-center" layoutId={item.title} >
-                            <motion.img width={120} src={item.picture} />
-                            <motion.h5>{item.subtitle}</motion.h5>
-                            <motion.h2>{item.title}</motion.h2>
-                        </motion.div>
-                    ) } )}
-                </div>
-
+    return <div>
+        <Htag type={"h2"}>{title}</Htag>
+        <div className={'text-white my-5 mx-auto justify-center sm:flex items-center'}>
+            <div   key={items[0].title} className="bg-zinc-800 w-fit p-5 px-16 m-10 rounded-2xl text-center hover:scale-110 transition-all">
+                <img src={items[0].picture} />
+                <h2>{items[0].title}</h2>
+                <h5>{items[0].subtitle}</h5>
             </div>
+            <div className={" grid  grid-cols-2 gap-5 "}>
+                {items.map((item, index ) => { if(index===1) { return; } return (
+                    <div  className="mx-auto bg-zinc-800 text-center w-fit sm:w-56  h-fit  p-5 rounded-2xl text-center hover:scale-110 transition-all"  >
+                        <img className={"mx-auto"} width={120} src={item.picture} />
+                        <h5>{item.subtitle}</h5>
+                        <h2>{item.title}</h2>
+                    </div>
+                ) } )}
+            </div>
+
+        </div>
+    </div>
 
     {/*<AnimatePresence>*/}
     {/*    {selected && (*/}
@@ -31,6 +33,5 @@ export const StaticSlider = ({items}: StaticSliderProps) : JSX.Element=> {
     {/*        </motion.div>*/}
     {/*    )}*/}
     {/*</AnimatePresence>*/}
-    </>;
 
 };

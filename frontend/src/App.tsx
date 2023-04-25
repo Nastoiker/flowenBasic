@@ -22,16 +22,12 @@ import {getBasketFetch} from "./store/slices/basket.slice";
 import SearchPage from "./pages/Search/Search";
 import {StaticSlider} from "./components/Slider/StaticSlider";
 import SliderDemo from "./ui/slider/slider";
+import {Slider} from "./components/Slider/slider";
+import PhoneModel from "./sections/PhoneModel";
 
-interface IItems {
-    subtitle: string;
-    title: string
-    picture: string;
-    id: string;
-}
+
 function App() {
 
-    const StaticSliderArr:IItems[] = [{id: '1',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, { id: '2', subtitle: 'SSS', title: 'BBBB', picture: 'http://localhost:8000/slider1.png'}, {id: '3',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}, {id: '4',  subtitle: 'APPLE', title: 'IPHONE', picture: 'http://localhost:8000/slider1.png'}];
 
     const [count, setCount] = useState(0);
   const Auth = lazy(() => import('./pages/Authorization/Authorization'));
@@ -91,7 +87,7 @@ function App() {
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Router>
-            {/*<StaticSlider items={StaticSliderArr}/>*/}
+
             {/*<Filters />*/}
             {/*<Menu />*/}
 
