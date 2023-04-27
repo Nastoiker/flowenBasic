@@ -6,11 +6,20 @@ import { Basket, UserModel, Comment, Address } from '@prisma/client';
 import { User } from './user.entity';
 import { UserAdressDto } from './dto/user-adress.dto';
 import { UserEditProfileDto } from './dto/user-editProfile.dto';
+import {VerfiyRegisterDto} from "./dto/user-register.dto";
 @injectable()
 export class UserRepository implements IUserRepository {
 	constructor(@inject(TYPES.PrismaService) private prismaService: PrismaService) {}
 
-	async createUser({ email, login, hashpassword }: User): Promise<UserModel> {
+	async createUser({ email, login, hashpassword }: User): Promise<UserModel | null> {
+		const checkExist = await this.prismaService.client.userModel.findUnique({
+			where: {
+				login,
+			},
+		});
+		if (checkExist) {
+			return null;
+		}
 		return this.prismaService.client.userModel.create({
 			data: {
 				isActive: false,
@@ -79,21 +88,26 @@ export class UserRepository implements IUserRepository {
 			},
 		});
 	}
-	async checkActiveUser(id: string): Promise<UserModel | null> {
+	async checkActiveUser(email: string): Promise<UserModel | null> {
 		return this.prismaService.client.userModel.findFirst({
 			where: {
-				id: id,
+				email,
 				isActive: true,
 			},
 		});
 	}
-	async verifyEmail(id: string): Promise<UserModel | null> {
-		const checkActive = await this.checkActiveUser(id);
+	async verifyEmail(verifyEmail: VerfiyRegisterDto): Promise<UserModel | null> {
+		const checkActive = await this.checkActiveUser(verifyEmail.email);
+		const findUser = await this.find(verifyEmail.email);
 		if (checkActive) {
 			return null;
 		} else {
+			if (!findUser) {
+				throw new Error('failed');
+			}
+			const verify = findUser.id.slice(0, 4);
 			return this.prismaService.client.userModel.update({
-				where: { id },
+				where: { email: findUser.email },
 				data: {
 					isActive: true,
 				},

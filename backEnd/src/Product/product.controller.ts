@@ -122,10 +122,7 @@ export class ProductController extends BaseController {
 				path: '/createBrand',
 				method: 'post',
 				func: this.createBrand,
-				middlewares: [
-					new AdminGuard(),
-					new MulterMiddleware(),
-				],
+				middlewares: [new AdminGuard(), new MulterMiddleware()],
 			},
 			//создание категории к брендам
 			{

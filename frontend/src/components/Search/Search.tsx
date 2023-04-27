@@ -48,7 +48,7 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
        dispatch(setSearch(searchAlias));
        dispatch(getFounded(phones));
    };
-       return <div className={"flex justify-between"}>
+       return <div className={"flex  justify-between"}>
             <div>
                 <form  className={cn(className, "w-fit ", { "hidden": !isSearchVisible})} {...props} role={'search'}>
                     <motion.div

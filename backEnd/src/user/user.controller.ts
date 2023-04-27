@@ -6,7 +6,7 @@ import 'reflect-metadata';
 import { IUserController } from './user.interface';
 import { TYPES } from '../types';
 import { UserLoginDto } from './dto/user-login.dto';
-import { UserRegisterDto } from './dto/user-register.dto';
+import { UserRegisterDto, VerfiyRegisterDto } from './dto/user-register.dto';
 import { UserService } from './user.service';
 import { HTTPError } from '../errors/http-error';
 import { ValidateMiddleware } from '../common/validate.middleware';
@@ -19,8 +19,8 @@ import { MFile } from '../files/mfile.class';
 import { FileService } from '../files/file.service';
 import { MailService } from '../Mail/Mail.service';
 import { UserModel } from '@prisma/client';
-import {UserAdressDto} from "./dto/user-adress.dto";
-import {UserEditProfileDto} from "./dto/user-editProfile.dto";
+import { UserAdressDto } from './dto/user-adress.dto';
+import { UserEditProfileDto } from './dto/user-editProfile.dto';
 
 @injectable()
 export class UserController extends BaseController implements IUserController {
@@ -40,8 +40,8 @@ export class UserController extends BaseController implements IUserController {
 				middlewares: [new ValidateMiddleware(UserRegisterDto)],
 			},
 			{
-				path: '/verify:id',
-				method: 'get',
+				path: '/verify',
+				method: 'post',
 				func: this.verifyEmail,
 				middlewares: [],
 			},
@@ -111,11 +111,15 @@ export class UserController extends BaseController implements IUserController {
 			next(new HTTPError(422, 'Ошибка создания пользователя '));
 		} else {
 			this.ok(res, { email: result?.email, id: result?.id });
-			await this.emailService.sendActivateEmail(result?.email, result.id);
+			await this.emailService.sendActivateEmail(result?.email, result?.id);
 		}
 	}
-	async verifyEmail(request: Request, res: Response, next: NextFunction) {
-		const getInfoProfile = await this.userService.verifyEmail(request.params['id'].slice(1));
+	async verifyEmail(
+		{ body }: Request<{}, {}, VerfiyRegisterDto>,
+		res: Response,
+		next: NextFunction,
+	) {
+		const getInfoProfile = await this.userService.verifyEmail(body);
 		this.ok(res, { ...getInfoProfile });
 	}
 	async loginByGoogle(

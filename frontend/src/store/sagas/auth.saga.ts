@@ -1,5 +1,5 @@
 import {call, put, takeEvery} from "redux-saga/effects";
-import {loginSuccess} from "../slices/auth.slice";
+import {loginFailed, loginSuccess} from "../slices/auth.slice";
 import {ProductState} from "../product.slice";
 import {DOMEN} from "../../../domen.api";
 import {userState} from "../slices/user.slice";
@@ -14,10 +14,18 @@ function* login(action: any) {
             },
             body: JSON.stringify({email, password}),
         }));
+        if (!response.ok) {
+            throw new Error(response.status);
+        }
         const token:userState = yield response.json();
         yield put(loginSuccess(token));
-    } catch(error) {
 
+    } catch(error) {
+        if(error.message ==='401') {
+            yield put(loginFailed('Неподходящие данные'));
+        } else {
+            yield put(loginFailed('Ошибка'));
+        }
     }
 }
 function* authSaga() {

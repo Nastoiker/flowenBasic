@@ -16,13 +16,14 @@ import {useNavigate} from "react-router-dom";
     const {register, control, handleSubmit, formState: {errors}, watch} = useForm<IRegister>();
     const dispatch = useAppDispatch();
      const navigate = useNavigate();
+     const [error, setError] = useState<string>('');
 
      const redirectTo =  (to: string) => {
          navigate( to, { replace: true});
      };
      const password = watch('password', '');
      const confirmPassword = watch('confirmpassword', '');
-   const passwordMismatch = password !== confirmPassword;
+     const passwordMismatch = password !== confirmPassword;
      const [showVerificationInput, setShowVerificationInput] = useState(false);
      useEffect(() => {
          if (showVerificationInput) {
@@ -32,7 +33,6 @@ import {useNavigate} from "react-router-dom";
          }
      }, [showVerificationInput]);
     const onSubmit = async (formData: IRegister) => {
-
         console.log(formData);
         if(formData.password !== formData.confirmpassword) throw new Error('failed password')
         if(!showVerificationInput) {
@@ -43,26 +43,33 @@ import {useNavigate} from "react-router-dom";
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
-            if (data) {
+            if(!data.ok) {
+                setError('Данный пользователь уже существует');
+            }
+            if (data.ok) {
                 setShowVerificationInput(true);
             }
+        } else {
+            const { email, code } = formData;
+            const response = await fetch( DOMEN.user.verify, { method: 'post',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(
+                    {
+                        email,
+                        confirm: code,
+                    }
+                ),
+            });
+            const data = await response.json();
+            if(!data.ok) {
+                setError('Неверный код');
+            } else {
+                return redirectTo('/');
+            }
         }
-        const { email, code } = formData;
-        const response = await fetch( DOMEN.user.verify, { method: 'post',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(
-                {
-                    email,
-                    confirm: code,
-                }
-            ),
-        });
-        const data = await response.json();
-        if(data) {
-            return redirectTo('/');
-        }
+
    };
     return <div className={"bg-white max-w-2xl space-y-6 my-20 m-auto rounded-3xl sm:p-10"}>
         <Htag type={'h2'} className={"text-center"}>Регистрация</Htag>
@@ -92,8 +99,10 @@ import {useNavigate} from "react-router-dom";
                         Код для верификации аккаунта
                     </Label>
                     <Input  className={""} {...register( "code", { required: true })} />
+
                 </div>
             )}
+            {error && <h1 className={"text-red-200"}>{error}</h1>}
         </form>
     </div>
 }

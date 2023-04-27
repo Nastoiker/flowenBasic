@@ -1,6 +1,6 @@
 import { UserLoginDto } from './dto/user-login.dto';
 import { User } from './user.entity';
-import { UserRegisterDto } from './dto/user-register.dto';
+import {UserRegisterDto, VerfiyRegisterDto} from './dto/user-register.dto';
 import { inject, injectable } from 'inversify';
 import 'reflect-metadata';
 import { IConfigService } from '../config/config.service.interface';
@@ -81,8 +81,8 @@ export class UserService {
 			}
 		});
 	}
-	async verifyEmail(id: string): Promise<UserModel | null> {
-		return await this.userRepository.verifyEmail(id);
+	async verifyEmail(verifyUser: VerfiyRegisterDto): Promise<UserModel | null> {
+		return await this.userRepository.verifyEmail(verifyUser);
 	}
 	async editProfileInfo(
 		email: string,

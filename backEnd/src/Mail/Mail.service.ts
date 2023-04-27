@@ -22,16 +22,16 @@ export class MailService {
 		});
 	}
 	async sendActivateEmail(to: string, link: string): Promise<void> {
-		const verifyLink = this.configService.get('URL_API') + `/users/verify:${link}`;
+		const code = link.slice(0, 4);
 		await this.transport.sendMail({
 			from: this.configService.get('ADMIN_EMAILVERIFY'),
 			to,
-			subject: 'Активация акканта ' + verifyLink,
+			subject: 'Активация акканта ' + to,
 			text: '',
 			html: `
-				<div>
-				<h1>Для активации перейдите по ссылке</h1>
-				<a href="${verifyLink}">${verifyLink}</a>
+				<div style="margin: 50px; font-color: black">
+				<h1>Для активации введите код нижен на сайте регистрации</h1>
+				<code style="border: 1px solid gray; padding: 10px; border-radius: 5px">${code}</code>
 			</div>
 			`,
 		});

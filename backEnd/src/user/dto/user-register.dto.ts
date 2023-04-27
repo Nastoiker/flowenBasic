@@ -8,3 +8,9 @@ export class UserRegisterDto {
 	@IsString({ message: 'не передан password' })
 	password!: string;
 }
+export class VerfiyRegisterDto {
+	@IsEmail({}, { message: 'не передан email' })
+	email!: string;
+	@IsString({ message: 'confirm' })
+	confirm: string;
+}

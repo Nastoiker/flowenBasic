@@ -30,7 +30,8 @@ export const Header = (): JSX.Element => {
     const logOut = () => {
         console.log(1);
         dispatch(logoutSuccess());
-    }
+        window.location.reload();
+    };
     const navigate = useNavigate();
 
     const redirectTo =  (to: string) => {
