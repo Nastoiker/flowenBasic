@@ -22,41 +22,44 @@ import 'swiper/css';
 import {Autoplay, Pagination} from "swiper";
 import {ReactComponent as StarIcon} from './phoneStar.svg';
 import Star from "./Star";
+import { NotifyAuth } from "../../notifications/notify";
+import { getBasketFetch } from "../../../store/slices/basket.slice";
+import { StaticReadUsage } from "three";
 // import photoSmartphone from '@product/3909225.webp';
-export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
+export const Phone = ({ smartPhone, currentModel }: phoneProps): JSX.Element => {
     const [phone, setPhone] = useState<SmartPhone>(smartPhone);
-  const { product } = currentModel;
-  const user = useAppSelector(state => state.user.user);
+    const { product } = currentModel;
+    const user = useAppSelector(state => state.user.user);
     let img = phone.image?.split(',');
     useEffect(() => {
         setCurrentImage(img[0]);
     }, [phone]);
     const token = localStorage.getItem('token');
     const dispatch = useAppDispatch();
-    const [basket, setIsBasket] =  useState<boolean>();
+    const [basket, setIsBasket] = useState<boolean>();
     const [basketId, setIsBasketId] = useState<string>();
     console.log(phone.id);
     const [Color, setColor] = useState<string>();
     const [Memory, setMemory] = useState<number>();
     const [currentImage, setCurrentImage] = useState<string>(img[0]);
     const setPhoneByColor = (color: string) => {
-        const phoneColor = currentModel.product.find( p => {if(p.ColorAlias===color) { return p;} });
-        if(!phoneColor) return;
+        const phoneColor = currentModel.product.find(p => { if (p.ColorAlias === color) { return p; } });
+        if (!phoneColor) return;
         setColor(color);
         setMemory(phoneColor.Memory);
         setPhone(phoneColor);
     };
     const setPhoneByMemory = (Memory: number) => {
-        const phoneMemory= currentModel.product.find( p => {if(p.Memory===Memory) { return p;} });
-        if(!phoneMemory) return;
+        const phoneMemory = currentModel.product.find(p => { if (p.Memory === Memory) { return p; } });
+        if (!phoneMemory) return;
         setMemory(Memory);
         setColor(phoneMemory.ColorAlias);
         setPhone(phoneMemory);
     };
-    const ratingAvg = Math.floor(  currentModel.rating.map( r => r.number).reduce( (sum, b)  => sum + Number(b), 0 )/currentModel.rating.length);
+    const basketList = useAppSelector(state => state.basket.basket);
+    const ratingAvg = Math.floor(currentModel.rating.map(r => r.number).reduce((sum, b) => sum + Number(b), 0) / currentModel.rating.length);
     const [isOpened, setIsOpened] = useState<boolean>();
-    useEffect(() => {(async () => {
-        if(basket) {
+    const AddBasket = async () => {
             const res = await fetch(DOMEN.basket.addBasket, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,8 +70,31 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
             });
             const data = await res.json();
             setIsBasketId(data.id);
-        } else if(!basketId){
-                if(!basketId) return;
+    }
+    const deleteBasket = async () => {
+ setIsBasket(false);
+                dispatch(deleteBasket({id: basketId}));
+    }
+    useEffect(() => {
+        const exist = basketList && basketList?.find(b => b.productId === phone.id);
+        if (exist) {
+            setIsBasket(true);
+        }
+        (async () => {
+        if(basket && !exist) {
+            const res = await fetch(DOMEN.basket.addBasket, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + token
+                },
+                method: 'POST',
+                body: JSON.stringify({productId: phone.id, quantity: 1}),
+            });
+            const data = await res.json();
+            setIsBasketId(data.id);
+        } else if (basketId==='') {
+                            setIsBasketId('');
+            setIsBasket(false);
                 dispatch(deleteBasket({id: basketId}));
 
             }})();
@@ -115,8 +141,8 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                 </div>
             </div>
 
-
-            {basket ? <Button onClick={() => setIsBasket(false)}>Убрать из корзины</Button> : <Button onClick={() => setIsBasket(true)}>Добавить в корзину</Button> }
+            
+                {user.login.length > 0 ? (basket ? <Button onClick={() => setIsBasket(false)}>Убрать из корзины</Button> : <Button onClick={() => setIsBasket(true)}>Добавить в корзину</Button>) : <NotifyAuth timeOutValue={true} />} 
 
             <h1></h1>
         </div>

@@ -37,7 +37,7 @@ const Authorization = (): JSX.Element => {
         <h1>Авторизация</h1>
 
         <form action=""  className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
-            <Input error={errors.email} {...register('email', { required: {value: true, message: 'Заполните email'} })} placeholder={"email"} />
+            <Input type={"email"} error={errors.email} {...register('email', { required: {value: true, message: 'Заполните email'} })} placeholder={"email"} />
             <Input error={errors.password} type={"password"}  {...register('password', { required: {value: true, message: 'Заполните password'} })} placeholder={"password"} />
            <Button>Авторизироваться</Button>
             { error.length > 0 && <span className={"block text-red-600"}>{error}</span> }

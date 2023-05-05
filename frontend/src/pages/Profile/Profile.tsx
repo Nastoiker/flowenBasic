@@ -10,7 +10,7 @@ import {EditAdress} from "../../components/Profile/Edit.Adress";
 import {Htag} from "../../components";
 import {ProfileLayout} from "../../page-component/Profile.layot";
 import {ProfileImage} from "../../helper/convertImagePath";
-
+import UserIcon from '../../../public/icons/profile.svg';
 function Profile() {
     const user = useAppSelector<userState>(state => state.user.user);
     const dispatch = useAppDispatch();
@@ -23,7 +23,7 @@ function Profile() {
         <div className={"mx-5 bg-white p-5 space-y-5 sm:p-10 rounded-3xl"}>
             <Htag type={'h1'}>Ваш профиль</Htag>
             <div className={"mx-auto sm:flex justify-between"}>
-                <img src={avatar} className={"rounded-full h-24 w-24"} alt=""/>
+                <img src={avatar !== null ? avatar : UserIcon.src} className={"rounded-full h-24 w-24"} alt=""/>
                 <div>
                     <div className={"flex justify-between"}>
                         <Htag type={'h2'}>login:</Htag>

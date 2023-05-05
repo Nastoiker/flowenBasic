@@ -17,7 +17,12 @@ export class UserRepository implements IUserRepository {
 				login,
 			},
 		});
-		if (checkExist) {
+		const checkExistEmail = await this.prismaService.client.userModel.findUnique({
+			where: {
+				email,
+			},
+		});
+		if (checkExist || checkExistEmail) {
 			return null;
 		}
 		return this.prismaService.client.userModel.create({
@@ -55,7 +60,7 @@ export class UserRepository implements IUserRepository {
 		});
 	}
 	async find(email: string): Promise<UserModel | null> {
-		return this.prismaService.client.userModel.findFirst({
+		return this.prismaService.client.userModel.findUnique({
 			where: {
 				email,
 			},

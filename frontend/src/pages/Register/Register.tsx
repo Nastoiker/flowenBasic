@@ -43,14 +43,18 @@ import {useNavigate} from "react-router-dom";
                 body: JSON.stringify(formData),
             });
             const data = await response.json();
-            if(!data.ok) {
+            if (data.error) {
+                console.log(data);
                 setError('Данный пользователь уже существует');
-            }
-            if (data.ok) {
+            } else {
+  setError('');
                 setShowVerificationInput(true);
             }
+              
+            
         } else {
             const { email, code } = formData;
+            console.log(code, email)
             const response = await fetch( DOMEN.user.verify, { method: 'post',
                 headers: {
                     'Content-Type': 'application/json',
@@ -63,9 +67,10 @@ import {useNavigate} from "react-router-dom";
                 ),
             });
             const data = await response.json();
-            if(!data.ok) {
+            if(data.error) {
                 setError('Неверный код');
             } else {
+                setError('');
                 return redirectTo('/');
             }
         }

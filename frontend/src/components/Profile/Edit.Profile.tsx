@@ -47,11 +47,11 @@ export const EditProfile = (): JSX.Element => {
                 <label htmlFor="login">
                     Заполните старый пароль
                 </label>
-                <Input error={errors.password} {...register('password', {required: {value: true, message: 'Заполните старый пароль'}})} id={"phone"} />
+                <Input   error={errors.password}  type={"password"}  {...register('password', {required: {value: true, message: 'Заполните старый пароль'}})} id={"phone"} />
                 <label htmlFor="login">
                     Заполните новый пароль
                 </label>
-                <Input error={errors.hashpassword} {...register('hashpassword', {required: {value: true, message: 'Заполните новый пароль'}})} id={"phone"} />
+                <Input  error={errors.hashpassword}  type={"password"}  {...register('hashpassword', {required: {value: true, message: 'Заполните новый пароль'}})} id={"phone"} />
 
                 {/*<h1>Персональные данные</h1>*/}
                 {/*<Input {...register('name', {required: {value: true, message: 'Заполните Phone'}})} id={"name"} />*/}

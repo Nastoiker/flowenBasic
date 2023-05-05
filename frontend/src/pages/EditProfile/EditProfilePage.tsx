@@ -42,7 +42,7 @@ import {ProfileLayout} from "../../page-component/Profile.layot";
                 <label htmlFor="phone">
                     Заполните номер
                 </label>
-                <Input placeholder={phone} {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
+                    <Input  placeholder={phone} {...register('phone', {required: {value: true, message: 'Заполните Phone'}})} id={"phone"} />
                 <label htmlFor="login">
                     Заполните никнейм
                 </label>
@@ -50,11 +50,11 @@ import {ProfileLayout} from "../../page-component/Profile.layot";
                 <label htmlFor="login">
                     Заполните старый пароль
                 </label>
-                <Input error={errors.password} {...register('password', {required: {value: true, message: 'Заполните старый пароль'}})} id={"phone"} />
+                    <Input type={"password"} error={errors.password} {...register('password', {required: {value: true, message: 'Заполните старый пароль'}})} id={"phone"} />
                 <label htmlFor="login">
                     Заполните новый пароль
                 </label>
-                <Input error={errors.hashpassword} {...register('hashpassword', {required: {value: true, message: 'Заполните новый пароль'}})} id={"phone"} />
+                <Input type={"password"} error={errors.hashpassword} {...register('hashpassword', {required: {value: true, message: 'Заполните новый пароль'}})} id={"phone"} />
 
                 {/*<h1>Персональные данные</h1>*/}
                 {/*<Input {...register('name', {required: {value: true, message: 'Заполните Phone'}})} id={"name"} />*/}

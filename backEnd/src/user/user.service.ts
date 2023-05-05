@@ -34,12 +34,8 @@ export class UserService {
 		password,
 	}: UserRegisterDto): Promise<UserModel | null> {
 		const newUser = new User(email, login);
-		const checkDB = await this.userRepository.find(email);
 		const salt = this.configService.get('SALT');
 		await newUser.setPassword(password, Number(salt));
-		if (checkDB) {
-			return null;
-		}
 		return this.userRepository.createUser(newUser);
 	}
 	public async getUserInfo(user: string): Promise<UserModel | null> {

@@ -7,8 +7,8 @@ export const ProductImagePath = (model: ProductModel, phone: SmartPhone, img: st
         return photo;
 };
 export const ProfileImage = (profile: userState) => {
-    if(profile.avatar?.length===0) {
-        return `${api_url}/user/avatar/defaultAvatar.webp`;
+    if(profile.avatar===null) {
+        return `${api_url}/user/avatar/userDefault.svg`;
     }
     const photo =  `${api_url}/user/avatar/${profile.id}/${profile.avatar}`;
     return photo;

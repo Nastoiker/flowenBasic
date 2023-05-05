@@ -69,7 +69,7 @@ export const Header = (): JSX.Element => {
                                             <Button onClick={() => redirectTo('login')}>Авторизироваться</Button>
                                         </MenubarItem>
                                         <MenubarItem>
-                                            <Button onClick={() => redirectTo('register')}>Зарегестрироваться</Button>
+                                            <Button onClick={() => redirectTo('register')}>Зарегистрироваться</Button>
                                         </MenubarItem>
                                     </MenubarContent>
                                 </MenubarMenu>
