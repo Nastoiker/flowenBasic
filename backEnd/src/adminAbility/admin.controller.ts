@@ -43,6 +43,30 @@ export class AdminController extends BaseController {
 				func: this.deleteComment,
 				middlewares: [new AdminGuard()],
 			},
+			{
+				path: '/users',
+				method: 'post',
+				func: this.users,
+				middlewares: [new AdminGuard()],
+			},
+			{
+				path: '/deleteCategory',
+				method: 'post',
+				func: this.deleteCategory,
+				middlewares: [new AdminGuard()],
+			},
+			{
+				path: '/deleteSecondCategory',
+				method: 'post',
+				func: this.deleteSecondCategory,
+				middlewares: [new AdminGuard()],
+			},
+			{
+				path: '/deleteUser',
+				method: 'post',
+				func: this.deleteUser,
+				middlewares: [new AdminGuard()],
+			},
 		]);
 	}
 	async deleteModel(
@@ -56,12 +80,57 @@ export class AdminController extends BaseController {
 		}
 		this.ok(res, { ...deleteProduct });
 	}
+
+	async deleteSecondCategory(
+		{ body }: Request<{}, {}, { id: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const deleteProduct = await this.adminService.deleteSecondCategory(body.id);
+		if (!deleteProduct) {
+			return next(new HTTPError(401, 'Ошибка создания продукта'));
+		}
+		this.ok(res, { ...deleteProduct });
+	}
+	async deleteUser(
+		{ body }: Request<{}, {}, { id: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const deleteProduct = await this.adminService.deleteUser(body.id);
+		if (!deleteProduct) {
+			return next(new HTTPError(401, 'Ошибка создания продукта'));
+		}
+		this.ok(res, { ...deleteProduct });
+	}
+	async users(
+		{ body }: Request<{}, {}, { id: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const deleteProduct = await this.adminService.users(body.id);
+		if (!deleteProduct) {
+			return next(new HTTPError(401, 'Ошибка создания продукта'));
+		}
+		this.ok(res, { ...deleteProduct });
+	}
+	async deleteCategory(
+		{ body }: Request<{}, {}, { id: string }>,
+		res: Response,
+		next: NextFunction,
+	): Promise<void> {
+		const deleteProduct = await this.adminService.deleteCategory(body.id);
+		if (!deleteProduct) {
+			return next(new HTTPError(401, 'Ошибка создания продукта'));
+		}
+		this.ok(res, { ...deleteProduct });
+	}
 	async deleteTagFromProduct(
 		{ body }: Request<{}, {}, { productId: string; TagId: string }>,
 		res: Response,
 		next: NextFunction,
 	): Promise<void> {
-		const deleteProduct = await this.adminService.updateTagFromProduct(
+		const deleteProduct = await this.adminService.deleteTagFromProduct(
 			body.productId,
 			body.TagId,
 		);

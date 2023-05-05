@@ -76,7 +76,7 @@ export const Phone = ({ smartPhone, currentModel }: phoneProps): JSX.Element => 
                 dispatch(deleteBasket({id: basketId}));
     }
     useEffect(() => {
-        const exist = basketList && basketList?.find(b => b.productId === phone.id);
+        const exist = basketList.length>0 && basketList?.find(b => b.productId === phone.id);
         if (exist) {
             setIsBasket(true);
         }
