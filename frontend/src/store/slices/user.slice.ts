@@ -10,6 +10,7 @@ export interface userState {
     address?: Address,
     comment?: CommentUser[],
     basket?: Basket[],
+    isActive: boolean;
 }
 export interface CommentUser {
     id: string;

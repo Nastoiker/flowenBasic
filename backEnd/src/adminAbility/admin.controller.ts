@@ -27,43 +27,43 @@ export class AdminController extends BaseController {
 		this.bindRoutes([
 			{
 				path: '/deleteModel',
-				method: 'post',
+				method: 'delete',
 				func: this.deleteModel,
 				middlewares: [new AdminGuard()],
 			},
-			{
-				path: '/updateTagProduct',
-				method: 'post',
-				func: this.deleteTagFromProduct,
-				middlewares: [new AdminGuard()],
-			},
+			// {
+			// 			// 	path: '/updateTagProduct',
+			// 			// 	method: 'patch',
+			// 			// 	func: this.updateTagProduct,
+			// 			// 	middlewares: [new AdminGuard()],
+			// 			// },
 			{
 				path: '/deleteComment',
-				method: 'post',
+				method: 'delete',
 				func: this.deleteComment,
 				middlewares: [new AdminGuard()],
 			},
 			{
 				path: '/users',
-				method: 'post',
+				method: 'get',
 				func: this.users,
-				middlewares: [new AdminGuard()],
+				middlewares: [],
 			},
 			{
 				path: '/deleteCategory',
-				method: 'post',
+				method: 'delete',
 				func: this.deleteCategory,
 				middlewares: [new AdminGuard()],
 			},
 			{
 				path: '/deleteSecondCategory',
-				method: 'post',
+				method: 'delete',
 				func: this.deleteSecondCategory,
 				middlewares: [new AdminGuard()],
 			},
 			{
 				path: '/deleteUser',
-				method: 'post',
+				method: 'delete',
 				func: this.deleteUser,
 				middlewares: [new AdminGuard()],
 			},
@@ -103,16 +103,9 @@ export class AdminController extends BaseController {
 		}
 		this.ok(res, { ...deleteProduct });
 	}
-	async users(
-		{ body }: Request<{}, {}, { id: string }>,
-		res: Response,
-		next: NextFunction,
-	): Promise<void> {
-		const deleteProduct = await this.adminService.users(body.id);
-		if (!deleteProduct) {
-			return next(new HTTPError(401, 'Ошибка создания продукта'));
-		}
-		this.ok(res, { ...deleteProduct });
+	async users(req: Request, res: Response, next: NextFunction): Promise<void> {
+		const deleteProduct = await this.adminService.users();
+		this.arr(res, deleteProduct);
 	}
 	async deleteCategory(
 		{ body }: Request<{}, {}, { id: string }>,
@@ -121,7 +114,7 @@ export class AdminController extends BaseController {
 	): Promise<void> {
 		const deleteProduct = await this.adminService.deleteCategory(body.id);
 		if (!deleteProduct) {
-			return next(new HTTPError(401, 'Ошибка создания продукта'));
+			return next(new HTTPError(401, 'Ошибка удаления  категории'));
 		}
 		this.ok(res, { ...deleteProduct });
 	}
@@ -146,7 +139,7 @@ export class AdminController extends BaseController {
 	): Promise<void> {
 		const deleteComment = await this.adminService.deleteComment(body.commentId);
 		if (!deleteComment) {
-			return next(new HTTPError(401, 'Ошибка обновления тега продукта'));
+			return next(new HTTPError(401, 'Ошибка удаления комментария'));
 		}
 		this.ok(res, { ...deleteComment });
 	}

@@ -15,10 +15,10 @@ export const AdminApi = createApi({
     endpoints: (builder) => ({
 
         banUser: builder.mutation({
-            query: (commentVideo) => ({
-                url: '/commentVideo',
-                method: 'POST',
-                body: {...commentVideo },
+            query: (id) => ({
+                url: '/deleteUser',
+                method: 'DELETE',
+                body: {...id },
             }),
         }),
         removeAdmin: builder.mutation({
@@ -50,12 +50,11 @@ export const AdminApi = createApi({
             }),
         }),
         users: builder.query({
-            query: (commentVideo) => ({
+            query: () => ({
                 url: '/users',
-                method: 'POST',
-                body: {...commentVideo },
+                method: 'get',
             }),
         }),
     }),
 });
-export const { } = AdminApi;
+export const { useUsersQuery, useBanUserMutation } = AdminApi;

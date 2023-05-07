@@ -17,12 +17,14 @@ import RegisterSlice from "./slices/register.slice";
 import AuthSlice from "./slices/auth.slice";
 import userSlice from "./slices/user.slice";
 import searchSlice from "./slices/search.slice";
+import {AdminApi} from "./slices/users.slice";
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export const useAppDispatch = () => useDispatch<AppDispatch>();
 export const sagaMiddleware = createSagaMiddleware();
 export const useAppSelector:TypedUseSelectorHook<RootState> = useSelector;
 export const store = configureStore({
     reducer: {
+        [AdminApi.reducerPath]: AdminApi.reducer,
         product: productSlice,
         firstCategory: firstCategorySlice,
         secondCategory: secondCategorySlice,
@@ -34,7 +36,7 @@ export const store = configureStore({
         basket: cardSlice,
         search: searchSlice,
     },
-    middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware),
+    middleware: (getDefaultMiddleware)=> getDefaultMiddleware().concat(sagaMiddleware, AdminApi.middleware),
 });
 
 sagaMiddleware.run(rootSaga);

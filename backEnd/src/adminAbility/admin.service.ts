@@ -7,6 +7,21 @@ import { AdminRepository } from './admin.repository';
 export class AdminService {
 	constructor(@inject(TYPES.AdminRepository) private adminRepository: AdminRepository) {}
 
+	async users() {
+		return this.adminRepository.users();
+	}
+	async deleteCategory(id: string) {
+		return this.adminRepository.deleteCategory(id);
+	}
+	async deleteTagFromProduct(id: string, productId: string) {
+		return this.adminRepository.deleteTagFromProduct(id);
+	}
+	async deleteSecondCategory(id: string) {
+		return this.adminRepository.deleteSecondCategory(id);
+	}
+	async deleteUser(id: string) {
+		return this.adminRepository.deleteUser(id);
+	}
 	async deleteModel(id: string) {
 		return this.adminRepository.deleteModel(id);
 	}
