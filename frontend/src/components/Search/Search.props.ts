@@ -1,4 +1,4 @@
-import {DetailedHTMLProps, HTMLAttributes, ReactNode} from "react";
+import { DetailedHTMLProps, HTMLAttributes, ReactNode } from "react";
 
-export interface SearchProps extends DetailedHTMLProps<HTMLAttributes<HTMLFormElement>, HTMLFormElement>{
-}
+export interface SearchProps
+  extends DetailedHTMLProps<HTMLAttributes<HTMLFormElement>, HTMLFormElement> {}

@@ -1,16 +1,14 @@
 .Black {
-    background-color: black;
+  background-color: black;
 }
 .CurrentColor {
-    border: 4px dotted white;
-
+  border: 4px dotted white;
 }
 .Memory {
-
 }
 .CurrentPicture {
-    border: 4px solid white;
+  border: 4px solid white;
 }
 .green {
-    background-color: green;
+  background-color: green;
 }

@@ -1,21 +1,21 @@
 .ghost {
-    background-color: gray;
+  background-color: gray;
 }
 .green {
-    background-color: green;
+  background-color: green;
 }
 .button {
-    display: inline-block;
+  display: inline-block;
 
-    padding: 10px;
+  padding: 10px;
 
-    cursor: pointer;
-    transition: all 0.2s;
-    text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  text-align: center;
 
-    border-radius: 5px;
+  border-radius: 5px;
 
-    font-size: 14px;
+  font-size: 14px;
 
-    box-sising: border-box;
+  box-sising: border-box;
 }

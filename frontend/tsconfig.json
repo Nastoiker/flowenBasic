@@ -18,11 +18,8 @@
     "jsx": "preserve",
     "incremental": true
   },
-//  "include": ["src"],
+  //  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }],
-  "exclude": [
-    "node_modules"
-  ],
-  "include": ["src/svg.d.ts", "**/*.ts",
-    "**/*.tsx"]
+  "exclude": ["node_modules"],
+  "include": ["src/svg.d.ts", "**/*.ts", "**/*.tsx"]
 }

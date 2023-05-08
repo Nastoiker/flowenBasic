@@ -1,9 +1,8 @@
-
 export interface sliderProps {
-   sliders: infoSliders[],
+  sliders: infoSliders[];
 }
 interface infoSliders {
-    id: number,
-    text: string,
-    image: string,
+  id: number;
+  text: string;
+  image: string;
 }

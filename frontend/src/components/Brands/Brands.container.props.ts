@@ -1,9 +1,9 @@
-export interface  BrandsContainerProps {
-    brands: Brand[];
+export interface BrandsContainerProps {
+  brands: Brand[];
 }
-    interface Brand {
-    id: string;
-   name: string;
+interface Brand {
+  id: string;
+  name: string;
   alias: string;
-  img: string
+  img: string;
 }

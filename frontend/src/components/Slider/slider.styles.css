@@ -1,10 +1,9 @@
-
 .fade-out {
-    opacity: 0;
+  opacity: 0;
 }
 .fade-in {
-    opacity: 1;
+  opacity: 1;
 }
 .slider {
-    /*@apply transition ease-in-out delay-200*/
+  /*@apply transition ease-in-out delay-200*/
 }
