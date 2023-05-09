@@ -12,7 +12,7 @@
     "prismaInit": "npx prisma generate",
     "test:e2e": "jest --config jest.e2e.config.ts --coverage",
     "lint:fix": "eslint ./src/** --fix",
-    "prestart": "npx prisma generate && tsc",
+    "prestart": "npx prisma generate && tsc"
   },
   "author": "",
   "license": "ISC",
