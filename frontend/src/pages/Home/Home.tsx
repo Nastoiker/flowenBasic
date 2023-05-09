@@ -115,7 +115,6 @@ const Home = (): JSX.Element => {
               slidesPerView: 3,
             },
           }}
-          navigation={true}
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
           centeredSlidesBounds={true}

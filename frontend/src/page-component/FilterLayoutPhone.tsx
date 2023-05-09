@@ -1,5 +1,5 @@
 import { ProductModel, SmartPhone } from "../../interfaces/product.interfaces";
-import { useEffect, useState } from "react";
+import {useEffect, useMemo, useState} from "react";
 import Slider from "rc-slider";
 import { Input } from "../components/Input/Input";
 import { Button } from "../ui/button";

@@ -42,7 +42,7 @@ export const Search = ({ className, ...props }: SearchProps): JSX.Element => {
     // if(e.target.value.replace(' ', '')==='') {
     //     setIsSearchVisible(false)
     // }
-    const search = e.target.value;
+    const search = e.target.value.charAt(0).toUpperCase() +  e.target.value.slice(1);
     setSearchAlias(search);
     dispatch(setSearch(searchAlias));
     dispatch(getFounded(phones));

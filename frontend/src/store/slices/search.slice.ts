@@ -23,7 +23,7 @@ const searchSlice = createSlice({
     getFounded: (state, { payload }) => {
       console.log(payload);
       state.founded = payload.filter((p: ProductModel) =>
-        p.name.includes(state.search)
+        p.name.includes(state.search) || p.brand.name.includes(state.search)
       );
       console.log(state.founded);
       // if(state.search.search) {
