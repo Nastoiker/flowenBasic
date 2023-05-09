@@ -9,9 +9,10 @@
     "dev:inspect": "nodemon -e ts,json --exec node --inspect=localhost:9229 -r ts-node/register src/main.ts",
     "start": "node ./dist/main.js",
     "build": "tsc",
-    "prismaInit": "prisma generate",
+    "prismaInit": "npx prisma generate",
     "test:e2e": "jest --config jest.e2e.config.ts --coverage",
-    "lint:fix": "eslint ./src/** --fix"
+    "lint:fix": "eslint ./src/** --fix",
+    "prestart": "npx prisma generate && tsc",
   },
   "author": "",
   "license": "ISC",
