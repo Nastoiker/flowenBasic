@@ -62,7 +62,12 @@ const cardSlice = createSlice({
       console.log(1);
       console.log(action);
     },
-    addBasketFetch: (state, action) => {},
+    addBasketFetch: (state, action) => {
+
+    },
+    addBasketSucces: (state, action) => {
+
+    },
   },
 });
 export const {
@@ -70,6 +75,7 @@ export const {
   getBasketFailure,
   getBasketSuccess,
   editBasketFetch,
+  addBasketSucces,
   deleteBasket,
   addBasketFetch,
 } = cardSlice.actions;

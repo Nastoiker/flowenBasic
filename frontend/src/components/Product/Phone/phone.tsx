@@ -98,6 +98,7 @@ export const Phone = ({
       basketList?.find((b) => b.productId === phone.id);
     if (exist) {
       setIsBasket(true);
+      setIsBasketId(exist.id);
     }
   }, []);
   img.pop();

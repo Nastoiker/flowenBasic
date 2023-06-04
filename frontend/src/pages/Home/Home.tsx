@@ -131,6 +131,7 @@ const Home = (): JSX.Element => {
                       name={p.name}
                       alias={p.alias}
                       oldPrice={p.oldPrice}
+                      id={p.id}
                       img={`${api_url}/product/${m.brand.name}/${m.name.replace(
                         " ",
                         "-"

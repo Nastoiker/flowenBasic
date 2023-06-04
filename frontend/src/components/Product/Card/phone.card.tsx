@@ -29,18 +29,19 @@ export const PhoneCard = ({
   const [ProductBasket, setProductBasket] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const [errorBasket, setErrorBasket] = useState<boolean>(false);
-  const [basketId, setBasketId] = useState<string>();
+  const [basketId, setBasketId] = useState<string | null>();
   useEffect(() => {
     if (basket.length > 0) {
-      setProductBasket(true);
       const basketIdFound = basket.find((b) => b.productId === id);
+      console.log(basketIdFound);
       if (basketIdFound) {
+        setProductBasket(true);
         setBasketId(basketIdFound.id);
+      } else {
+        setProductBasket(false);
       }
-    } else {
-      setProductBasket(false);
     }
-  }, []);
+  }, [dispatch, ProductBasket]);
   const redirectTo = (to: string) => {
     navigate("../../product/phone/" + to, { replace: true });
   };
@@ -49,13 +50,23 @@ export const PhoneCard = ({
       setErrorBasket(true);
       return;
     } else {
-      if (ProductBasket) {
+      if (basketId) {
         dispatch(deleteBasket({ id: basketId }));
+        setBasketId(null);
+
+        setProductBasket(false);
       } else {
-        dispatch(addBasketFetch({ productId: basketId }));
+        console.log(id);
+        dispatch(addBasketFetch({ id: id, quantity: 1 }));
+        const check =
+            basket.length > 0 &&
+            basket?.find((b) => b.productId === id);
+        if(!check) return;
+        setBasketId(check.id ?? null);
+        setProductBasket(true);
       }
 
-      setProductBasket((b) => !b);
+
     }
   };
   return (
@@ -74,13 +85,14 @@ export const PhoneCard = ({
       />
       <h1 className="font-bold text-xl">{name}</h1>
       <h1 className="font-bold "> {price} ₽</h1>
-      <h1 className={"line-through"}>{oldPrice} ₽</h1>
-      {ProductBasket ? (
-        <Button onClick={() => addBasket()}>Убрать из корзины </Button>
-      ) : (
-        <Button onClick={() => addBasket()}>Добавить в корзину </Button>
-      )}
-      {errorBasket && <NotifyAuth />}
+      <Button onClick={() => redirectTo(alias)}>Посмотреть подробнее</Button>
+      {/*<h1 className={"line-through"}>{oldPrice} ₽</h1>*/}
+      {/*{basketId ? (*/}
+      {/*  <Button onClick={() => addBasket()}>Убрать из корзины </Button>*/}
+      {/*) : (*/}
+      {/*  <Button onClick={() => addBasket()}>Добавить в корзину </Button>*/}
+      {/*)}*/}
+      {/*{errorBasket && <NotifyAuth />}*/}
     </div>
   );
 };

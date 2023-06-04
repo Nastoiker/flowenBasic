@@ -31,6 +31,7 @@ const Accessories = (): JSX.Element => {
                     price={p.price}
                     name={p.name}
                     alias={p.alias}
+                    id={p.id}
                     img={`${api_url}/product/${m.brand.name}/${m.name.replace(
                       " ",
                       "-"

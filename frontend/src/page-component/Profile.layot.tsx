@@ -47,7 +47,7 @@ export const ProfileLayout = ({ children }: { children: ReactNode }) => {
           className={cn("w-full block p-5 rounded-xl  hover:bg-blue-200", {
             "bg-blue-200": location.pathname === "/comments",
           })}
-          onClick={() => redirectTo("../basket")}
+          onClick={() => redirectTo("../comments")}
         >
           <Htag
             className={cn("text-start", {

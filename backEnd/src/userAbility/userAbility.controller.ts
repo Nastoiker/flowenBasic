@@ -131,7 +131,7 @@ export class userAbility extends BaseController {
 	) {
 		const writtenById = await this.userService.getUserInfo(req.user);
 		if (!writtenById) {
-			return next(new HTTPError(422, 'Ошибка добавления товара в корзину'));
+			return next(new HTTPError(422, 'Вы не авторизованы'));
 		}
 		const basket = await this.userAbilityService.addBasket(
 			req.body.productId,

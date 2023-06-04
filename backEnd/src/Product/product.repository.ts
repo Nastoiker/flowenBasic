@@ -144,6 +144,10 @@ export class ProductRepository implements IProductRepository {
 		quantity: number,
 		buying: boolean,
 	): Promise<Basket | null> {
+		const checkExist = await this.prismaService.client.product.findUnique({
+			where: { id: productId },
+		});
+		if (!checkExist) return null;
 		return this.prismaService.client.basket.create({
 			data: {
 				productId,

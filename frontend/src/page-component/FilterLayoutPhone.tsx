@@ -151,6 +151,7 @@ export const FilterLayoutPhone = ({
               name={p.name + `\r${p.ColorAlias}`}
               img={ProductConvertImageNotModel(p)}
               price={p.price}
+              id={p.id}
             />
           ))
         ) : (

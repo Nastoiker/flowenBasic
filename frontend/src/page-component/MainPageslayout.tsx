@@ -41,23 +41,23 @@ export const MainPagesLayout = ({ children }: { children: ReactNode }) => {
   ];
   return (
     <>
-      <div className={"sm:flex justify-around items-center"}>
+      <div className={"sm:flex w-full justify-between  items-center"}>
         <div
-          className={cn("p-3  mx:auto  sm:px-7 rounded-3xl", {
+          className={cn("p-3   mx-auto sm:px-7 rounded-3xl", {
             [styles.buttonCategory]: location.pathname === "/",
           })}
         >
           <button onClick={() => redirectTo("/")}> СМАРТФОНЫ</button>
         </div>
         <div
-          className={cn("p-3   mx:auto sm:px-7 rounded-3xl", {
+          className={cn("p-3   mx-auto sm:px-7 rounded-3xl", {
             [styles.buttonCategory]: location.pathname === "/accessories",
           })}
         >
           <button onClick={() => redirectTo("/accessories")}>АКСЕССУАРЫ</button>
         </div>
         <div
-          className={cn("p-3   mx:auto  sm:px-7 rounded-3xl", {
+          className={cn("p-3    mx-auto  sm:px-7 rounded-3xl", {
             [styles.buttonCategory]: location.pathname === "/brands",
           })}
         >

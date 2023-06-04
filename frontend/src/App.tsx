@@ -1,5 +1,4 @@
-import { lazy, useState, Suspense, useEffect, Profiler } from "react";
-import eactLogo from "./assets/react.svg";
+import { lazy, useState, Suspense, useEffect } from "react";
 import "./App.css";
 import {
   Route,
@@ -25,10 +24,7 @@ import BasketPage from "./pages/Basket/Basket.page";
 import { getBasketFetch } from "./store/slices/basket.slice";
 
 import SearchPage from "./pages/Search/Search";
-import { StaticSlider } from "./components/Slider/StaticSlider";
-import SliderDemo from "./ui/slider/slider";
-import { Slider } from "./components/Slider/slider";
-import PhoneModel from "./sections/PhoneModel";
+
 
 function App() {
   const [count, setCount] = useState(0);
