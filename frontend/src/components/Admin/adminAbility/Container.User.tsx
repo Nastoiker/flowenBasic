@@ -15,7 +15,7 @@ export const ContainerUserAdmin = ({
     onChange();
   };
   return (
-    <div className="bg-white p-10">
+    <div className="bg-white mx-auto p-10">
       {users.map((u) => (
         <UserAdmin onDelete={() => BunUserSubmit(u.id)} key={u.id} user={u} />
       ))}

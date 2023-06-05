@@ -11,12 +11,12 @@ export const UserAdmin = ({
   onDelete: () => void;
 }) => {
   return (
-    <div className="p-10 flex justify-between items-center">
+    <div className="p-10 flex flex-wrap justify-between items-center">
       <div>
-        <Htag type="h2">{user.login}</Htag>
-        <Htag type="h2">{user.email}</Htag>
+        <Htag type="h2">login: {user.login}</Htag>
+        <Htag type="h2">email: {user.email}</Htag>
       </div>
-      <div>
+      <div className="sm:space-x-10">
         <span>Активирован:{user.isActive.toString()}</span>
         <Button onClick={onDelete}>Удалить юзера</Button>
       </div>

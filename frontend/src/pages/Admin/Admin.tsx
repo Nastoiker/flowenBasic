@@ -12,9 +12,18 @@ import { ContainerUserAdmin } from "../../components/Admin/adminAbility/Containe
 
 const AdminPage = () => {
   const [currentCreate, setCurrentCreate] = useState<string>();
+  const [currentSector, setCurrentSector] = useState<string>();
   const users = useUsersQuery({});
   return (
     <div className={"h-full"}>
+      <div className="flex justify-around my-10 text-white">
+        <button className="bg-orange-500 px-5 py-2 rounded-full" onClick={() => {setCurrentSector('data')}}>Данные</button>
+        <button className="bg-orange-500 px-5 py-2 rounded-full" onClick={() => { setCurrentSector('editData') }}>Создание и редактирование продуктов и категории</button>
+      </div>
+      {currentSector === 'data' && 
+        <>
+        
+        
       <div className={"mx-5 space-y-2 sm:flex space-y-0 justify-around my-15"}>
         <Button onClick={() => setCurrentCreate("isAddImageProduct")}>
           isAddImageProduct
@@ -51,14 +60,21 @@ const AdminPage = () => {
       )}
       {currentCreate === "isCreateBrandsWIthSecond" && (
         <CreateBrandsWIthSecond />
-      )}
-
-      {users.data && (
+        )}
+        </>
+      }
+      {
+        currentSector === 'editData' && 
+        <>
+         { users.data && (
         <ContainerUserAdmin
           onChange={() => users.refetch()}
           users={users.data}
         />
-      )}
+          )}
+        </>
+      }
+     
     </div>
   );
 };

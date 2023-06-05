@@ -8,7 +8,7 @@ import { Button } from "../../ui/button";
 import { Checkbox } from "../../ui/checkbox";
 import { ProfileLayout } from "../../page-component/Profile.layot";
 import { useNavigate } from "react-router-dom";
-const BasketPage = () => {
+const CommentPage = () => {
     const user = useAppSelector((state) => state.user.user);
     if (!user) {
         return (

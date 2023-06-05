@@ -90,14 +90,22 @@ const EditProfile = (): JSX.Element => {
           {/*<label htmlFor="lastName">*/}
           {/*    Заполните фамиллию*/}
           {/*</label>*/}
-          {error === "" ? (
-            <Button>Изменить данные</Button>
+           <Button>Изменить данные</Button>
+          {error === "ok"? (
+            <div className={"p-10 bg-amber-200"}>
+                <p>{error}</p>
+              </div>
           ) : (
-            <>
-              <Button>Ошибка редактирования данных</Button>
+              <>
+                {
+                  error.length > 0 && <>
+                     <Htag type='h2'>Ошибка редактирования данных</Htag>
               <div className={"p-10 bg-amber-200"}>
                 <p>{error}</p>
               </div>
+                  </>
+                }
+             
             </>
           )}
         </form>

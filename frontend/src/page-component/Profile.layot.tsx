@@ -11,8 +11,8 @@ export const ProfileLayout = ({ children }: { children: ReactNode }) => {
     navigate(to, { replace: true });
   };
   return (
-    <div className={"mx-4 my-4 mx-auto space-y-5 md:flex"}>
-      <div className={"rounded-3xl block w-fit  h-fit bg-white p-2"}>
+    <div className={"sm:mx-4 my-4 mx-auto space-y-5 md:flex"}>
+      <div className={"rounded-3xl mx-auto block w-fit  h-fit bg-white p-2"}>
         <button
           className={cn("w-full   p-5 rounded-xl  hover:bg-blue-200", {
             "bg-blue-200": location.pathname === "/Basket",

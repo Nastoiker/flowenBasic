@@ -10,7 +10,7 @@ import { EditAdress } from "../../components/Profile/Edit.Adress";
 import { Htag } from "../../components";
 import { ProfileLayout } from "../../page-component/Profile.layot";
 import { ProfileImage } from "../../helper/convertImagePath";
-import UserIcon from "../../../public/icons/profile.svg";
+import {  ReactComponent as UserIcon } from "../../../public/icons/profile.svg";
 function Profile() {
   const user = useAppSelector<userState>((state) => state.user.user);
   const dispatch = useAppDispatch();
@@ -30,7 +30,7 @@ function Profile() {
         <Htag type={"h1"}>Ваш профиль</Htag>
         <div className={"mx-auto sm:flex justify-between"}>
           <img
-            src={avatar !== null ? avatar : UserIcon.src}
+            src={avatar.length>0 ? avatar : "../../../public/icons/profile.svg"}
             className={"rounded-full h-24 w-24"}
             alt=""
           />
