@@ -44,6 +44,7 @@ export const CreatePhone = () => {
   const onSubmit = async (formData: ICreatePhone) => {
     const files = formData.files;
     //нужный кастыль
+    // @ts-ignore
     delete formData.files;
     const price = Number(formData.price);
     const oldPrice = Number(formData.oldPrice);
@@ -198,7 +199,7 @@ export const CreatePhone = () => {
           className="mx-auto text-center block"
           {...register("modelDeviceId")}
         >
-          {models.map((m) => {
+          {models?.map((m) => {
             return (
               <option key={m.id} value={m.name}>
                 {m.name}

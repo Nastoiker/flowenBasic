@@ -19,10 +19,10 @@ const PhonesByBrand = (): JSX.Element => {
   useEffect(() => {
     dispatch(getPhonesFetch());
   }, []);
-  const phones = useAppSelector((state) => state.phone.phones).filter(
+  const phones = useAppSelector((state) => state.phone.phones)?.filter(
     (b) => b.brand.id === id
   );
-  console.log(phones);
+  if(!phones) return <div>loading</div>;
   return (
     <div>
       {phones.map((m) => {
@@ -30,6 +30,7 @@ const PhonesByBrand = (): JSX.Element => {
           const pict = p.image.split(",");
           return (
             <PhoneCard
+                id={p.id}
               alias={p.alias}
               key={p.name}
               name={p.name + `\r${p.ColorAlias}`}

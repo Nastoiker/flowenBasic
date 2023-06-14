@@ -7,7 +7,7 @@ import { userState } from "../slices/user.slice";
 function* login(action: any) {
   try {
     const { email, password } = action.payload;
-    const response: Promise<userState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.user.login, {
         method: "POST",
         headers: {
@@ -17,16 +17,19 @@ function* login(action: any) {
       })
     );
     if (!response.ok) {
-      throw new Error(response.status);
+      throw new Error(response.url);
     }
     const token: userState = yield response.json();
     yield put(loginSuccess(token));
   } catch (error) {
-    if (error.message === "401") {
-      yield put(loginFailed("Неподходящие данные"));
-    } else {
-      yield put(loginFailed("Ошибка"));
+    if(error instanceof Error){
+      if (error.message === "401") {
+        yield put(loginFailed("Неподходящие данные"));
+      } else {
+        yield put(loginFailed("Ошибка"));
+      }
     }
+
   }
 }
 function* authSaga() {

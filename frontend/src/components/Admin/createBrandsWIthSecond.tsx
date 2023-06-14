@@ -35,6 +35,7 @@ export const CreateBrandsWIthSecond = (): JSX.Element => {
   const onSubmit = async (formData: ICreateBrandWithSecondCategory) => {
     const files = formData.files;
     //нужный кастыль
+    // @ts-ignore
     delete formData.files;
     // @ts-ignore
     formData.files = files[0];

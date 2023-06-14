@@ -23,7 +23,7 @@ const SearchPage = () => {
     dispatch(setSearch(value));
     dispatch(getFounded(phones));
   }, [dispatch]);
-  const founded = useAppSelector<ProductModel[]>(
+  const founded = useAppSelector<ProductModel[] | null>(
     (state) => state.search.founded
   );
   console.log(founded);
@@ -41,17 +41,6 @@ const SearchPage = () => {
         phones={founded.map((m) => m.product.map((p) => p)).flat()}
         text={"Результат поиска"}
       />
-      {/*<div className={"absolute my-24"}>*/}
-      {/*    <FilterContainer />*/}
-      {/*</div>*/}
-      {/*<Htag type={'h1'}>Результат поиска</Htag>*/}
-      {/*<div className={"max-[574px]:text-center min-[920px]:grid gap-40px gap-y-6 grid-cols-2 justify-items-stretch"}>*/}
-      {/*    {*/}
-      {/*        founded && founded.length>0 ? founded.map(m => {  return m.product.map( p => {     const pict = p.image.split(',');         return (<PhoneCard alias={p.alias} key={p.name} name={p.name + `\r${p.ColorAlias}`} img={`${api_url}/product/${m.brand.name}/${m.name.replace(" ", "-")}/${p.ColorAlias}/${pict[0]}`} price={p.price} />)}); }) :*/}
-      {/*            <div className={" text-center my-20 m-auto"}>        <Htag type={'h1'}>К сожалению ничего не найдено</Htag><Button>Вернуться на главную</Button></div>*/}
-
-      {/*    }*/}
-      {/*</div>*/}
     </div>
   );
 };

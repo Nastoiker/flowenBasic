@@ -9,7 +9,7 @@ import {
 function* WatchBasketSaga() {
   const tokenUser = localStorage.getItem("token");
   try {
-    const response: Promise<basketState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.basket.getBasket, {
         method: "GET",
         headers: {
@@ -20,7 +20,9 @@ function* WatchBasketSaga() {
     );
     const basket: basketState = yield response.json();
     yield put(getBasketSuccess(basket));
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* WatchDeleteBasketSaga(action: any) {
   const tokenUser = localStorage.getItem("token");
@@ -36,7 +38,9 @@ function* WatchDeleteBasketSaga(action: any) {
       })
     );
     yield put(getBasketFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* WatchEditCountBasketSaga(action: any) {
   console.log(action.payload);
@@ -56,7 +60,9 @@ function* WatchEditCountBasketSaga(action: any) {
       })
     );
     yield put(getBasketFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* WatchAddBasketSaga(action: any) {
   const token = localStorage.getItem("token");
@@ -76,11 +82,12 @@ function* WatchAddBasketSaga(action: any) {
       })
     );
     yield put(getBasketFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* BasketSaga() {
   yield takeEvery("cardSlice/editBasketFetch", WatchEditCountBasketSaga);
-
   yield takeEvery("cardSlice/getBasketFetch", WatchBasketSaga);
   yield takeEvery("cardSlice/deleteBasket", WatchDeleteBasketSaga);
   yield takeEvery("cardSlice/addBasketFetch", WatchAddBasketSaga);

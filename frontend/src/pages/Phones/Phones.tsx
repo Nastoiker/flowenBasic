@@ -44,7 +44,7 @@ const Phones = (): JSX.Element => {
   return (
     <div>
       <FilterLayoutPhone
-        phones={phones.map((m) => m.product.map((p) => p)).flat()}
+        phones={phones!.map((m) => m.product.map((p) => p)).flat()}
         text={"Телефоны"}
       />
     </div>

@@ -18,14 +18,14 @@ export const DeleteProduct = (): JSX.Element => {
     formState: { errors },
     reset,
   } = useForm<DeleteProductId>();
-  const getPhoneByModels = phones.map((m) => m.product.map((p) => p)).flat();
-  const filtered = getPhoneByModels.filter((t) => t.name.includes(search));
+  const getPhoneByModels = phones?.map((m) => m.product.map((p) => p)).flat();
+  const filtered = getPhoneByModels?.filter((t) => t.name.includes(search));
   return (
     <div className={"p-10 bg-white space-y-5 rounded-3xl text-center"}>
       <Htag type={"h1"}>Удалить продукт</Htag>
       <select className="mx-auto text-center block" {...register("id")}>
         <input type="text" onChange={(e) => setIsSearch(e.type)} />
-        {filtered.map((t) => {
+        {filtered?.map((t) => {
           return (
             <option key={t.id} value={t.name}>
               {t.name}

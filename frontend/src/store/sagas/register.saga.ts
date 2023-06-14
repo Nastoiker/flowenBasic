@@ -21,7 +21,9 @@ function* WatchregusterSaga(action: any) {
     const token = response;
     console.log(token);
     yield put(registerSuccess(token));
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* registerSaga() {
   yield takeEvery("register/registerFetch", WatchregusterSaga);

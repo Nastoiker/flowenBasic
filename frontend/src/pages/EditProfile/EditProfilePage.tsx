@@ -18,7 +18,7 @@ const EditProfile = (): JSX.Element => {
   } = useForm<IEditProfile>();
   const [error, setErrorForm] = useState<string>("");
   const token = localStorage.getItem("token");
-  const { login, email, phone } = useAppSelector((state) => state.user.user);
+  const { login, email, phone } = useAppSelector((state) => state.user.user!);
   const Submit = async (formData: IEditProfile) => {
     try {
       const { data } = await axios.post(

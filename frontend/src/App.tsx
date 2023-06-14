@@ -16,7 +16,6 @@ import { Header } from "./components/Header/Header";
 import { Footer } from "./components/Footer/Footer";
 import { getPhonesFetch } from "./store/slices/phones.slices";
 import { useAppDispatch, useAppSelector } from "./store";
-import { AdminPage } from "./pages/Admin/Admin";
 import { getBrandsFetch } from "./store/slices/brand.slice";
 import { getUserFetch } from "./store/slices/user.slice";
 

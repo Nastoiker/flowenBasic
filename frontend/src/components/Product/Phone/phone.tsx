@@ -54,7 +54,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
         setPhone(phoneMemory);
     };
     const ratingAvg = Math.floor(  currentModel.rating.map( r => r.number).reduce( (sum, b)  => sum + Number(b), 0 )/currentModel.rating.length);
-    const [isOpened, setIsOpened] = useState<boolean>();
+    const [isOpened, setIsOpened] = useState<boolean>(false);
     useEffect(() => {(async () => {
         if(basket) {
             const res = await fetch(DOMEN.basket.addBasket, {

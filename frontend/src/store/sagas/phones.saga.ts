@@ -10,7 +10,7 @@ import { ProductModel } from "../../../interfaces/product.interfaces";
 // }
 export function* workerPhonesSaga() {
   // const data:AxiosResponse<ProductState[]> = yield call(() => axios.get( 'http://localhost:8000/product'));
-  const data: Promise<ProductState> = yield call(() =>
+  const data: Response = yield call(() =>
     fetch("http://localhost:8000/product/")
   );
   const formatProduct: ProductState[] = yield data.json();

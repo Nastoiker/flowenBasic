@@ -9,7 +9,7 @@ import { Htag } from "../Htag/Htag";
 import { ReactComponent as UploadedIcon } from "./Uploaded.svg";
 import axios from "axios";
 export const UpdateAvatarProfile = () => {
-  const user = useAppSelector<userState>((state) => state.user.user);
+  const user = useAppSelector<userState>((state) => state.user.user!);
   const [error, setError] = useState<string>();
   const [file, setFile] = useState<File>();
   const [onDrag, setOnDrag] = useState<boolean>(false);
@@ -68,7 +68,9 @@ export const UpdateAvatarProfile = () => {
       await new Promise((resolve) => setTimeout(() => resolve(""), 1000));
       const data = await res.data;
     } catch (e) {
-      setError(e.message);
+      if(e instanceof  Error) {
+        setError(e.message);
+      }
     }
   };
   const handleDragOver = (e: any) => {

@@ -12,7 +12,7 @@ import { ProfileLayout } from "../../page-component/Profile.layot";
 import { ProfileImage } from "../../helper/convertImagePath";
 import {  ReactComponent as UserIcon } from "../../../public/icons/profile.svg";
 function Profile() {
-  const user = useAppSelector<userState>((state) => state.user.user);
+  const user = useAppSelector<userState>((state) => state.user.user!);
   const dispatch = useAppDispatch();
   const isEdited = useState<boolean>();
   const [openBasket, setIsOpenBasket] = useState<boolean>(false);

@@ -5,7 +5,7 @@ import { useMemo, useState } from "react";
 export const FilterWithAction = () => {
   const [withAction, setWithAction] = useState<boolean>(false);
   const onSubmit = () => {
-    dispatch();
+      console.log('lol');
   };
   return (
     <>

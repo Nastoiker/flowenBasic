@@ -18,13 +18,13 @@ export const DeleteModel = (): JSX.Element => {
     formState: { errors },
     reset,
   } = useForm<DeleteProductId>();
-  const filtered = phones.filter((t) => t.name.includes(search));
+  const filtered = phones?.filter((t) => t.name.includes(search));
   return (
     <div className={"p-10 bg-white space-y-5 rounded-3xl text-center"}>
       <select className="mx-auto text-center block" {...register("id")}>
         <input type="text" onChange={(e) => setIsSearch(e.type)} />
         <Htag type={"h1"}>Удалить модель</Htag>
-        {filtered.map((t) => {
+        {filtered?.map((t) => {
           return (
             <option key={t.id} value={t.name}>
               {t.name}

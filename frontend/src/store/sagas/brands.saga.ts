@@ -5,7 +5,7 @@ import { brandsState, getBrandsSuccess } from "../slices/brand.slice";
 import { DOMEN } from "../../../domen.api";
 
 export function* workerBrandsSaga() {
-  const data: Promise<brandsState> = yield call(() =>
+  const data: Response = yield call(() =>
     fetch(DOMEN.brand.getBrands)
   );
   const token: brandsState[] = yield data.json();

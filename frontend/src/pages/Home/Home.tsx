@@ -28,7 +28,7 @@ import { Htag } from "../../components";
 import { StaticSlider } from "../../components/Slider/StaticSlider";
 interface Brand {
   name: string;
-  alias: string;
+  id: string;
   img: string;
 }
 interface IItems {
@@ -92,7 +92,7 @@ const Home = (): JSX.Element => {
     },
   ];
   const products = useAppSelector((state) => state.phone.staticPhones);
-  const brands = useAppSelector<Brand[]>((state) => state.brands.brands);
+  const brands = useAppSelector<Brand[] | null>((state) => state.brands.brands);
 
   // const BestProducts = products.sort( (a, b) => a.rating - b.rating );
   return (

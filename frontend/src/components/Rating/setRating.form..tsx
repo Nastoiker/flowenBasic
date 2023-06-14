@@ -1,5 +1,4 @@
 import { Controller, useForm } from "react-hook-form";
-import { CommentFormProps, ICommentForm } from "./CommentForm.props";
 import { Textarea } from "../../ui/textarea";
 import { Input } from "../../ui/input";
 import { useState } from "react";

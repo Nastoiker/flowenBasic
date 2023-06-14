@@ -11,15 +11,15 @@ import { getPhonesFetch } from "../store/slices/phones.slices";
 import { getBrandsFetch } from "../store/slices/brand.slice";
 import { useAppDispatch, useAppSelector } from "../store";
 interface Brand {
+  id: string;
   name: string;
-  alias: string;
   img: string;
 }
 export const MainPagesLayout = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const brands = useAppSelector<Brand[]>((state) => state.brands.brands);
+  const brands = useAppSelector<Brand[] | null>((state) => state.brands.brands);
 
   const redirectTo = (to: string) => {
     navigate(to, { replace: true });
@@ -64,7 +64,7 @@ export const MainPagesLayout = ({ children }: { children: ReactNode }) => {
           <button onClick={() => redirectTo("/brands")}>БРЕНДЫ</button>
         </div>
       </div>
-      <BrandsContainer brands={brands} />
+      <BrandsContainer brands={brands!} />
       {/*<Slider sliders={Sliders}/>*/}
       <SliderBySwiper sliders={Sliders} />
       <div className={"my-10"}>

@@ -8,7 +8,7 @@ function* WatchEditAddress(action: any) {
   const token = localStorage.getItem("token");
   if (!token) return;
   try {
-    const response: Promise<userState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.user.editAddress, {
         method: "post",
         headers: {
@@ -20,13 +20,15 @@ function* WatchEditAddress(action: any) {
     );
     const user: userState[] = yield response.json();
     yield put(getUserFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* UpdateInfo(action: any) {
   const token = localStorage.getItem("token");
   if (!token) return;
   try {
-    const response: Promise<userState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.user.editProfile, {
         method: "post",
         headers: {
@@ -38,13 +40,15 @@ function* UpdateInfo(action: any) {
     );
     const user: userState[] = yield response.json();
     yield put(getUserFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* WatchCreateAddress(action: any) {
   const token = localStorage.getItem("token");
   if (!token) return;
   try {
-    const response: Promise<userState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.user.createAddress, {
         method: "post",
         headers: {
@@ -56,13 +60,15 @@ function* WatchCreateAddress(action: any) {
     );
     const user: userState[] = yield response.json();
     yield put(getUserFetch());
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* WatchUserSaga() {
   const token = localStorage.getItem("token");
   if (!token) return;
   try {
-    const response: Promise<userState> = yield call(() =>
+    const response: Response = yield call(() =>
       fetch(DOMEN.user.getInfoAfterAuth, {
         method: "get",
         headers: {
@@ -73,7 +79,9 @@ function* WatchUserSaga() {
     );
     const user: userState[] = yield response.json();
     yield put(getUserSuccess(user));
-  } catch (error) {}
+  } catch (error) {
+      console.log(error);
+  }
 }
 function* userSaga() {
   yield takeEvery("user/getUserFetch", WatchUserSaga);

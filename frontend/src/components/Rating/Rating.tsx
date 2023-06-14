@@ -9,7 +9,6 @@ import {
   forwardRef,
   useRef,
 } from "react";
-import { number } from "style-value-types";
 import { ReactComponent as StarIcon } from "./star.svg";
 
 // eslint-disable-next-line react/display-name

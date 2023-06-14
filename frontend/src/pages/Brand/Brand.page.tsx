@@ -27,8 +27,7 @@ const BrandPage = () => {
   }, [dispatch]);
   const phones = useAppSelector((state) => state.phone.filtered);
   console.log(phones);
-  const imgBrand = BrandPath(value);
-  if (!phones)
+  if (!phones || !value)
     return (
       <div className={" text-center my-20 m-auto"}>
         {" "}
@@ -36,11 +35,12 @@ const BrandPage = () => {
         <Button>Вернуться на главную</Button>
       </div>
     );
+  const imgBrand = BrandPath(value);
   return (
     <div>
       <FilterLayoutPhone
         phones={phones.map((m) => m.product.map((p) => p)).flat()}
-        text={value}
+        text={value!}
         img={imgBrand}
       />
     </div>

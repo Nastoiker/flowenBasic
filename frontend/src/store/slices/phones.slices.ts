@@ -1,21 +1,19 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { ProductState } from "../product.slice";
 import {
   ModelDevice,
   ProductModel,
   SmartPhone,
 } from "../../../interfaces/product.interfaces";
-import { WritableDraft } from "immer/src/types/types-external";
 
 interface StatePhones {
-  phones: ProductModel[];
-  staticPhones: ProductModel[];
-  currentModel?: ModelDevice;
-  filtered: ProductModel[];
+  phones: ProductModel[] | null;
+  staticPhones?: ProductModel[];
+  currentModel?: ProductModel;
+  filtered?: ProductModel[];
   isLoading: boolean;
 }
 const initialState: StatePhones = {
-  phones: localStorage.getItem("phones"),
+  phones: null,
   isLoading: true,
 };
 const phonesSlice = createSlice({
@@ -33,15 +31,15 @@ const phonesSlice = createSlice({
       state.phones = action.payload;
       state.isLoading = false;
     },
-    getPhonesByBrand: (state, { payload }) => {
-      state.filtered = state.staticPhones.filter(
+    getPhonesByBrand: (state , { payload }) => {
+      state.filtered = state.staticPhones?.filter(
         (p) => p.brand.name === payload
       );
       console.log(state.staticPhones);
     },
     setCurrentModel: (state, { payload }) => {
       let model;
-      for (const phone of state.staticPhones) {
+      for (const phone of state.staticPhones as any) {
         if (phone.id === payload) {
           console.log(phone + "mmmm");
           state.currentModel = phone;
@@ -49,12 +47,11 @@ const phonesSlice = createSlice({
       }
     },
     getWithAction: (state, { payload }) => {
-      state.filtered = payload.filtered.map((p) => p.price < p.oldPrice);
+      state.filtered = payload.filtered.map((p: any) => p.price < p.oldPrice);
     },
     getByPrice: (state, { payload }) => {
-      // @ts-ignore
       const models: ProductModel[] = [];
-      for (const model of state.staticPhones) {
+      for (const model of state.staticPhones as any) {
         const thisModel = model;
         const phones: SmartPhone[] = [];
         for (const phone of model.product) {
@@ -72,11 +69,7 @@ const phonesSlice = createSlice({
       }
       state.filtered = models;
     },
-    // getPhonesByBrand: (state, {payload}) => {
-    //     console.log(payload);
-    //     const arr = state.phones.filter( p => p.brand.id === payload.id);
-    //     console.log(arr);
-    // }
+
   },
 });
 export const {

@@ -5,11 +5,7 @@ import { Input } from "../components/Input/Input";
 import { Button } from "../ui/button";
 import "rc-slider/assets/index.css";
 
-import { getByPrice } from "../store/slices/phones.slices";
-import { FilterWithAction } from "../components/Filters/FilterWithAction";
-import { FilterByPrice } from "../components/Filters/FilterByPrice";
 import { PhoneCard } from "../components/Product/Card/phone.card";
-import { api_url } from "../../domen.api";
 import { Htag } from "../components";
 import { ProductConvertImageNotModel } from "../helper/convertImagePath";
 import { ReactComponent as FilterIcon } from "./filter.svg";
@@ -95,6 +91,7 @@ export const FilterLayoutPhone = ({
                 step={1000}
                 min={Math.min(...phones.map((p) => p.price))}
                 max={Math.max(...phones.map((p) => p.price))}
+                //@ts-ignore
                 onChange={handleChange}
               />
 
@@ -102,13 +99,13 @@ export const FilterLayoutPhone = ({
               <div className={"space-y-5 py-5"}>
                 <Input
                   onChange={(e) => {
-                    setValueMin(e.target.value);
+                    setValueMin(Number(e.target.value));
                   }}
                   value={valueMin}
                 />
                 <Input
                   onChange={(e) => {
-                    setValueMax(e.target.value);
+                    setValueMax(Number(e.target.value));
                   }}
                   value={valueMax}
                 />

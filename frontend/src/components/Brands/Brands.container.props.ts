@@ -4,6 +4,5 @@ export interface BrandsContainerProps {
 interface Brand {
   id: string;
   name: string;
-  alias: string;
   img: string;
 }

@@ -6,7 +6,7 @@ export interface BrandProps
   isActive: boolean;
 }
 interface Brand {
+  id: string;
   name: string;
-  alias: string;
   img: string;
 }

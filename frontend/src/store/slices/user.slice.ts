@@ -31,7 +31,7 @@ interface Basket {
   createdAt: Date;
 }
 interface State {
-  user: userState;
+  user: userState | null;
   isLoading: boolean;
   token: string | null;
 }
@@ -44,12 +44,9 @@ export interface Address {
 }
 
 export const initialState: State = {
-  user: {
-    email: "",
-    login: "",
-    password: "",
-  },
   isLoading: false,
+  user: null,
+  token: localStorage.getItem('token')
 };
 export const userSlice = createSlice({
   name: "user",
@@ -69,12 +66,12 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
     editAddress: (state, action) => {
-      state.user.address = action.payload;
+      state.user!.address = action.payload;
     },
     createAddress: (state, action) => {
-      state.user.address = action.payload;
+      state.user!.address = action.payload;
     },
-    editProfile: (state, action) => {},
+    editProfile: (state, action) => {console.log('edit')},
   },
 });
 export const {

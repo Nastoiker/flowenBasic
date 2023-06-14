@@ -22,7 +22,7 @@ const Accessories = (): JSX.Element => {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {products.map((m) => {
+          {products?.map((m) => {
             return m.product.map((p) => {
               const pict = p.image.split(",");
               return (

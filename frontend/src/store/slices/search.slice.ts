@@ -6,14 +6,18 @@ import {
 } from "../../../interfaces/product.interfaces";
 interface SerchState {
   search: string;
-  filters: string[];
-  founded: ProductModel[];
-  currentBrand: string;
-  currentSecondCategory: string;
+  filters: string[] | null;
+  founded: ProductModel[] | null;
+  currentBrand: string | null;
+  currentSecondCategory: string | null;
   isFound: boolean;
 }
 const initialState: SerchState = {
   search: "",
+  filters: null,
+  currentBrand: null,
+  currentSecondCategory: null,
+  founded: null,
   isFound: true,
 };
 const searchSlice = createSlice({

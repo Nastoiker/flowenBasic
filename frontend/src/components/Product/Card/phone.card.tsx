@@ -4,7 +4,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import cn from "classnames";
 import { useAppDispatch, useAppSelector } from "../../../store";
 import { useEffect, useState } from "react";
-import { Authorization, NotifyAuth } from "../../notifications/notify";
 import {
   addBasketFetch,
   deleteBasket,
@@ -24,7 +23,7 @@ export const PhoneCard = ({
   const location = useLocation();
   const picture = img;
   const navigate = useNavigate();
-  const user = useAppSelector((state) => state.user.user);
+  const user = useAppSelector((state) => state.user.user!);
   const basket = useAppSelector((state) => state.basket.basket);
   const [ProductBasket, setProductBasket] = useState<boolean>(false);
   const dispatch = useAppDispatch();

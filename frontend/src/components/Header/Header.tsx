@@ -25,7 +25,7 @@ import SearchBar from "../Search/SearchAnimate";
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector<userState>((state) => state.user.user);
+  const user = useAppSelector<userState | null>((state) => state.user.user);
   const [searchIsActive, setIsActiveSearch] = useState<boolean>(false);
   const logOut = () => {
     console.log(1);
@@ -63,7 +63,7 @@ export const Header = (): JSX.Element => {
               </div>
               <ProductoOnBasket basket={basket} />
             </div>
-            {user.id ? (
+            {user?.id ? (
               <div className={"flex space-x-3"}>
                 <Avatar onClick={() => redirectTo("/profile")}>
                   <AvatarImage

@@ -15,7 +15,7 @@ import styles from "./profile.module.css";
 import { Htag } from "../Htag/Htag";
 
 export const EditAdress = () => {
-  const user = useAppSelector((state) => state.user.user).address;
+  const user = useAppSelector((state) => state.user.user!);
   const token = localStorage.getItem("token");
   const [error, setError] = useState<boolean>(false);
   const {

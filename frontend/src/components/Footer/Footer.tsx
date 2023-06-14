@@ -4,7 +4,6 @@ import { Input } from "../../ui/input";
 import { Htag } from "../Htag/Htag";
 import { Button } from "../../ui/button";
 import {
-  AlertDialogDemo,
   ModalRulesAboutSite,
 } from "../../page-component/modal-aboutSite";
 import { ModalDeliverySite } from "../../page-component/modal-aboutdelivery";
