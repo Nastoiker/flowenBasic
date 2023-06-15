@@ -60,11 +60,10 @@ export class App {
 		// const upload = new multer({ dest: './uploads/' });
 		this.app.use(json());
 		this.app.use(
-			cors(),
-			// cors({
-			// 	origin: 'http://95.163.241.148:4173',
-			// 	optionsSuccessStatus: 200,
-			// }),
+			cors({
+				origin: 'http://95.163.241.148:4173',
+				optionsSuccessStatus: 200,
+			}),
 		);
 		this.app.use(urlencoded({ extended: true }));
 		this.app.use(express.static('uploads'));
