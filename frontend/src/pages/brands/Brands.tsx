@@ -19,7 +19,9 @@ const sliders = [
   { img: "", id: "3" },
 ];
 const Brands = (): JSX.Element => {
-  return (
+    const products = useAppSelector((state) => state.phone.phones);
+
+    return (
     <MainPagesLayout>
       <div className={"mx-auto   "}>
         <Swiper
