@@ -9,7 +9,7 @@ import { UserModel, Basket, Product } from '@prisma/client';
 import { updateProductToBasketDto } from './dto/update.basket';
 import { MFile } from '../files/mfile.class';
 import { access, pathExistsSync, writeFile } from 'fs-extra';
-import {existsSync, mkdir} from 'fs';
+import {existsSync, mkdir, mkdirSync} from 'fs';
 import { path } from 'app-root-path';
 import { FileElementResponse } from '../files/dto/fileElement.response';
 @injectable()
@@ -41,7 +41,7 @@ export class UserAbilityService {
 		// @ts-ignore
 		const brandName = model['brand']['name'];
 		const modelDeviceName = model.name.trim().replace(' ', '-');
-		if (!existsSync(`./uploads/comment/${brandName}`)) {
+		if (!existsSync(`${path}/uploads/comment/${brandName}`)) {
 			mkdir(`./uploads/comment/${brandName}`, (err) => {
 				// eslint-disable-next-line no-empty
 				if (err) {
@@ -49,7 +49,7 @@ export class UserAbilityService {
 				}
 			});
 		}
-		if (!existsSync(`./uploads/comment/${brandName}/${modelDeviceName}`)) {
+		if (!existsSync(`${path}/uploads/comment/${brandName}/${modelDeviceName}`)) {
 			mkdir(`./uploads/comment/${brandName}/${modelDeviceName}`, (err) => {
 				if (err) {
 					console.error(err);
@@ -57,7 +57,7 @@ export class UserAbilityService {
 			});
 		}
 		if (
-			!existsSync(`./uploads/comment/${brandName}/${modelDeviceName}/${comment.writtenById}`)
+			!existsSync(`${path}/uploads/comment/${brandName}/${modelDeviceName}/${comment.writtenById}`)
 		) {
 			mkdir(
 				`./uploads/comment/${brandName}/${modelDeviceName}/${comment.writtenById}`,
