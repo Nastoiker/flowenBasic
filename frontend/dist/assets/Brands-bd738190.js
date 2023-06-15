@@ -1,1 +1,0 @@
-import{j as r,c as o}from"./index-5dd63a37.js";import"./swiper.min-45aa6ef8.js";import{M as s}from"./MainPageslayout-169fde62.js";import"./tag.module-4ed993c7.js";import"./paragraph.module-b13e4475.js";const e=()=>r(s,{children:[" ",o("div",{})]});export{e as default};
