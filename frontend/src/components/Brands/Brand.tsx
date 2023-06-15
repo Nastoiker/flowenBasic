@@ -17,7 +17,7 @@ export const Brand = ({ brand, isActive }: BrandProps) => {
       <img
         src={img}
         alt={"brand"}
-        className={cn("rounded-3xl max-h-[100px] mx-auto", {
+        className={cn("rounded-3xl min-h-[80px] max-h-[80px] mx-auto", {
           "border border-black": isActive,
         })}
       />
