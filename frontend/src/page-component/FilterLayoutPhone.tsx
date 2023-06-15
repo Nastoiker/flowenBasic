@@ -131,7 +131,7 @@ export const FilterLayoutPhone = ({
         )}
       </div>
       <div className="flex items-center space-x-2">
-        <img src={img} alt="" />
+        <img src={img} alt="" className={'w-20 h-20'} />
         <Htag type={"h1"}>{text}</Htag>
       </div>
       <div
