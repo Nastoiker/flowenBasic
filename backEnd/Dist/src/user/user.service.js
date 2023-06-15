@@ -70,7 +70,7 @@ let UserService = class UserService {
     }
     saveAvatar(file, userId) {
         return __awaiter(this, void 0, void 0, function* () {
-            if (!(0, fs_extra_1.pathExistsSync)(`${app_root_path_1.path}/uploads/user/avatar/${userId}`)) {
+            if (!(0, fs_1.existsSync)(`${app_root_path_1.path}/uploads/user/avatar/${userId}`)) {
                 (0, fs_1.mkdir)(`./uploads/user/avatar/${userId}`, (err) => {
                     if (err) {
                         return console.error(err);

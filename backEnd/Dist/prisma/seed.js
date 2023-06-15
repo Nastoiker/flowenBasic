@@ -66,12 +66,6 @@ const userData = [brand, tag, firrtCategory];
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         console.log(`Start seeding ...`);
-        for (const u of tag) {
-            const user = yield prisma.tag.create({
-                data: u,
-            });
-            console.log(`Created user with id: ${user.id}`);
-        }
         console.log(`Seeding finished.`);
     });
 }

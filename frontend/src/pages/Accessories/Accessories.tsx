@@ -42,6 +42,12 @@ const Accessories = (): JSX.Element => {
             title: "IPHONE",
             picture:  api_url + "/slider1.png",
         },
+        {
+            id: "5",
+            subtitle: "APPLE",
+            title: "IPHONE",
+            picture:  api_url + "/slider1.png",
+        },
     ];
   return (
     <MainPagesLayout>
