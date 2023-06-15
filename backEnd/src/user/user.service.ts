@@ -7,10 +7,10 @@ import { IConfigService } from '../config/config.service.interface';
 import { TYPES } from '../types';
 import { IUserRepository } from './user.repository.interface';
 import {Address, UserModel} from '@prisma/client';
-import { access, pathExistsSync, writeFile } from 'fs-extra';
+import { access, pathExistsSync, writeFile,  } from 'fs-extra';
 import { path } from 'app-root-path';
 import { MFile } from '../files/mfile.class';
-import { mkdir } from 'fs';
+import {existsSync, mkdir} from 'fs';
 import {UserAdressDto} from "./dto/user-adress.dto";
 import {UserEditProfileDto} from "./dto/user-editProfile.dto";
 
@@ -42,7 +42,7 @@ export class UserService {
 		return this.userRepository.find(user);
 	}
 	public async saveAvatar(file: MFile, userId: string) {
-		if (!pathExistsSync(`${path}/uploads/user/avatar/${userId}`)) {
+		if (!existsSync(`${path}/uploads/user/avatar/${userId}`)) {
 			mkdir(`./uploads/user/avatar/${userId}`, (err) => {
 				// eslint-disable-next-line no-empty
 				if (err) {
