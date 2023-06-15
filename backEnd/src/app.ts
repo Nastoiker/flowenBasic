@@ -59,7 +59,12 @@ export class App {
 	public useMiddleWares(): void {
 		// const upload = new multer({ dest: './uploads/' });
 		this.app.use(json());
-		this.app.use(cors());
+		this.app.use(
+			cors({
+				origin: 'http://95.163.241.148:4173',
+				optionsSuccessStatus: 200,
+			}),
+		);
 		this.app.use(urlencoded({ extended: true }));
 		this.app.use(express.static('uploads'));
 		this.app.use(express.static(__dirname));
