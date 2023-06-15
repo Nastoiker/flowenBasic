@@ -68,7 +68,7 @@ export const MainPagesLayout = ({ children }: { children: ReactNode }) => {
       {/*<Slider sliders={Sliders}/>*/}
       <SliderBySwiper sliders={Sliders} />
       <div className={"my-10"}>
-        <Htag type={"h2"}>ЛУЧШИЕ ПРЕДЛОЖЕНИЯ</Htag>
+        <Htag type={"h2"}>ЛУЧШИЕ ПРЕДЛОЖЕНИЕ</Htag>
       </div>
       {children}
     </>

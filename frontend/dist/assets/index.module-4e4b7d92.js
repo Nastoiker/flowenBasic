@@ -1,1 +1,0 @@
-import{r,$ as t,_ as c}from"./index-c2418229.js";const $=r.forwardRef((a,f)=>r.createElement(t.label,c({},a,{ref:f,onMouseDown:e=>{var o;(o=a.onMouseDown)===null||o===void 0||o.call(a,e),!e.defaultPrevented&&e.detail>1&&e.preventDefault()}}))),s=$;export{s as $,$ as a};

@@ -109,6 +109,7 @@ const EditProfile = (): JSX.Element => {
             </>
           )}
         </form>
+
       </div>
     </ProfileLayout>
   );

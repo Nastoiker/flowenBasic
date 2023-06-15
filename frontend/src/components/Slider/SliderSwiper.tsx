@@ -23,9 +23,9 @@ export const SliderBySwiper = ({ sliders }: sliderProps) => {
       {sliders.map((s) => (
         <SwiperSlide>
           <img
-            className={"max-h-[500px] min-h-[300px]  w-full"}
+            className={"max-h-[500px] min-h-[200px]  w-full"}
             src={s.image}
-            alt=""
+
           />
         </SwiperSlide>
       ))}

@@ -7,6 +7,7 @@ import {
   MenubarShortcut,
   MenubarTrigger,
 } from "../../ui/menubar";
+
 import { Button } from "../../ui/button";
 import { Search } from "../Search/Search";
 import { useAppDispatch, useAppSelector } from "../../store";
@@ -21,6 +22,8 @@ import { ProductoOnBasket } from "../Basket/productoOnBasket";
 import { getBasketFetch } from "../../store/slices/basket.slice";
 import { ReactComponent as SearchIcon } from "./search.svg";
 import { ReactComponent as UserIcon } from "./UserIcon.svg";
+import { ReactComponent as Logo } from "./Logo.svg";
+
 import SearchBar from "../Search/SearchAnimate";
 // import ReactComponent as Basket from '../../icons/profile.svg';
 export const Header = (): JSX.Element => {
@@ -46,12 +49,10 @@ export const Header = (): JSX.Element => {
   const basket = useAppSelector((state) => state.basket.basket);
   return (
     <div className={"mb-10"}>
-      <div className={"flex items-center border-b-4 p-5 justify-between"}>
-        <img src="" alt="" />
-
+      <div className={"sm:flex items-center border-b-4 p-5 justify-between"}>
+        <Logo className={'mx-auto sm:mx-0'} height={40} onClick={() => redirectTo("/")} />
         <div className={"sm:flex sm:items-center  sm:space-x-6"}>
           <Search />
-
           <div className={"flex items-center justify-end"}>
             <div
               onClick={() => {

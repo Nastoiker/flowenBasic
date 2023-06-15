@@ -5,7 +5,7 @@ export default function SlideNextButton() {
   const swiper = useSwiper();
 
   return (
-    <div className={"flex justify-between"}>
+    <div className={"flex my-5 justify-between"}>
       <button onClick={() => swiper.slidePrev()}>
         {" "}
         <Arrow className={"rotate-180"} />

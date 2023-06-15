@@ -36,15 +36,18 @@ export const Comment = ({
         setUser(user);
         setIsLoading(true);
       }
+      console.log('user123' +  userId);
     })();
   }, []);
   const res = model.rating.find((r) => r.writtenById === userId);
   console.log(res);
   const rating = res?.number;
-  if (!user) return <div></div>;
+  if(!user || !user.avatar) return <div>
+  </div>;
   const avatar = ProfileImage(user as any);
   const dateformat = convertDate(date);
-  return (
+
+   return (
     <div className={"p-5 bg-white shadow-md m-2 h-52 rounded-3xl"}>
       <div>
         <div className={"flex justify-between"}>

@@ -29,6 +29,7 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
     let img = phone.image?.split(',');
     useEffect(() => {
         setCurrentImage(img[0]);
+
     }, [phone]);
     const token = localStorage.getItem('token');
     const dispatch = useAppDispatch();
@@ -133,7 +134,8 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                 <Htag type={"h1"} >Комментарии: </Htag>
                 <span className={"accent-gray-500 text-2xl font-bold mt-2"}>{currentModel.Comment.length}</span>
             </div>
-        {currentModel.Comment ?
+
+        {currentModel?.Comment ?
             <div  className={"my-20 flex  justify-around w-full overflow-hidden"}>
                 <Swiper
                     className={"flex"}
@@ -162,7 +164,8 @@ export const Phone = ({smartPhone, currentModel}: phoneProps): JSX.Element => {
                     onSlideChange={() => console.log('slide change')}
                     onSwiper={(swiper) => console.log(swiper)}
                 >
-                    {currentModel.Comment.map(c =>
+                    {currentModel?.Comment.map(c =>
+
                         <SwiperSlide className={"w-42 mx-10 h-52"} key={c.id}>
                             <Comment key={c.id} model={currentModel} images={c.pictures?.split(',')}  title={c.title} userId={c.writtenById} date={c.createdAt} comment={c.comment} />
                         </SwiperSlide>) }

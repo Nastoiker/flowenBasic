@@ -28,36 +28,7 @@ export const ProfileLayout = ({ children }: { children: ReactNode }) => {
             Корзина
           </Htag>
         </button>
-        <button
-          className={cn("w-full block p-5 rounded-xl  hover:bg-blue-200", {
-            "bg-blue-200": location.pathname === "/buyed",
-          })}
-          onClick={() => redirectTo("../basket")}
-        >
-          <Htag
-            className={cn("text-start", {
-              "text-white": location.pathname === "/buyed",
-            })}
-            type={"h2"}
-          >
-            Купленные товары
-          </Htag>
-        </button>
-        <button
-          className={cn("w-full block p-5 rounded-xl  hover:bg-blue-200", {
-            "bg-blue-200": location.pathname === "/comments",
-          })}
-          onClick={() => redirectTo("../comments")}
-        >
-          <Htag
-            className={cn("text-start", {
-              "text-white": location.pathname === "/comments",
-            })}
-            type={"h2"}
-          >
-            Комментарии
-          </Htag>
-        </button>
+
         <button
           className={cn("w-full p-5 block rounded-xl  hover:bg-blue-200", {
             "bg-blue-200": location.pathname === "/editProfile",
@@ -66,7 +37,7 @@ export const ProfileLayout = ({ children }: { children: ReactNode }) => {
         >
           <Htag
             className={cn("text-start", {
-              "text-white": location.pathname === "/profile",
+              "text-white": location.pathname === "/editProfile",
             })}
             type={"h2"}
           >

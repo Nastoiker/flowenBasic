@@ -12,14 +12,15 @@ import { setCurrentModel } from "../../store/slices/phones.slices";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { DetailsSkeleton } from "./Details.skeleton";
 import {DOMEN} from "../../../domen.api";
-
+import { useNavigate } from 'react-router-dom';
 const Details = (): JSX.Element => {
   const { id } = useParams();
   const [phone, setPhone] = useState<SmartPhone>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pictures, setPicture] = useState<string>();
+  const navigate = useNavigate();
   function handleClick() {
-    history.back(); // переход на предыдущую страницу
+    navigate(-3); // переход на предыдущую страницу
   }
   // const [currentModel, setCurrentModel] = useState('string');
   const dispatch = useAppDispatch();

@@ -9,11 +9,21 @@ import { DeleteModel } from "../../components/Admin/deleteModelId";
 import { DeleteProduct } from "../../components/Admin/delete.product";
 import { useUsersQuery } from "../../store/slices/users.slice";
 import { ContainerUserAdmin } from "../../components/Admin/adminAbility/Container.User";
+import {useNavigate} from "react-router-dom";
+import {useAppSelector} from "../../store";
 
 const AdminPage = () => {
   const [currentCreate, setCurrentCreate] = useState<string>();
   const [currentSector, setCurrentSector] = useState<string>();
+  const navigate = useNavigate();
+    const user =useAppSelector(state=>state.user.user);
+    const redirectTo = (to: string) => {
+        navigate(to, { replace: true });
+    };
   const users = useUsersQuery({});
+    if(user?.email!=='damur2004@gmail.com') {
+        redirectTo('/')
+    }
   return (
     <div className={"h-full"}>
       <div className="flex justify-around my-10 text-white">
