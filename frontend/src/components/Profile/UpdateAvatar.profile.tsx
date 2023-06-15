@@ -14,7 +14,7 @@ export const UpdateAvatarProfile = () => {
   const [file, setFile] = useState<File>();
   const [onDrag, setOnDrag] = useState<boolean>(false);
   const [selectedFile, setSelectedFile] = useState<any>();
-  let image;
+  let image = '';
   if (user.avatar && user.avatar?.length > 0) {
     image = ProfileImage(user);
   }
