@@ -10,6 +10,7 @@ import { convertDate } from "../../helper/convertDate";
 import { CommentImage, ProfileImage } from "../../helper/convertImagePath";
 import { ImageModal } from "../ImageModal/ImageModal";
 import { Stars } from "../Product/Phone/Stars";
+import {DOMEN} from "../../../domen.api";
 export const Comment = ({
   userId,
   images,
@@ -19,7 +20,6 @@ export const Comment = ({
   date,
 }: CommentProps): JSX.Element => {
   const [user, setUser] = useState<Profile>();
-  const api_url = "http://localhost:8000";
   console.log(images);
   if (images) {
     const image = CommentImage(userId, images[0], model);
@@ -27,7 +27,7 @@ export const Comment = ({
   const [loading, setIsLoading] = useState<boolean>(true);
   useEffect(() => {
     (async () => {
-      const res = await fetch(`http://localhost:8000/users/acc:${userId}`);
+      const res = await fetch(DOMEN.users.acc + userId);
       const user = await res.json();
       await new Promise((resolve) => setTimeout(() => resolve(""), 1000));
       if (!user) {

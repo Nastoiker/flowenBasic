@@ -1,9 +1,10 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/dist/query/react";
+import {api_url} from "../../../domen.api";
 
 export const AdminApi = createApi({
   reducerPath: "userApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:8000/admin",
+    baseUrl: api_url + '/admin',
     prepareHeaders: (headers) => {
       const token = localStorage.getItem("token");
       if (token) {

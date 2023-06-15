@@ -4,6 +4,7 @@ import { ResponseGenerator } from "./index";
 import { getPhonesSuccess } from "../slices/phones.slices";
 import { ProductState } from "../product.slice";
 import { ProductModel } from "../../../interfaces/product.interfaces";
+import {DOMEN} from "../../../domen.api";
 
 // export function* watchSaga() {
 //
@@ -11,7 +12,7 @@ import { ProductModel } from "../../../interfaces/product.interfaces";
 export function* workerPhonesSaga() {
   // const data:AxiosResponse<ProductState[]> = yield call(() => axios.get( 'http://localhost:8000/product'));
   const data: Response = yield call(() =>
-    fetch("http://localhost:8000/product/")
+    fetch(DOMEN.product.getAll)
   );
   const formatProduct: ProductState[] = yield data.json();
   // const formatProduct:ResponseGenerator = yield data.data;

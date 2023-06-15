@@ -43,25 +43,25 @@ const Home = (): JSX.Element => {
       id: "1",
       subtitle: "APPLE",
       title: "IPHONE",
-      picture: "http://localhost:8000/slider1.png",
+      picture: api_url + "/slider1.png",
     },
     {
       id: "2",
       subtitle: "SSS",
       title: "BBBB",
-      picture: "http://localhost:8000/slider1.png",
+      picture:   api_url +  "/slider1.png",
     },
     {
       id: "3",
       subtitle: "APPLE",
       title: "IPHONE",
-      picture: "http://localhost:8000/slider1.png",
+      picture:  api_url + "/slider1.png",
     },
     {
       id: "4",
       subtitle: "APPLE",
       title: "IPHONE",
-      picture: "http://localhost:8000/slider1.png",
+      picture:  api_url + "/slider1.png",
     },
   ];
 

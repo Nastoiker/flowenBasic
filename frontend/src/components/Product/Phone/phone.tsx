@@ -7,7 +7,6 @@ import {Button} from "../../../ui/button";
 import {CommentForm} from "../../Comment/CommentForm";
 import {Htag} from "../../Htag/Htag";
 import {Comment} from "../../Comment/Comment";
-const api_url = 'http://localhost:8000';
 import cn from 'classnames';
 import './phone.css';
 import {setCurrentModel} from "../../../store/slices/phones.slices";

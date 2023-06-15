@@ -35,7 +35,7 @@ export const CreatePhone = () => {
   const [tags, setTags] = useState<Tag[]>();
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://localhost:8000/product/tags");
+      const res = await fetch(DOMEN.product.tags);
       const tags = await res.json();
       await new Promise((resolve) => setTimeout(() => resolve(""), 1000));
       setTags(tags);

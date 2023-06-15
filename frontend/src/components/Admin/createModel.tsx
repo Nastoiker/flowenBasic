@@ -38,7 +38,7 @@ export const CreateModel = () => {
   const [error, setErrorForm] = useState<string>();
   useEffect(() => {
     (async () => {
-      const res = await fetch("http://localhost:8000/product/byCategory", {
+      const res = await fetch(DOMEN.product.getByCategory, {
         method: "post",
       });
       const categories = await res.json();

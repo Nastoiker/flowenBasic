@@ -11,6 +11,7 @@ import { Phone } from "../../components/Product/Phone/phone";
 import { setCurrentModel } from "../../store/slices/phones.slices";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { DetailsSkeleton } from "./Details.skeleton";
+import {DOMEN} from "../../../domen.api";
 
 const Details = (): JSX.Element => {
   const { id } = useParams();
@@ -26,7 +27,7 @@ const Details = (): JSX.Element => {
   useEffect(() => {
     (async () => {
       const res = await fetch(
-        `http://localhost:8000/product/findByAlias:${id}`
+        DOMEN.product.findByAlias + id,
       );
       const mobile = await res.json();
       await new Promise((resolve) => setTimeout(() => resolve(""), 1000));

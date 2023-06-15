@@ -27,6 +27,8 @@ export const DOMEN = {
     getByCategory: api_url + "/product/byCategory",
     getCategory: api_url + "/product/getCategory",
     getById: api_url + "/product/getProductById:",
+    findByAlias: api_url + "/product/findByAlias:",
+    tags: api_url + '/product/tags',
     getFirstCategory: api_url + "/product/getFirstCategory",
   },
   brand: {
@@ -63,4 +65,7 @@ export const DOMEN = {
     deleteProduct: api_url + "/delete",
     updatePictureProduct: api_url + "/product/uploadImage",
   },
+  users: {
+    acc: '/users/acc:'
+  }
 };

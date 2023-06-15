@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import {DOMEN} from "../../domen.api";
 
 export interface SecondCategory {
   id: string;
@@ -24,7 +25,7 @@ export const getSecondCategory = createAsyncThunk<
   { rejectValue: string }
 >("Product/getByCategory", async (id, { rejectWithValue }) => {
   const data = { firstLevelId: id };
-  const response = await fetch("http://localhost:8000/product/byCategory", {
+  const response = await fetch(DOMEN.product.getByCategory, {
     headers: {
       "Content-Type": "application/json;charset=utf-8",
     },
